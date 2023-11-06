@@ -4,8 +4,20 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+<<<<<<< HEAD
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+=======
+    <string name="txtEmail">Email</string>
+    <string name="txtPass">Password</string>
+    <string name="txtRePass">RetypePassword</string>
+    <string name="txtNewPass">NewPassword</string>
+    <string name="txtReNewPass">RetypeNewPassword</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="wbtnLogin">158dp</string>
+    <string name="hbtnLogin">52dp</string>
+>>>>>>> 8af8b385e1718c8709d3edc69ed1bebe139fc905
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

@@ -1,3 +1,9 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+<<<<<<< HEAD
+=======
+    <dimen name="w_Login">158dp</dimen>
+    <dimen name="h_Login">52dp</dimen>
+    <dimen name="txtSizeLogin">20sp</dimen>
+>>>>>>> 8af8b385e1718c8709d3edc69ed1bebe139fc905
 </resources>

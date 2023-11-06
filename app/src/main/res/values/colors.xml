@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+<<<<<<< HEAD
+=======
+    <color name="main">#03D06E</color>
+    <color name="colortxtbottomlogin">#747070</color>
+    <color name="colortxtlogin">#C4C4C4</color>
+    <style name="ButtonWhite">#FFFFFFFF</style>
+>>>>>>> 8af8b385e1718c8709d3edc69ed1bebe139fc905
 </resources>
