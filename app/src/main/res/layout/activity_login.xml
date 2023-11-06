@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/logoFilm"
+        android:layout_width="200dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/LogoMainFilm" />
+
+    <TextView
+        android:id="@+id/txtLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOGIN"
+        android:textColor="@color/main"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoFilm" />
+
+    <TextView
+        android:id="@+id/txtbottomLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textSize="16sp"
+        android:text="By signing in you are agreeing our"
+        android:textColor="@color/colortxtbottomlogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtLogin" />
+
+    <TextView
+        android:id="@+id/txtbottomLogin2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textSize="16sp"
+        android:text="Term and privacy policy"
+        android:textColor="@color/main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtbottomLogin" />
+
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="14"
+        android:inputType="text"
+        android:text="@string/txtEmail"
+        android:textColor="@color/colortxtlogin"
+        android:textColorHint="@color/colortxtlogin"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtbottomLogin2" />
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="14"
+        android:inputType="textPassword"
+        android:hint="@string/txtPass"
+        android:textColorHint="@color/colortxtlogin"
+        android:textColor="@color/colortxtlogin"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+
+    <TextView
+        android:id="@+id/txtRememberPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="12dp"
+        android:text="Remember Password"
+        android:textColor="@color/colortxtbottomlogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+    <CheckBox
+        android:id="@+id/txtcheckPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colortxtbottomlogin"
+        app:layout_constraintEnd_toStartOf="@+id/txtRememberPass"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+    <Button
+        android:id="@+id/forget"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="40dp"
+        android:background="#FFFFFFFFFFFF"
+        android:text="Forget Password"
+        android:textColor="@color/colortxtbottomlogin"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="@dimen/w_Login"
+        android:layout_height="@dimen/h_Login"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn_login"
+        android:text="Login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txtSizeLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRememberPass" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="@dimen/w_Login"
+        android:layout_height="@dimen/h_Login"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:textSize="@dimen/txtSizeLogin"
+        android:background="@drawable/btn_register"
+        android:text="Register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forget" />
+
+    <TextView
+        android:id="@+id/txtConnect"
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="12dp"
+        android:text="or connect with"
+        android:textColor="@color/colortxtbottomlogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.58"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
