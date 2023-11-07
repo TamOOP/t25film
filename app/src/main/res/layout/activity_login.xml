@@ -14,7 +14,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/LogoMainFilm" />
+        app:srcCompat="@drawable/logo_main_film" />
 
     <TextView
         android:id="@+id/txtLogin"
@@ -57,7 +57,7 @@
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:ems="14"
         android:inputType="text"
@@ -72,7 +72,7 @@
     <EditText
         android:id="@+id/txtPassword"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:ems="14"
         android:inputType="textPassword"
@@ -101,6 +101,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="8dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
         android:textColor="@color/colortxtbottomlogin"
         app:layout_constraintEnd_toStartOf="@+id/txtRememberPass"
         app:layout_constraintHorizontal_bias="1.0"
@@ -110,13 +112,12 @@
     <Button
         android:id="@+id/forget"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="40dp"
         android:background="#FFFFFFFFFFFF"
         android:text="Forget Password"
         android:textColor="@color/colortxtbottomlogin"
-        android:textSize="14dp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
 
@@ -137,13 +138,12 @@
         android:id="@+id/btnRegister"
         android:layout_width="@dimen/w_Login"
         android:layout_height="@dimen/h_Login"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:textSize="@dimen/txtSizeLogin"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/btn_register"
         android:text="Register"
+        android:textSize="@dimen/txtSizeLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forget" />
+        app:layout_constraintTop_toTopOf="@+id/btnLogin" />
 
     <TextView
         android:id="@+id/txtConnect"
@@ -156,5 +156,26 @@
         app:layout_constraintHorizontal_bias="0.58"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="@dimen/w_hLogoFace"
+        android:layout_height="@dimen/w_hLogoFace"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        app:srcCompat="@drawable/logo_face" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/w_hLogoFace"
+        android:layout_height="@dimen/w_hLogoFace"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        app:srcCompat="@drawable/logo_google" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
