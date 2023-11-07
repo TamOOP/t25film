@@ -5,6 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/txtPassword2"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:ems="14"
+        android:hint="@string/txtRePass"
+        android:inputType="textPassword"
+        android:textColor="@color/colortxtlogin"
+        android:textColorHint="@color/colortxtlogin"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
     <ImageView
         android:id="@+id/logoFilm"
         android:layout_width="200dp"
@@ -20,7 +36,7 @@
         android:id="@+id/txtLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txtLOGIN"
+        android:text="@string/txtRegister"
         android:textColor="@color/main"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:textSize="16sp"
-        android:text="By signing in you are agreeing our"
+        android:text="Register to watch the movie"
         android:textColor="@color/colortxtbottomlogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -46,8 +62,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:textSize="16sp"
-        android:text="Term and privacy policy"
+        android:textSize="20sp"
+        android:text="T25 Film"
         android:textColor="@color/main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -58,12 +74,12 @@
         android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:ems="14"
         android:inputType="text"
         android:text="@string/txtEmail"
-        android:textColor="@color/colortxtlogin"
         android:textColorHint="@color/colortxtlogin"
+        android:textColor="@color/colortxtlogin"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,66 +100,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
-    <TextView
-        android:id="@+id/txtRememberPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="12dp"
-        android:text="Remember Password"
-        android:textColor="@color/colortxtbottomlogin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
-
-    <CheckBox
-        android:id="@+id/txtcheckPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="8dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:textColor="@color/colortxtbottomlogin"
-        app:layout_constraintEnd_toStartOf="@+id/txtRememberPass"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
-
-    <Button
-        android:id="@+id/forget"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginEnd="40dp"
-        android:background="#FFFFFFFFFFFF"
-        android:text="Forget Password"
-        android:textColor="@color/colortxtbottomlogin"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
-
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="@dimen/w_Login"
+        android:layout_width="@dimen/w_Register"
         android:layout_height="@dimen/h_Login"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/btn_login"
-        android:text="Login"
+        android:text="Register"
         android:textColor="@color/white"
         android:textSize="@dimen/txtSizeLogin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRememberPass" />
-
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="@dimen/w_Login"
-        android:layout_height="@dimen/h_Login"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/btn_register"
-        android:text="Register"
-        android:textSize="@dimen/txtSizeLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword2" />
 
     <TextView
         android:id="@+id/txtConnect"
@@ -176,6 +144,5 @@
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin"
         app:srcCompat="@drawable/logo_google" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

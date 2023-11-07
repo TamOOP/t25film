@@ -2,6 +2,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="w_Login">158dp</dimen>
     <dimen name="h_Login">52dp</dimen>
+    <dimen name="w_Register">332dp</dimen>
     <dimen name="txtSizeLogin">20sp</dimen>
     <dimen name="w_hLogoFace">40dp</dimen>
 </resources>
