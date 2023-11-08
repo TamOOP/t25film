@@ -7,4 +7,5 @@
     <color name="colortxtbottomlogin">#747070</color>
     <color name="colortxtlogin">#C4C4C4</color>
     <style name="ButtonWhite">#FFFFFFFF</style>
+    <color name="facebook" >#1877F3</color>
 </resources>
