@@ -1,23 +1,27 @@
 package com.huce.t25film;
 
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
-import androidx.core.view.WindowCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import com.huce.t25film.collections.UserCollection;
 import com.huce.t25film.databinding.ActivityMainBinding;
+import com.huce.t25film.model.User;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -45,6 +50,26 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        String url = "http://t25test.lovestoblog.com/api/users";
+        String json = "[{ \"username\": 'TamHM', \"pswd\": abc },{ \"username\": 'HieuHM', \"pswd\": def }]";
+
+        List<User> users = new UserCollection().users;
+        Gson g = new Gson();
+        Type listType = new TypeToken<List<User>>() {}.getType();
+        try {
+            users = g.fromJson(json, listType);
+        } catch (JsonSyntaxException e) {
+            Log.e("error","json can't parse to object");
+            throw new RuntimeException(e);
+        }
+        try {
+            for (User u: users) {
+                Log.e("username", u.getUsername());
+            }
+        } catch (Exception e) {
+            Log.e("username","Unable parse username");
+        }
+
     }
 
     @Override
