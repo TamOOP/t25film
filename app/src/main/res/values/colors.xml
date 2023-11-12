@@ -5,7 +5,10 @@
     <color name="transparent">#00000000</color>
     <color name="main">#03D06E</color>
     <color name="colortxtbottomlogin">#747070</color>
+    <color name="colortopnav">#CCCACA</color>
     <color name="colortxtlogin">#C4C4C4</color>
     <style name="ButtonWhite">#FFFFFFFF</style>
     <color name="facebook" >#1877F3</color>
+    <color name="orange">#FF5722</color>
 </resources>
+

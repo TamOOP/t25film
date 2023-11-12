@@ -15,6 +15,13 @@
     <string name="hbtnLogin">52dp</string>
     <string name="txtLOGIN">LOGIN</string>
     <string name="txtRegister">Register</string>
+    <string name="txtnameMember">Nguyễn Thế Anh</string>
+    <string name="nav_tttk">Thông tin tài khoản</string>
+    <string name="nav_lsgd">Lịch sử giao dịch</string>
+    <string name="nav_tdmk">Thay đổi mật khẩu</string>
+    <string name="nav_dangxuat">Đăng xuất</string>
+    <string name="nav_drawer_open">Open navigation drawer</string>
+    <string name="nav_drawer_close">Close navigation drawer</string>
 
 
     <string name="lorem_ipsum">
@@ -53,4 +60,6 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

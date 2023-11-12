@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_sc" android:title="Sắp chiếu" android:icon="@drawable/icon_film"/>
+    <item android:id="@+id/menu_dc" android:title="Đang chiếu" android:icon="@drawable/icon_film"/>
+    <item android:id="@+id/menu_scs" android:title="Suất chiếu sớm" android:icon="@drawable/icon_film"/>
+
+</menu>
