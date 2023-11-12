@@ -14,14 +14,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-import com.huce.t25film.collections.UserCollection;
 import com.huce.t25film.databinding.ActivityMainBinding;
 import com.huce.t25film.model.User;
-
-import java.lang.reflect.Type;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,21 +45,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         String url = "http://t25test.lovestoblog.com/api/users";
-        String json = "[{ \"username\": 'TamHM', \"pswd\": abc },{ \"username\": 'HieuHM', \"pswd\": def }]";
+        String json = "{ \"username\": \"TamHM\", \"pswd\": true }";
 
-        List<User> users = new UserCollection().users;
-        Gson g = new Gson();
-        Type listType = new TypeToken<List<User>>() {}.getType();
+        User convertedObject = new Gson().fromJson(json, User.class);
         try {
-            users = g.fromJson(json, listType);
-        } catch (JsonSyntaxException e) {
-            Log.e("error","json can't parse to object");
-            throw new RuntimeException(e);
-        }
-        try {
-            for (User u: users) {
-                Log.e("username", u.getUsername());
-            }
+            Log.e("username", convertedObject.getUsername());
         } catch (Exception e) {
             Log.e("username","Unable parse username");
         }
