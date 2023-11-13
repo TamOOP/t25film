@@ -1,54 +1,67 @@
 package com.huce.t25film.model;
 
-import java.sql.Timestamp;
-
 public class User {
-    private int id;
+    private String status;
+    private int uid;
+    private String email;
+    private String name;
+    private String phone;
+    private String password;
 
-    private String username;
-
-    private String pswd;
-    private Timestamp created_at;
-    private Timestamp updated_at;
-
-    public User(int id, String username, String pswd, Timestamp created_at, Timestamp updated_at) {
-        this.id = id;
-        this.username = username;
-        this.pswd = pswd;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+    public User(String status, int uid, String email, String name, String phone, String password) {
+        this.status = status;
+        this.uid = uid;
+        this.email = email;
+        this.name = name;
+        this.phone = phone;
+        this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getStatus() {
+        return status;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getPswd() {
-        return pswd;
+    public int getUid() {
+        return uid;
     }
 
-    public void setPswd(String pswd) {
-        this.pswd = pswd;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
-    public Timestamp getCreated_at() {
-        return this.created_at;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Timestamp getUpdated_at() {
-        return updated_at;
+    public String getName() {
+        return name;
     }
 
-    public void setUpdated_at(Timestamp updated_at) {
-        this.updated_at = updated_at;
+    public void setName(String name) {
+        this.name = name;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

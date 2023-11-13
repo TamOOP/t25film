@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         String url = "http://t25test.lovestoblog.com/api/users";
-        String json = "{ \"username\": \"TamHM\", \"pswd\": true }";
+        String json = "{ \"email\": \"TamHM\", \"password\": \"abc\" }";
 
         User convertedObject = new Gson().fromJson(json, User.class);
         try {
-            Log.e("username", convertedObject.getUsername());
+            Log.e("username", convertedObject.getEmail());
         } catch (Exception e) {
             Log.e("username","Unable parse username");
         }
