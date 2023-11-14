@@ -1,7 +1,10 @@
 package com.huce.t25film.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
     private String status;
+    @SerializedName("idtk")
     private int uid;
     private String email;
     private String name;
