@@ -1,6 +1,7 @@
 package com.huce.t25film;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,14 +14,23 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
+import com.huce.t25film.api.UserApi;
 import com.huce.t25film.databinding.ActivityMainBinding;
 import com.huce.t25film.model.User;
+import com.huce.t25film.api.RetrofitBuilder;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    private Handler hnHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +54,44 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        String url = "http://t25test.lovestoblog.com/api/users";
-        String json = "{ \"email\": \"TamHM\", \"password\": \"abc\" }";
 
-        User convertedObject = new Gson().fromJson(json, User.class);
-        try {
-            Log.e("username", convertedObject.getEmail());
-        } catch (Exception e) {
-            Log.e("username","Unable parse username");
-        }
+
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("https://t25film.000webhostapp.com/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+        //build retrofit
+        Retrofit retrofit = RetrofitBuilder.buildRetrofit(this);
+
+        //define api
+        Call<List<User>> userCall = retrofit.create(UserApi.class).getUsers();
+
+        //call async api
+        userCall.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                //nếu mã trả về < 200 hoặc > 300
+                if(!response.isSuccessful()){
+                    Log.e("Code", String.valueOf(response.code()));
+                    return;
+                }
+
+                List<User> users = response.body();
+                for(User user: users){
+                    Log.e("username", String.valueOf(user.getName()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.e("Fail", "Fail get users");
+            }
+        });
+
+
+
+
+
 
     }
 

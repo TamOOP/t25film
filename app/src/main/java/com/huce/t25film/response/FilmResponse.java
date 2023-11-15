@@ -1,4 +1,4 @@
 package com.huce.t25film.response;
 
-public interface FilmResponse {
+public class FilmResponse {
 }

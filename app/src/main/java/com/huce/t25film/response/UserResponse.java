@@ -1,4 +1,5 @@
 package com.huce.t25film.response;
 
-public interface UserResponse {
+public class UserResponse {
+
 }

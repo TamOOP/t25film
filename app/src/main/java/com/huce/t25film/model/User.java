@@ -3,37 +3,31 @@ package com.huce.t25film.model;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
-    private String status;
-    @SerializedName("idtk")
-    private int uid;
+    @SerializedName("id")
+    private int id;
+    @SerializedName("email")
     private String email;
+    @SerializedName("name")
     private String name;
+    @SerializedName("phone")
     private String phone;
+    @SerializedName("password")
     private String password;
 
-    public User(String status, int uid, String email, String name, String phone, String password) {
-        this.status = status;
-        this.uid = uid;
+    public User(int id, String email, String name, String phone, String password) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.phone = phone;
         this.password = password;
     }
 
-    public String getStatus() {
-        return status;
+    public int getId() {
+        return id;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
