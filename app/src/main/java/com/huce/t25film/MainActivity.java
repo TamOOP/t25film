@@ -87,9 +87,26 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Fail", "Fail get users");
             }
         });
+        int uid = 1;
+        Call<User> userCall1 = retrofit.create(UserApi.class).getUser(uid);
 
+        userCall1.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(!response.isSuccessful()){
+                    Log.e("Code", String.valueOf(response.code()));
+                    return;
+                }
 
+                User user = response.body();
+                Log.e("UserInfo",user.getName() + user.getId());
+            }
 
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
 
 
 
