@@ -18,7 +18,7 @@
         android:theme="@style/Theme.T25Film"
         tools:targetApi="31">
         <activity
-            android:name=".Login1Activity"
+            android:name=".views.Login1Activity"
             android:exported="false" />
         <activity
             android:name=".Register1Activity"

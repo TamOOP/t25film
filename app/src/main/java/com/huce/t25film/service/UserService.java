@@ -1,4 +1,4 @@
-package com.huce.t25film.api;
+package com.huce.t25film.service;
 
 import com.huce.t25film.model.User;
 
@@ -8,7 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface UserApi {
+public interface UserService {
     @GET("api/users")
     Call<List<User>> getUsers();
 

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.huce.t25film.views.Login1Activity;
+
 public class WelcomeActivity extends AppCompatActivity {
     Button btnGetstart;
     @Override
@@ -19,7 +21,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //khai báo Intent
-                Intent getstartIntent = new Intent(WelcomeActivity.this,Login1Activity.class);
+                Intent getstartIntent = new Intent(WelcomeActivity.this, Login1Activity.class);
                 //khởi đụng
                 startActivity(getstartIntent);
 

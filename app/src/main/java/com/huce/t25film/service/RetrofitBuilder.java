@@ -1,4 +1,4 @@
-package com.huce.t25film.api;
+package com.huce.t25film.service;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
