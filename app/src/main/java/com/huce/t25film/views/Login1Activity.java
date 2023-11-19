@@ -6,8 +6,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.huce.t25film.R;
 import com.huce.t25film.Register1Activity;
@@ -27,16 +25,9 @@ public class Login1Activity extends AppCompatActivity {
         setContentView(binding.getRoot());
 //        initView();
 
-        //instance view model
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-//        binding.setLoginViewModel(loginViewModel);
-        //create observer object and overwrite onChange()
-        final Observer<String> emailObserver = email -> emailEdit.setText(email);
-        final Observer<String> passObserver = pass -> passEdit.setText(pass);
+        loginViewModel = new LoginViewModel();
+        binding.setLoginViewModel(loginViewModel);
 
-        // attach Observer to live data
-        loginViewModel.getEmail().observe(this, emailObserver);
-        loginViewModel.getPassword().observe(this, passObserver);
 
     }
     private void initView(){
@@ -65,7 +56,6 @@ public class Login1Activity extends AppCompatActivity {
 //            else {
 //                Toast.makeText(Login1Activity.this,"Your email and password is not correct",Toast.LENGTH_SHORT).show();
 //            }
-//            loginViewModel.onClicked();
         });
     }
 }

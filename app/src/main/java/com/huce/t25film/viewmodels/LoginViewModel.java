@@ -2,31 +2,39 @@ package com.huce.t25film.viewmodels;
 
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import androidx.annotation.NonNull;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 
-public class LoginViewModel extends ViewModel {
-    private MutableLiveData<String> email;
-    private MutableLiveData<String> password;
+import com.huce.t25film.BR;
 
-    public MutableLiveData<String> getEmail() {
-        //instance live data
-        if (email == null){
-            email = new MutableLiveData<>();
-        }
-        return email;
+public class LoginViewModel extends BaseObservable {
+    private String  email;
+    private String password;
+
+    @Bindable
+    @NonNull
+    public String getEmail() {
+        return this.email;
     }
 
-    public MutableLiveData<String> getPassword() {
-        //instance live data
-        if (password == null){
-            password = new MutableLiveData<>();
-        }
-        return password;
+    public void setEmail(@NonNull String email) {
+        this.email = email;
+        notifyPropertyChanged(BR.email);
     }
 
-    public void onClicked(){
-//        Log.e("email",email.getValue());
-        Log.e("email","click");
+    @Bindable
+    @NonNull
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(@NonNull String password) {
+        this.password = password;
+        notifyPropertyChanged(BR.password);
+    }
+
+    public void onLoginClicked(){
+        Log.e("anno","clicked");
     }
 }

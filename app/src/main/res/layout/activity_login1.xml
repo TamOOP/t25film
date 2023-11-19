@@ -64,6 +64,7 @@
 
         <EditText
             android:id="@+id/txtEmail"
+            android:text="@={loginViewModel.email}"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"
@@ -80,6 +81,7 @@
 
         <EditText
             android:id="@+id/txtPassword"
+            android:text="@={loginViewModel.password}"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"
@@ -133,6 +135,7 @@
 
         <Button
             android:id="@+id/btnLogin"
+            android:onClick="@{()-> loginViewModel.onLoginClicked()}"
             android:layout_width="@dimen/w_Login"
             android:layout_height="@dimen/h_Login"
             android:layout_marginStart="40dp"
