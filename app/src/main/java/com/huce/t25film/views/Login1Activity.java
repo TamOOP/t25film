@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.huce.t25film.HomeActivity;
 import com.huce.t25film.R;
 import com.huce.t25film.Register1Activity;
 import com.huce.t25film.databinding.ActivityLogin1Binding;
@@ -16,18 +18,36 @@ public class Login1Activity extends AppCompatActivity {
     private Button btnRegister,btnLogin;
     private EditText emailEdit,passEdit;
     private ActivityLogin1Binding binding;
-    private LoginViewModel loginViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // hien thi view
         binding = ActivityLogin1Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 //        initView();
 
-        loginViewModel = new LoginViewModel();
-        binding.setLoginViewModel(loginViewModel);
+        LoginViewModel loginViewModel = new LoginViewModel();
+        // xac dinh viewmodel cho view
+        binding.setViewModel(loginViewModel);
 
+        // quan sat du lieu api gui ve
+        loginViewModel.getAllUser().observe(this, loginDatas
+                -> loginViewModel.checkLoginInfo(loginDatas));
+
+        // quan sat livedata message
+        loginViewModel.getMessage().observe(this, message
+                -> Toast.makeText(Login1Activity.this, message, Toast.LENGTH_SHORT).show());
+
+        //quan sat livedata isLogin
+        loginViewModel.getIsLogin().observe(this, isLogin -> {
+            if(isLogin){
+                // chuyen view
+                Intent loginIntent = new Intent(Login1Activity.this, HomeActivity.class);
+                startActivity(loginIntent);
+            }
+        });
 
     }
     private void initView(){

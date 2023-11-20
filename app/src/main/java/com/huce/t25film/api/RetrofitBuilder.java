@@ -1,4 +1,4 @@
-package com.huce.t25film.service;
+package com.huce.t25film.api;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -62,11 +62,11 @@ public class RetrofitBuilder {
         return builder.build();
     }
 
-    public static Retrofit buildRetrofit(Context context) {
+    public static Retrofit buildRetrofit() {
         Retrofit  sRetrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     //Add OkHttpClient
-                    .client(initClient(context))
+//                    .client(initClient(context))
 //                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
