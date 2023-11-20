@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_tttk"
+        android:title="@string/nav_tttk"
+        android:icon="@drawable/icon_human"
+        />
+    <item android:id="@+id/nav_lsgd"
+        android:title="@string/nav_lsgd"
+        android:icon="@drawable/icon_history"
+        />
+    <item android:id="@+id/nav_tdmk"
+        android:title="@string/nav_tdmk"
+        android:icon="@drawable/icon_change_pass"
+        />
+    <item android:id="@+id/nav_dangxuat"
+        android:title="@string/nav_dangxuat"
+        android:icon="@drawable/icon_setting"
+        />
+</menu>
