@@ -51,9 +51,6 @@ dependencies {
     val compilerVersion = "3.2.0-alpha10"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
-//    implementation("com.android.databinding:compiler:$compilerVersion")
-//    implementation("androidx.databinding:databinding-runtime:$databindingRuntimeVersion")
-//    implementation("androidx.databinding:databinding-runtime:8.3.0-alpha13")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
