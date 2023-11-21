@@ -1,11 +1,11 @@
 package com.huce.t25film;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.huce.t25film.views.Login1Activity;
 
@@ -24,7 +24,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 Intent getstartIntent = new Intent(WelcomeActivity.this, Login1Activity.class);
                 //khởi đụng
                 startActivity(getstartIntent);
-
+                finish();
             }
         });
     }
