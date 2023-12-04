@@ -1,4 +1,5 @@
 package com.huce.t25film.viewmodels;
+
 import android.util.Patterns;
 
 import androidx.annotation.NonNull;
@@ -8,16 +9,26 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.huce.t25film.BR;
+import com.huce.t25film.model.User;
 import com.huce.t25film.repository.LoginRepository;
 
 import java.util.List;
 
 public class LoginViewModel extends BaseObservable {
-    private String  email;
-    private String password;
+    private User user = new User();
     private int load = 8;
     private MutableLiveData<String> message;
     private MutableLiveData<Boolean> isLogin = new MutableLiveData<>();
+
+    public LoginViewModel() {}
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public MutableLiveData<Boolean> getIsLogin(){
         return isLogin;
@@ -42,35 +53,37 @@ public class LoginViewModel extends BaseObservable {
 
     @Bindable
     @NonNull
-    public String getEmail() {
-        return this.email;
+    public String getUserEmail() {
+        return user.getEmail();
     }
 
-    public void setEmail(@NonNull String email) {
-        this.email = email;
-        notifyPropertyChanged(BR.email);
+    public void setUserEmail(@NonNull String email) {
+        user.setEmail(email);
+        notifyPropertyChanged(BR.userEmail);
     }
 
     @Bindable
     @NonNull
-    public String getPassword() {
-        return this.password;
+    public String getUserPassword() {
+        return user.getPassword();
     }
 
-    public void setPassword(@NonNull String password) {
-        this.password = password;
-        notifyPropertyChanged(BR.password);
+    public void setUserPassword(@NonNull String password) {
+        user.setPassword(password);
+        notifyPropertyChanged(BR.userPassword);
     }
 
-    public LiveData<List<LoginRepository.LoginData>> getAllUser(){
-        return LoginRepository.getInstance().getLoginDatas();
+    public LiveData<List<User>> getAllUsers(){
+        return LoginRepository.getInstance().getAllUsers();
     }
 
-    public void checkLoginInfo(List<LoginRepository.LoginData> loginDatas){
-        if(email == null && password == null) return;
+    public void checkLoginInfo(List<User> users){
+        if(user.getPassword() == null && user.getEmail() == null) return;
         // kiem tra thong tin dang nhap
-        for(LoginRepository.LoginData loginData: loginDatas){
-            if(email.equals(loginData.getEmail()) && password.equals(loginData.getPassword())){
+        for(User user: users){
+            if(user.getEmail().equals(this.user.getEmail()) &&
+                    user.getPassword().equals(this.user.getPassword())){
+                setUser(user);
                 isLogin.setValue(Boolean.TRUE);
                 setLoad(8);
                 return;
@@ -82,14 +95,14 @@ public class LoginViewModel extends BaseObservable {
     }
 
     public void onLoginClicked(){
-        if(email == null || password == null)
+        if(user.getEmail() == null || user.getPassword() == null)
             message.setValue("Hãy nhập đủ thông tin");
-        else if(!isEmailValid(email))
+        else if(!isEmailValid(user.getEmail()))
             message.setValue("Email không đúng định dạng");
         else{
             // hien thi progress bar
             setLoad(0);
-            getAllUser();
+            getAllUsers();
         }
     }
 

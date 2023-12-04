@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.huce.t25film.HomeActivity;
 import com.huce.t25film.R;
 import com.huce.t25film.Register1Activity;
 import com.huce.t25film.databinding.ActivityLogin1Binding;
@@ -36,8 +35,8 @@ public class Login1Activity extends AppCompatActivity {
         binding.setViewModel(loginViewModel);
 
         // quan sat du lieu api gui ve
-        loginViewModel.getAllUser().observe(this, loginDatas
-                -> loginViewModel.checkLoginInfo(loginDatas));
+        loginViewModel.getAllUsers().observe(this, users
+                -> loginViewModel.checkLoginInfo(users));
 
         // quan sat livedata message
         loginViewModel.getMessage().observe(this, message
@@ -49,7 +48,7 @@ public class Login1Activity extends AppCompatActivity {
                 // chuyen view
                 Intent loginIntent = new Intent(Login1Activity.this, HomeActivity.class);
                 // send uid
-                loginIntent.putExtra("uid",1);
+                loginIntent.putExtra("uid", loginViewModel.getUser().getId());
                 startActivity(loginIntent);
                 //destroy activity
                 finish();

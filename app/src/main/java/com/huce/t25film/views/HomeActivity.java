@@ -1,13 +1,18 @@
-package com.huce.t25film;
+package com.huce.t25film.views;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.huce.t25film.R;
+import com.huce.t25film.ViewPagerAdapter;
+import com.huce.t25film.viewmodels.HomeViewModel;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity{
 
     private ViewPager2 viewPager;
     private BottomNavigationView bottomNavigation;
@@ -20,6 +25,17 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         uid = getIntent().getExtras().getInt("uid");
+//        uid = 11;
+        HomeViewModel viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        viewModel.getUser(uid).observe(this, resource -> {
+            if(resource.getStatus().equals("success")){
+                viewModel.setUser(resource.getUser());
+            }
+            else{
+                Toast.makeText(this, resource.getMessage(), Toast.LENGTH_SHORT);
+            }
+        });
 
         viewPager = findViewById(R.id.view_pager);
         bottomNavigation = findViewById(R.id.bottom_navigation);

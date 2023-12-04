@@ -14,6 +14,7 @@ public class User {
     @SerializedName("password")
     private String password;
 
+    public User (){}
     public User(int id, String email, String name, String phone, String password) {
         this.id = id;
         this.email = email;

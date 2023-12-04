@@ -1,7 +1,8 @@
-package com.huce.t25film;
+package com.huce.t25film.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,14 +10,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.huce.t25film.views.Login1Activity;
+import com.huce.t25film.AccountActivity;
+import com.huce.t25film.ChangePasswordActivity;
+import com.huce.t25film.HistoryActivity;
+import com.huce.t25film.R;
+import com.huce.t25film.ViewFilmPagerAdapter;
+import com.huce.t25film.viewmodels.HomeViewModel;
 
 
 public class HomeFragment extends Fragment{
@@ -25,7 +33,7 @@ public class HomeFragment extends Fragment{
     private BottomNavigationView bottomNavigation;
 
     private DrawerLayout drawerLayout;
-
+    private HomeViewModel viewModel;
 
 
 
@@ -39,7 +47,17 @@ public class HomeFragment extends Fragment{
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+        viewModel.getUsername().observe(this, name->Log.e("username",""+name));
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         viewPager = view.findViewById(R.id.viewpagerhome);
