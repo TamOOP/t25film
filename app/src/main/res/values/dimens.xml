@@ -5,4 +5,7 @@
     <dimen name="w_Register">332dp</dimen>
     <dimen name="txtSizeLogin">20sp</dimen>
     <dimen name="w_hLogoFace">40dp</dimen>
+    <dimen name="w_dat_ve">250dp</dimen>
+    <dimen name="txt_size_dat_ve">20sp</dimen>
+
 </resources>

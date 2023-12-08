@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.huce.t25film.R;
-import com.huce.t25film.Register1Activity;
 import com.huce.t25film.databinding.ActivityLogin1Binding;
 import com.huce.t25film.viewmodels.LoginViewModel;
 

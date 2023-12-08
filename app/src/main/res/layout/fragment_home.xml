@@ -7,16 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:openDrawer="end"
-    tools:context=".views.HomeFragment">
+    tools:context=".HomeFragment">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         >
-<!--        tools:context=".HomeFragment">-->
+        <!--        tools:context=".HomeFragment">-->
 
 
         <TextView
@@ -31,7 +29,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txtLichChieu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -97,9 +95,8 @@
             android:id="@+id/viewpagerhome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/top_nav">
-
-        </androidx.viewpager2.widget.ViewPager2>
+            android:layout_below="@+id/top_nav"
+            />
 
 
     </RelativeLayout>

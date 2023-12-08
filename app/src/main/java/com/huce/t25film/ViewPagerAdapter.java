@@ -3,10 +3,13 @@ package com.huce.t25film;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.huce.t25film.views.FilmFragment;
 import com.huce.t25film.views.HomeFragment;
+import com.huce.t25film.views.KmFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 

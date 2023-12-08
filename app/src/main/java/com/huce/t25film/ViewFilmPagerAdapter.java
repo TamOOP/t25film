@@ -7,10 +7,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.huce.t25film.views.DCFragment;
+import com.huce.t25film.views.SCFragment;
+import com.huce.t25film.views.SCSFragment;
+
 public class ViewFilmPagerAdapter extends FragmentStateAdapter {
 
 
-//    public ViewFilmPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    //    public ViewFilmPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
 //        super(fragmentManager, lifecycle);
 //    }
     public ViewFilmPagerAdapter(@NonNull FragmentActivity fragmentActivity) {

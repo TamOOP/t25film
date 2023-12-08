@@ -1,18 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main"
-    tools:context=".views.HomeFragment">
+    tools:openDrawer="end"
+    tools:context=".HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:text="Film" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <!--        tools:context=".HomeFragment">-->
+
+
+        <TextView
+            android:id="@+id/txtLichChieu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginBottom="8dp"
+            android:text="Lịch chiếu phim"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/main"
+
+            />
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigationviewCal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@+id/txtLichChieu"
+            app:itemIconTint="@drawable/color_navigation"
+            app:itemTextColor="@drawable/color_navigation"
+            app:menu="@menu/menu_calendar"
+            app:labelVisibilityMode="labeled"
+            app:itemTextAppearanceInactive="@style/BottomNavItemInactive"
+            app:itemTextAppearanceActive="@style/BottomNavItemActive"/>
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpagerCalFilm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/bottom_navigationviewCal" />
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

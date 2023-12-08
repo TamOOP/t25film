@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_hn" android:title="28/01" android:icon="@drawable/icon_calendar"/>
+    <item android:id="@+id/menu_n1" android:title="29/01" android:icon="@drawable/icon_calendar"/>
+    <item android:id="@+id/menu_n2" android:title="30/01" android:icon="@drawable/icon_calendar"/>
+    <item android:id="@+id/menu_n3" android:title="31/01" android:icon="@drawable/icon_calendar"/>
+
+</menu>

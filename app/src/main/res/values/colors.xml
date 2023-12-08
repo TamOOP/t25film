@@ -10,5 +10,6 @@
     <style name="ButtonWhite">#FFFFFFFF</style>
     <color name="facebook" >#1877F3</color>
     <color name="orange">#FF5722</color>
+    <color name="dark_blue">#1F1D2B</color>
 </resources>
 
