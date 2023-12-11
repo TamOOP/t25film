@@ -101,32 +101,5 @@ public class Login1Activity extends AppCompatActivity {
         Log.e("state","destroy");
     }
 
-    private void initView(){
-        emailEdit=findViewById(R.id.txtEmail);
-        passEdit=findViewById(R.id.txtPassword);
-        btnLogin=findViewById(R.id.btnLogin);
-        btnRegister = findViewById(R.id.btnRegister);
 
-        btnRegister.setOnClickListener(view -> {
-            //khai báo Intent
-            Intent registerIntent = new Intent(Login1Activity.this, Register1Activity.class);
-            //khởi đụng
-            startActivity(registerIntent);
-
-        });
-
-        btnLogin.setOnClickListener(view -> {
-//            if(emailEdit.getText().toString().isEmpty() || passEdit.getText().toString().isEmpty()){
-//                Toast.makeText(Login1Activity.this,"Please Fill your email and password",Toast.LENGTH_SHORT).show();
-//            } else if (emailEdit.getText().toString().equals("test") && passEdit.getText().toString().equals("test")) {
-//                //khai báo Intent
-//                Intent loginIntent = new Intent(Login1Activity.this, HomeActivity.class);
-//                //khởi đụng
-//                startActivity(loginIntent);
-//            }
-//            else {
-//                Toast.makeText(Login1Activity.this,"Your email and password is not correct",Toast.LENGTH_SHORT).show();
-//            }
-        });
-    }
 }

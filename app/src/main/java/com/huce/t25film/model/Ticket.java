@@ -1,100 +1,65 @@
+
 package com.huce.t25film.model;
 
-import java.sql.Time;
-import java.util.Date;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Ticket {
-    private String status;
-    private String idVe;
-    private String idPhim;
-    private String tenphim;
-    private String ghe;
-    private Float gia;
-    private Date ngay;
-    private Time gio;
-    private String phude;
 
-    public Ticket(String status, String idVe, String idPhim, String tenphim, String ghe, Float gia, Date ngay, Time gio, String phude) {
-        this.status = status;
-        this.idVe = idVe;
-        this.idPhim = idPhim;
-        this.tenphim = tenphim;
-        this.ghe = ghe;
-        this.gia = gia;
-        this.ngay = ngay;
-        this.gio = gio;
-        this.phude = phude;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("user")
+    @Expose
+    private User user;
+    @SerializedName("seat")
+    @Expose
+    private String seat;
+    @SerializedName("show")
+    @Expose
+    private Show show;
+    @SerializedName("cost")
+    @Expose
+    private String cost;
+
+    public Integer getId() {
+        return id;
     }
 
-    public String getStatus() {
-        return status;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public User getUser() {
+        return user;
     }
 
-    public String getIdVe() {
-        return idVe;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setIdVe(String idVe) {
-        this.idVe = idVe;
+    public String getSeat() {
+        return seat;
     }
 
-    public String getIdPhim() {
-        return idPhim;
+    public void setSeat(String seat) {
+        this.seat = seat;
     }
 
-    public void setIdPhim(String idPhim) {
-        this.idPhim = idPhim;
+    public Show getShow() {
+        return show;
     }
 
-    public String getTenphim() {
-        return tenphim;
+    public void setShow(Show show) {
+        this.show = show;
     }
 
-    public void setTenphim(String tenphim) {
-        this.tenphim = tenphim;
+    public String getCost() {
+        return cost;
     }
 
-    public String getGhe() {
-        return ghe;
+    public void setCost(String cost) {
+        this.cost = cost;
     }
 
-    public void setGhe(String ghe) {
-        this.ghe = ghe;
-    }
-
-    public Float getGia() {
-        return gia;
-    }
-
-    public void setGia(Float gia) {
-        this.gia = gia;
-    }
-
-    public Date getNgay() {
-        return ngay;
-    }
-
-    public void setNgay(Date ngay) {
-        this.ngay = ngay;
-    }
-
-    public Time getGio() {
-        return gio;
-    }
-
-    public void setGio(Time gio) {
-        this.gio = gio;
-    }
-
-    public String getPhude() {
-        return phude;
-    }
-
-    public void setPhude(String phude) {
-        this.phude = phude;
-    }
 }

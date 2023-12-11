@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,6 +39,7 @@ public class BookingActivity extends AppCompatActivity implements SeatAdapter.On
 
     private List<Seat> seatList;
     private SeatAdapter seatAdapter;
+    private List<Integer> selectedSeatPositions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,17 +109,17 @@ public class BookingActivity extends AppCompatActivity implements SeatAdapter.On
     }
 
     private void initView() {
-        titleTxt=findViewById(R.id.movieNameSeatsTxt);
+        titleTxt=findViewById(R.id.movieNameDetailsTxt);
         progressBar=findViewById(R.id.progressBarSeats);
-        scrollView=findViewById(R.id.scrollViewSeats);
-        imgDetail=findViewById(R.id.imgFilmSeats);
-        movieTimeTxt=findViewById(R.id.movieTimeSeats);
+        scrollView=findViewById(R.id.scrollViewDetails);
+        imgDetail=findViewById(R.id.imgFilmDetails);
+        movieTimeTxt=findViewById(R.id.movieTimeDetails);
         backImg=findViewById(R.id.btnBackSeats);
         recyclerViewSeats=findViewById(R.id.recyclerviewViewSeats);
         txtSeat=findViewById(R.id.txtSeat);
         //recyclerViewSeats.setLayoutManager(new GridLayoutManager(this, 5));
         //recyclerViewSeats.setAdapter(seatAdapter);
-        seatList = generateSeatList();
+        //seatList = generateSeatList();
         seatAdapter = new SeatAdapter(seatList, this);
         recyclerViewSeats.setLayoutManager(new GridLayoutManager(this, 10));
         recyclerViewSeats.setAdapter(seatAdapter);
@@ -135,29 +135,49 @@ public class BookingActivity extends AppCompatActivity implements SeatAdapter.On
 
     @Override
     public void onSeatClick(Seat seat) {
-        // Xử lý sự kiện khi người dùng chọn một ghế ngồi
-        // TODO: Implement seat selection logic
-        if (seat.isBooked()){
-            Toast.makeText(this, "Seat đã được chọn: ", Toast.LENGTH_SHORT).show();
-        }else{
-            seat.setSelected(!seat.isSelected());
-            seatAdapter.notifyDataSetChanged();
-            if (seat.isSelected()){
-                //Toast.makeText(this, "Seat selected: " + seat.getSeatNumber(), Toast.LENGTH_SHORT).show();
-                txtSeat.setText(seat.getSeatNumber());
-            } else if (!seat.isSelected()) {
-                //Toast.makeText(this, "Seat bi huy: " + seat.getSeatNumber(), Toast.LENGTH_SHORT).show();
-                txtSeat.setText("Trống");
-            }
-        }
-    }
-
-    private List<Seat> generateSeatList() {
-        // Logic để tạo danh sách ghế ngồi
-        List<Seat> seatList = new ArrayList<>();
-        for (int i = 1; i <= 50; i++) {
-            seatList.add(new Seat("A" + i, i % 5 == 0)); // Mỗi ghế thứ 5 được đặt chỗ
-        }
-        return seatList;
+//        // Xử lý sự kiện khi người dùng chọn một ghế ngồi
+//        // TODO: Implement seat selection logic
+//        if (seat.isBooked()){
+//            Toast.makeText(this, "Seat đã được chọn: ", Toast.LENGTH_SHORT).show();
+//        }else{
+//            seat.setSelected(!seat.isSelected());
+//            seatAdapter.notifyDataSetChanged();
+//            if (seat.isSelected()){
+//                //Toast.makeText(this, "Seat selected: " + seat.getSeatNumber(), Toast.LENGTH_SHORT).show();
+//                txtSeat.setText(seat.getSeatNumber());
+//            } else if (!seat.isSelected()) {
+//                //Toast.makeText(this, "Seat bi huy: " + seat.getSeatNumber(), Toast.LENGTH_SHORT).show();
+//                txtSeat.setText("Trống");
+//            }
+//        }
+////        if (!seat.isBooked()) {
+//////            int seatPosition = getAdapterPosition();
+//////            // Nếu ghế đã được chọn thì bỏ chọn, ngược lại chọn ghế đó
+//////            if (selectedSeatPositions.contains(seatPosition)) {
+//////                selectedSeatPositions.remove(Integer.valueOf(seatPosition));
+//////            } else {
+//////                selectedSeatPositions.add(seatPosition);
+//////                seat.setSelected(true);
+//////            }
+////
+////            // Cập nhật trạng thái cho Adapter
+////            seatAdapter.setSelectedSeatPositions(selectedSeatPositions);
+////
+////            // Hiển thị thông báo khi một ghế được chọn hoặc bỏ chọn
+////            String message = seat.isSelected() ? "Seat " + seat.getSeatNumber() + " selected" :
+////                    "Seat " + seat.getSeatNumber() + " deselected";
+////            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
+//
+//    private List<Seat> generateSeatList() {
+//        // Logic để tạo danh sách ghế ngồi
+//        List<Seat> seatList = new ArrayList<>();
+//        for (int i = 1; i <= 50; i++) {
+//            seatList.add(new Seat("A" + i, i % 5 == 0)); // Mỗi ghế thứ 5 được đặt chỗ
+//        }
+//        return seatList;
+//    }
     }
 }

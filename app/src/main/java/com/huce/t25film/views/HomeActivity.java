@@ -24,18 +24,18 @@ public class HomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        uid = getIntent().getExtras().getInt("uid");
-//        uid = 11;
-        HomeViewModel viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
-        viewModel.getUser(uid).observe(this, resource -> {
-            if(resource.getStatus().equals("success")){
-                viewModel.setUser(resource.getUser());
-            }
-            else{
-                Toast.makeText(this, resource.getMessage(), Toast.LENGTH_SHORT);
-            }
-        });
+//        uid = getIntent().getExtras().getInt("uid");
+////        uid = 11;
+//        HomeViewModel viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+//
+//        viewModel.getUser(uid).observe(this, resource -> {
+//            if(resource.getStatus().equals("success")){
+//                viewModel.setUser(resource.getUser());
+//            }
+//            else{
+//                Toast.makeText(this, resource.getMessage(), Toast.LENGTH_SHORT);
+//            }
+//        });
 
         viewPager = findViewById(R.id.view_pager);
         bottomNavigation = findViewById(R.id.bottom_navigation);

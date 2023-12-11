@@ -15,15 +15,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.huce.t25film.model.ListFilm;
+import com.huce.t25film.model.Film;
+import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.R;
 import com.huce.t25film.views.DetailFilmActivity;
 
+import java.util.List;
+
 public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHolder> {
-    ListFilm items;
+    List<Film> items;
+    //ListFilm items;
     Context context;
 
-    public FilmListAdapter(ListFilm items) {
+    public FilmListAdapter(List<Film> items) {
         this.items = items;
     }
 
@@ -38,28 +42,28 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull FilmListAdapter.ViewHolder holder, int position) {
         //gọi API cho titleText với items.getData
-        holder.titleText.setText(items.getData().get(position).getTitle());
-        holder.timeText.setText(items.getData().get(position).getYear());
+        holder.titleText.setText(items.get(position).getName());
+        holder.timeText.setText(items.get(position).getRuntime());
         RequestOptions requestOptions= new RequestOptions();
         requestOptions=requestOptions.transform(new CenterCrop(),new RoundedCorners(20));
 
         //gọi API với hoder.pic với items.getData
         Glide.with(context)
-                .load(items.getData().get(position).getPoster())
+                .load(items.get(position).getImage())
                 .apply(requestOptions)
                 .into(holder.pic);
 
         //khi ấn vào ra id của film đó
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(holder.itemView.getContext(), DetailFilmActivity.class);
-            intent.putExtra("id",items.getData().get(position).getId());
+            intent.putExtra("id",items.get(position).getId());
             context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return items.getData().size();
+        return items.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

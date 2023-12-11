@@ -10,37 +10,38 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.huce.t25film.Adapters.FilmListAdapter;
 import com.huce.t25film.Adapters.SliderAdapters;
-import com.huce.t25film.model.ListFilm;
+import com.huce.t25film.api.FilmService;
+import com.huce.t25film.api.RetrofitBuilder;
+import com.huce.t25film.model.Film;
+import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.model.SilderItems;
 import com.huce.t25film.R;
+import com.huce.t25film.viewmodels.DCFragmentViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
 
 public class DCFragment extends Fragment {
 
     private RecyclerView.Adapter adapterMovies;
     private RecyclerView recyclerViewMovies;
-    private RequestQueue mRequestQueue;
-    private StringRequest mStringRequest;
     private ProgressBar loading;
     private ViewPager2 viewPager2;
     private Handler slideHander = new Handler();
+    private com.huce.t25film.viewmodels.DCFragmentViewModel DCFragmentViewModel;
 
 
     @Override
@@ -94,35 +95,54 @@ public class DCFragment extends Fragment {
         return view;
     }
     private void sendRequest(){
-        //sendRequest
-        mRequestQueue= Volley.newRequestQueue(requireContext());
-        loading.setVisibility(View.VISIBLE);
-        try {
-            mStringRequest = new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies?page=2", new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Gson gson = new Gson();
+        // Khởi tạo Retrofit Client
+        Retrofit retrofit = RetrofitBuilder.buildRetrofit();
+        FilmService filmService = retrofit.create(FilmService.class);
+
+        // Gọi API
+        Call<List<Film>> call = filmService.getListFilms();
+        call.enqueue(new Callback<List<Film>>() {
+
+            @Override
+            public void onResponse(Call<List<Film>> call, retrofit2.Response<List<Film>> response) {
+                if (response.isSuccessful()) {
+                    // Ẩn loading khi nhận được dữ liệu
                     loading.setVisibility(View.GONE);
-                    ListFilm items = gson.fromJson(response, ListFilm.class);
+
+                    // Lấy đối tượng ListFilm từ response.body()
+                    List<Film> items = response.body();
+
+
+                    // Tạo Adapter và thiết lập RecyclerView
                     adapterMovies = new FilmListAdapter(items);
                     recyclerViewMovies.setAdapter(adapterMovies);
+                } else {
+
+                    // Xử lý khi phản hồi không thành công
+                    //int statusCode = response.code();
+                    //String errorBody = response.errorBody().string();
+                    Log.e("Error", "Status Code: ");
+                    // ...
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    // Xử lý khi có lỗi
-                    loading.setVisibility(View.GONE);
-                    Log.i("T25", "onErrorRessponse:" + error.toString());
-                }
-            });
-            mRequestQueue.add(mStringRequest);
-        }
-        catch (Exception e){
-            System.out.println("Exception: "+e.toString());
-        }
-        finally {
-            System.out.println("Finally block executed");
-        }
+            }
+
+            @Override
+            public void onFailure(Call<List<Film>> call, Throwable t) {
+
+            }
+
+        });
+        DCFragmentViewModel = new DCFragmentViewModel();
+
+        // Quan sát LiveData để cập nhật UI khi có dữ liệu mới
+        DCFragmentViewModel.getFilmListLiveData().observe(getViewLifecycleOwner(), new Observer<List<Film>>() {
+            @Override
+            public void onChanged(List<Film> filmList) {
+                // Cập nhật dữ liệu trong Adapter và thông báo thay đổi
+                adapterMovies=new FilmListAdapter(filmList);
+                adapterMovies.notifyDataSetChanged();
+            }
+        });
     }
     private Runnable sliderRunnable = new Runnable() {
         @Override

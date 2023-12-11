@@ -1,17 +1,18 @@
 
-package com.huce.t25film.model;
+package com.huce.t25film.resources;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.huce.t25film.model.Film__1;
 
-public class Seat {
+public class FilmResource {
 
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("seat")
+    @SerializedName("film")
     @Expose
-    private Seat__1 seat;
+    private Film__1 film;
 
     public String getStatus() {
         return status;
@@ -21,12 +22,12 @@ public class Seat {
         this.status = status;
     }
 
-    public Seat__1 getSeat() {
-        return seat;
+    public Film__1 getFilm() {
+        return film;
     }
 
-    public void setSeat(Seat__1 seat) {
-        this.seat = seat;
+    public void setFilm(Film__1 film) {
+        this.film = film;
     }
 
 }

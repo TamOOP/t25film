@@ -1,10 +1,11 @@
 
 package com.huce.t25film.model;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Film {
+public class Film__1 {
 
     @SerializedName("id")
     @Expose
@@ -39,6 +40,9 @@ public class Film {
     @SerializedName("language")
     @Expose
     private String language;
+    @SerializedName("shows")
+    @Expose
+    private List<Show> shows;
 
     public Integer getId() {
         return id;
@@ -126,6 +130,14 @@ public class Film {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public List<Show> getShows() {
+        return shows;
+    }
+
+    public void setShows(List<Show> shows) {
+        this.shows = shows;
     }
 
 }

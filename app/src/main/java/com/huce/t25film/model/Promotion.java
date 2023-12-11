@@ -1,80 +1,98 @@
+
 package com.huce.t25film.model;
 
-import java.sql.Time;
-import java.util.Date;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Promotion {
-    private String status;
-    private String idVe;
-    private String tieude;
-    private String noidung;
-    private Date ngay;
-    private Time gio;
-    private Float giagiam;
 
-    public Promotion(String status, String idVe, String tieude, String noidung, Date ngay, Time gio, Float giagiam) {
-        this.status = status;
-        this.idVe = idVe;
-        this.tieude = tieude;
-        this.noidung = noidung;
-        this.ngay = ngay;
-        this.gio = gio;
-        this.giagiam = giagiam;
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("code")
+    @Expose
+    private String code;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("image")
+    @Expose
+    private String image;
+    @SerializedName("startDate")
+    @Expose
+    private String startDate;
+    @SerializedName("endDate")
+    @Expose
+    private String endDate;
+    @SerializedName("discount")
+    @Expose
+    private Integer discount;
+
+    public String getId() {
+        return id;
     }
 
-    public String getStatus() {
-        return status;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public String getCode() {
+        return code;
     }
 
-    public String getIdVe() {
-        return idVe;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public void setIdVe(String idVe) {
-        this.idVe = idVe;
+    public String getTitle() {
+        return title;
     }
 
-    public String getTieude() {
-        return tieude;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setTieude(String tieude) {
-        this.tieude = tieude;
+    public String getDescription() {
+        return description;
     }
 
-    public String getNoidung() {
-        return noidung;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setNoidung(String noidung) {
-        this.noidung = noidung;
+    public String getImage() {
+        return image;
     }
 
-    public Date getNgay() {
-        return ngay;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public void setNgay(Date ngay) {
-        this.ngay = ngay;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public Time getGio() {
-        return gio;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public void setGio(Time gio) {
-        this.gio = gio;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public Float getGiagiam() {
-        return giagiam;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
-    public void setGiagiam(Float giagiam) {
-        this.giagiam = giagiam;
+    public Integer getDiscount() {
+        return discount;
     }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
 }

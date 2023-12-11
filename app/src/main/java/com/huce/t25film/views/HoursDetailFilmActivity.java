@@ -80,11 +80,11 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        titleTxt=findViewById(R.id.movieNameSeatsTxt);
+        titleTxt=findViewById(R.id.movieNameDetailsTxt);
         progressBar=findViewById(R.id.progressBarDetail);
-        scrollView=findViewById(R.id.scrollViewSeats);
-        imgDetail=findViewById(R.id.imgFilmSeats);
-        movieTimeTxt=findViewById(R.id.movieTimeSeats);
+        scrollView=findViewById(R.id.scrollViewDetails);
+        imgDetail=findViewById(R.id.imgFilmDetails);
+        movieTimeTxt=findViewById(R.id.movieTimeDetails);
         backImg=findViewById(R.id.btnBack);
         recyclerViewHours=findViewById(R.id.recyclerviewHour);
         recyclerViewHours.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));

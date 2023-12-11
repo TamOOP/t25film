@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.huce.t25film.model.Seat;
 import com.huce.t25film.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder> {
     private List<Seat> seatList;
+    private List<Integer> selectedSeatPositions = new ArrayList<>();
     private OnSeatClickListener onSeatClickListener;
 
     public SeatAdapter(List<Seat> seatList, OnSeatClickListener onSeatClickListener) {
@@ -63,17 +65,35 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
 
         public void bind(Seat seat) {
             // Hiển thị trạng thái ghế và số ghế
-            if (seat.isBooked()) {
-                seatStatusImageView.setImageResource(R.drawable.seated);
-            } else {
-                if (seat.isSelected()) {
-                    seatStatusImageView.setImageResource(R.drawable.seating);
-                } else {
-                    seatStatusImageView.setImageResource(R.drawable.seat);
-                }
-            }
-            seatNumberTextView.setText(seat.getSeatNumber());
+//            if (seat.isBooked()) {
+//                seatStatusImageView.setImageResource(R.drawable.seated);
+//            } else {
+//                if (seat.isSelected()) {
+//                    seatStatusImageView.setImageResource(R.drawable.seating);
+//                } else {
+//                    seatStatusImageView.setImageResource(R.drawable.seat);
+//                }
+//            }
+//            seatNumberTextView.setText(seat.getSeatNumber());
+//            if (seat.isBooked()) {
+//                seatStatusImageView.setImageResource(R.drawable.seated);
+//            } else {
+//                if (selectedSeatPositions.contains(getAdapterPosition())) {
+//                    seatStatusImageView.setImageResource(R.drawable.seating);
+//                } else {
+//                    seatStatusImageView.setImageResource(R.drawable.seat);
+//                }
+//            }
+//            seatNumberTextView.setText(seat.getSeatNumber());
         }
     }
+    public void setSelectedSeatPositions(List<Integer> selectedSeatPositions) {
+        this.selectedSeatPositions = selectedSeatPositions;
+        notifyDataSetChanged();
+    }
+    public List<Integer> getSelectedSeatPositions() {
+        return selectedSeatPositions;
+    }
+
 }
 

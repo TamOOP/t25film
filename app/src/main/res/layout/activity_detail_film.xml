@@ -8,7 +8,7 @@
     tools:context=".views.DetailFilmActivity">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollViewSeats"
+        android:id="@+id/scrollViewDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +22,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imgFilmSeats"
+                android:id="@+id/imgFilmDetails"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:scaleType="centerCrop"
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="@drawable/welcome_background"
-                app:layout_constraintBottom_toBottomOf="@+id/imgFilmSeats"
+                app:layout_constraintBottom_toBottomOf="@+id/imgFilmDetails"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -69,10 +69,10 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movieNameSeatsTxt">
+                app:layout_constraintTop_toBottomOf="@+id/movieNameDetailsTxt">
 
                 <TextView
-                    android:id="@+id/movieTimeSeats"
+                    android:id="@+id/movieTimeDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/time"
@@ -89,7 +89,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/movieNameSeatsTxt"
+                android:id="@+id/movieNameDetailsTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
@@ -100,7 +100,7 @@
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgFilmSeats"
+                app:layout_constraintBottom_toBottomOf="@+id/imgFilmDetails"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout" />
 
@@ -182,7 +182,7 @@
         android:textSize="@dimen/txt_size_dat_ve"
         android:layout_marginBottom="50dp"
         android:text="@string/txt_dat_ve"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollViewSeats"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollViewDetails"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
