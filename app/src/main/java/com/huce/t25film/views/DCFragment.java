@@ -100,7 +100,7 @@ public class DCFragment extends Fragment {
         FilmService filmService = retrofit.create(FilmService.class);
 
         // Gọi API
-        Call<List<Film>> call = filmService.getListFilms();
+        Call<List<Film>> call = filmService.getListFilmsDC();
         call.enqueue(new Callback<List<Film>>() {
 
             @Override

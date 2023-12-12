@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue">
+    android:background="@color/white">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollViewDetails"
@@ -68,27 +68,15 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movieNameDetailsTxt">
+                app:layout_constraintTop_toBottomOf="@+id/KMNameDetailsTxt">
 
-                <TextView
-                    android:id="@+id/movieTimeDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/time"
-                    android:drawablePadding="5dp"
-                    android:text="0"
-                    android:gravity="center_vertical"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/movieNameDetailsTxt"
+                android:id="@+id/KMNameDetailsTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
@@ -103,27 +91,50 @@
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout" />
 
-
             <TextView
-                android:id="@+id/txtManhinh"
+                android:id="@+id/txtContentDetailKM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:text="Chọn giờ chiếu phim"
-                android:textColor="@color/main"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerviewHour"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtManhinh" />
+                app:layout_constraintTop_toBottomOf="@+id/imgFilmDetails" />
+
+            <TextView
+                android:id="@+id/txtCodeKM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#FA0404"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtContentDetailKM" />
+
+            <TextView
+                android:id="@+id/txtNgayBDKM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtCodeKM" />
+
+            <TextView
+                android:id="@+id/txtNgayKTKM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtCodeKM" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -139,6 +150,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,8 @@ package com.huce.t25film.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Show__1 {
 
     @SerializedName("id")
@@ -21,6 +23,9 @@ public class Show__1 {
     @SerializedName("day_of_week")
     @Expose
     private String dayOfWeek;
+    @SerializedName("films")
+    @Expose
+    private List<Film> films;
 
     public Integer getId() {
         return id;
@@ -60,6 +65,14 @@ public class Show__1 {
 
     public void setDayOfWeek(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
+    }
+
+    public List<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<Film> films) {
+        this.films = films;
     }
 
 }

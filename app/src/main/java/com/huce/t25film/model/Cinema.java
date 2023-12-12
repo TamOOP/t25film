@@ -18,6 +18,9 @@ public class Cinema {
     @SerializedName("seat_per_row")
     @Expose
     private Integer seatPerRow;
+    @SerializedName("deleted")
+    @Expose
+    private Integer deleted;
 
     public Integer getId() {
         return id;
@@ -49,6 +52,13 @@ public class Cinema {
 
     public void setSeatPerRow(Integer seatPerRow) {
         this.seatPerRow = seatPerRow;
+    }
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 
 }

@@ -18,17 +18,19 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.huce.t25film.model.ListFilm;
 import com.huce.t25film.R;
+import com.huce.t25film.resources.ShowResource;
 import com.huce.t25film.views.DetailFilmActivity;
 
 public class CalendarFilmListAdapter extends RecyclerView.Adapter<CalendarFilmListAdapter.ViewHolder>{
-    ListFilm items;
+    //ListFilm items;
+    ShowResource items;
     Context context;
     //private RecyclerView.Adapter adapterMoviesHours;
     //private RecyclerView recyclerViewMoviesHours;
 //    private RequestQueue mRequestQueue;
 //    private StringRequest mStringRequest;
 
-    public CalendarFilmListAdapter(ListFilm items) {
+    public CalendarFilmListAdapter(ShowResource items) {
         this.items = items;
     }
 
@@ -45,35 +47,42 @@ public class CalendarFilmListAdapter extends RecyclerView.Adapter<CalendarFilmLi
     public void onBindViewHolder(@NonNull CalendarFilmListAdapter.ViewHolder holder, int position) {
 
         //gọi API cho titleText với items.getData
-        holder.titleTxtCal.setText(items.getData().get(position).getTitle());
-        holder.timeTxtCal.setText(items.getData().get(position).getYear());
-        holder.categoryTxtCal.setText(items.getData().get(position).getImdbRating());
+        holder.titleTxtCal.setText(items.getFilms().get(position).getName());
+        holder.timeTxtCal.setText(items.getFilms().get(position).getRuntime()+" phút");
+        holder.categoryTxtCal.setText(items.getFilms().get(position).getGenre());
         RequestOptions requestOptions= new RequestOptions();
         requestOptions=requestOptions.transform(new CenterCrop(),new RoundedCorners(20));
 
         //gọi API với hoder.pic với items.getData
         Glide.with(context)
-                .load(items.getData().get(position).getPoster())
+                .load(items.getFilms().get(position).getImage())
                 .apply(requestOptions)
                 .into(holder.picViewholderCal);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        holder.recyclerViewMoviesHours.setLayoutManager(layoutManager);
-        holder.adapterMoviesHours = new ActorListAdapter(items.getData().get(position).getGenres());
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        holder.recyclerViewMoviesHours.setLayoutManager(layoutManager);
+//        holder.adapterMoviesHours = new ActorListAdapter(items.getFilms().get(position).getShows());
+//        if (holder.adapterMoviesHours != null) {
+//            holder.recyclerViewMoviesHours.setAdapter(holder.adapterMoviesHours);
+//        }
+        holder.recyclerViewMoviesHours.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL,false));
+        holder.adapterMoviesHours = new ActorListAdapter(items.getFilms().get(position).getShows());
+
         if (holder.adapterMoviesHours != null) {
             holder.recyclerViewMoviesHours.setAdapter(holder.adapterMoviesHours);
         }
+
         //khi ấn vào ra id của film đó
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(holder.itemView.getContext(), DetailFilmActivity.class);
-            intent.putExtra("id",items.getData().get(position).getId());
+            intent.putExtra("id",items.getFilms().get(position).getId());
             context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return items.getData().size();
+        return items.getFilms().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

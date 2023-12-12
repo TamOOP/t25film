@@ -15,35 +15,36 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.huce.t25film.model.Film;
-import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.R;
+import com.huce.t25film.model.Film;
+import com.huce.t25film.model.Promotion;
 import com.huce.t25film.views.DetailFilmActivity;
+import com.huce.t25film.views.DetailKMActivity;
 
 import java.util.List;
 
-public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHolder> {
-    List<Film> items;
+public class PromotionListAdapter extends RecyclerView.Adapter<PromotionListAdapter.ViewHolder> {
+    List<Promotion> items;
     //ListFilm items;
     Context context;
 
-    public FilmListAdapter(List<Film> items) {
+    public PromotionListAdapter(List<Promotion> items) {
         this.items = items;
     }
 
     @NonNull
     @Override
-    public FilmListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PromotionListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context=parent.getContext();
         View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_film,parent,false);
         return new ViewHolder(inflate);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FilmListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PromotionListAdapter.ViewHolder holder, int position) {
         //gọi API cho titleText với items.getData
-        holder.titleText.setText(items.get(position).getName());
-        holder.timeText.setText(items.get(position).getRuntime()+" phút");
+        holder.titleText.setText(items.get(position).getTitle());
+        holder.timeText.setText(items.get(position).getDescription());
         RequestOptions requestOptions= new RequestOptions();
         requestOptions=requestOptions.transform(new CenterCrop(),new RoundedCorners(20));
 
@@ -55,7 +56,7 @@ public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHo
 
         //khi ấn vào ra id của film đó
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(holder.itemView.getContext(), DetailFilmActivity.class);
+            Intent intent = new Intent(holder.itemView.getContext(), DetailKMActivity.class);
             intent.putExtra("id",items.get(position).getId());
             context.startActivity(intent);
         });

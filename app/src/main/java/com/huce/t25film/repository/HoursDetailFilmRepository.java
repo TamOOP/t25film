@@ -6,32 +6,29 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.huce.t25film.api.FilmService;
 import com.huce.t25film.api.RetrofitBuilder;
-import com.huce.t25film.model.Film;
 import com.huce.t25film.resources.FilmResource;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class SCSFragmentRepository {
-    private MutableLiveData<List<Film>> listfilmsLiveData = new MutableLiveData<>();
-    private static SCSFragmentRepository instance;
+public class HoursDetailFilmRepository {
+    private MutableLiveData<FilmResource> filmLiveData = new MutableLiveData<>();
+    private static HoursDetailFilmRepository instance;
     private Retrofit retrofit;
     private FilmService filmService;
 
     // instance
-    public static synchronized SCSFragmentRepository getInstance(){
+    public static synchronized HoursDetailFilmRepository getInstance(){
         if(instance == null){
-            instance = new SCSFragmentRepository();
+            instance = new HoursDetailFilmRepository();
         }
         return instance;
     }
 
     // build retrofit va tao user api khi instance
-    public SCSFragmentRepository(){
+    public HoursDetailFilmRepository(){
         if(retrofit == null){
             retrofit = RetrofitBuilder.buildRetrofit();
         }
@@ -39,30 +36,30 @@ public class SCSFragmentRepository {
     }
 
     // fetch api va xu ly
-    public MutableLiveData<List<Film>> getAllFilms(OnFilmListCallback onFilmListCallback){
-        Call<List<Film>> _filmsCall = filmService.getListFilmsSCS();
+    public MutableLiveData<FilmResource> getFilm(Integer filmId, OnFilmCallback onFilmCallback){
+        Call<FilmResource> _filmCall = filmService.getFilmsId(filmId);
 
         // call async api
-        _filmsCall.enqueue(new Callback<List<Film>>() {
+        _filmCall.enqueue(new Callback<FilmResource>() {
             @Override
-            public void onResponse(Call<List<Film>> call, Response<List<Film>> response) {
+            public void onResponse(Call<FilmResource> call, Response<FilmResource> response) {
                 // parse json sang POJO object
-                List<Film> films = response.body();
+                FilmResource film = response.body();
 
                 // thay doi du lieu cua live data
-                listfilmsLiveData.setValue(films);
+                filmLiveData.setValue(film);
             }
 
             @Override
-            public void onFailure(Call<List<Film>> call, Throwable t) {
+            public void onFailure(Call<FilmResource> call, Throwable t) {
                 Log.e("error", t.getMessage());
             }
         });
 
-        return listfilmsLiveData;
+        return filmLiveData;
     }
-    public interface OnFilmListCallback {
-        void onSuccess(List<Film> filmList);
+    public interface OnFilmCallback {
+        void onSuccess(FilmResource film);
         void onError(String errorMessage);
     }
 }

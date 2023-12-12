@@ -4,7 +4,7 @@ package com.huce.t25film.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Promotion {
+public class Promotion__1 {
 
     @SerializedName("id")
     @Expose

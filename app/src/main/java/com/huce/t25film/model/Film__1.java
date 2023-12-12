@@ -22,6 +22,9 @@ public class Film__1 {
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
+    @SerializedName("end_date")
+    @Expose
+    private String endDate;
     @SerializedName("runtime")
     @Expose
     private String runtime;
@@ -83,7 +86,13 @@ public class Film__1 {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
+    public String getEndDate() {
+        return endDate;
+    }
 
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
     public String getRuntime() {
         return runtime;
     }

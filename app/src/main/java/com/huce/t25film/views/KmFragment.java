@@ -25,19 +25,27 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.huce.t25film.Adapters.FilmListAdapter;
 import com.huce.t25film.Adapters.KMListAdapter;
+import com.huce.t25film.Adapters.PromotionListAdapter;
 import com.huce.t25film.Adapters.SliderAdapters;
+import com.huce.t25film.api.FilmService;
+import com.huce.t25film.api.PromotionService;
+import com.huce.t25film.api.RetrofitBuilder;
+import com.huce.t25film.model.Film;
 import com.huce.t25film.model.ListFilm;
+import com.huce.t25film.model.Promotion;
 import com.huce.t25film.model.SilderItems;
 import com.huce.t25film.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+
 public class KmFragment extends Fragment {
     private RecyclerView.Adapter adapterKM;
     private RecyclerView recyclerViewKM;
-    private RequestQueue mRequestQueue;
-    private StringRequest mStringRequest;
     private ProgressBar loading;
 
 
@@ -59,35 +67,43 @@ public class KmFragment extends Fragment {
         return view;
     }
     private void sendRequest(){
-        //sendRequest
-        mRequestQueue= Volley.newRequestQueue(requireContext());
-        loading.setVisibility(View.VISIBLE);
-        try {
-            mStringRequest = new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies?page=1", new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Gson gson = new Gson();
+        // Khởi tạo Retrofit Client
+        Retrofit retrofit = RetrofitBuilder.buildRetrofit();
+        PromotionService promotionService = retrofit.create(PromotionService.class);
+
+        // Gọi API
+        Call<List<Promotion>> call = promotionService.getListPromotions();
+        call.enqueue(new Callback<List<Promotion>>() {
+
+            @Override
+            public void onResponse(Call<List<Promotion>> call, retrofit2.Response<List<Promotion>> response) {
+                if (response.isSuccessful()) {
+                    // Ẩn loading khi nhận được dữ liệu
                     loading.setVisibility(View.GONE);
-                    ListFilm items = gson.fromJson(response, ListFilm.class);
-                    adapterKM = new KMListAdapter(items);
+
+                    // Lấy đối tượng ListFilm từ response.body()
+                    List<Promotion> items = response.body();
+
+
+                    // Tạo Adapter và thiết lập RecyclerView
+                    adapterKM = new PromotionListAdapter(items);
                     recyclerViewKM.setAdapter(adapterKM);
+                } else {
+
+                    // Xử lý khi phản hồi không thành công
+                    //int statusCode = response.code();
+                    //String errorBody = response.errorBody().string();
+                    Log.e("Error", "Status Code: ");
+                    // ...
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    // Xử lý khi có lỗi
-                    loading.setVisibility(View.GONE);
-                    Log.i("T25", "onErrorRessponse:" + error.toString());
-                }
-            });
-            mRequestQueue.add(mStringRequest);
-        }
-        catch (Exception e){
-            System.out.println("Exception: "+e.toString());
-        }
-        finally {
-            System.out.println("Finally block executed");
-        }
+            }
+
+            @Override
+            public void onFailure(Call<List<Promotion>> call, Throwable t) {
+
+            }
+
+        });
     }
 
 }

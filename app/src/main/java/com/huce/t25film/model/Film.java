@@ -4,6 +4,8 @@ package com.huce.t25film.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Film {
 
     @SerializedName("id")
@@ -21,6 +23,9 @@ public class Film {
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
+    @SerializedName("end_date")
+    @Expose
+    private String endDate;
     @SerializedName("runtime")
     @Expose
     private String runtime;
@@ -39,6 +44,9 @@ public class Film {
     @SerializedName("language")
     @Expose
     private String language;
+    @SerializedName("shows")
+    @Expose
+    private List<Show> shows;
 
     public Integer getId() {
         return id;
@@ -80,6 +88,13 @@ public class Film {
         this.releaseDate = releaseDate;
     }
 
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
     public String getRuntime() {
         return runtime;
     }
@@ -126,6 +141,14 @@ public class Film {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public List<Show> getShows() {
+        return shows;
+    }
+
+    public void setShows(List<Show> shows) {
+        this.shows = shows;
     }
 
 }

@@ -108,7 +108,7 @@ public class DetailFilmActivity extends AppCompatActivity {
                             .into(imgDetail);
 
                     titleTxt.setText(item.getFilm().getName());
-                    movieTimeTxt.setText(item.getFilm().getRuntime());
+                    movieTimeTxt.setText(item.getFilm().getRuntime()+" phút");
                     movieSummaryInfo.setText(item.getFilm().getDescription());
                     movieActorsInfo.setText(item.getFilm().getActor());
 

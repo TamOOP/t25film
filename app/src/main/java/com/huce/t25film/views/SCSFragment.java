@@ -100,7 +100,7 @@ public class SCSFragment extends Fragment {
         FilmService filmService = retrofit.create(FilmService.class);
 
         // Gọi API
-        Call<List<Film>> call = filmService.getListFilms();
+        Call<List<Film>> call = filmService.getListFilmsSCS();
         call.enqueue(new Callback<List<Film>>() {
 
             @Override

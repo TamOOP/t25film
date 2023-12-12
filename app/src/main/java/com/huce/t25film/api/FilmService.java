@@ -17,4 +17,13 @@ public interface FilmService {
     // get user theo id
     @GET("films/{id}")
     Call<FilmResource> getFilmsId(@Path("id") int id);
+
+    @GET("films/find/showing")
+    Call<List<Film>> getListFilmsDC();
+
+    @GET("films/find/upComing")
+    Call<List<Film>> getListFilmsSC();
+
+    @GET("films/find/earlyShow")
+    Call<List<Film>> getListFilmsSCS();
 }

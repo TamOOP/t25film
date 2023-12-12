@@ -40,7 +40,7 @@ public class DCFragmentRepository {
 
     // fetch api va xu ly
     public MutableLiveData<List<Film>> getAllFilms(OnFilmListCallback onFilmListCallback){
-        Call<List<Film>> _filmsCall = filmService.getListFilms();
+        Call<List<Film>> _filmsCall = filmService.getListFilmsDC();
 
         // call async api
         _filmsCall.enqueue(new Callback<List<Film>>() {
