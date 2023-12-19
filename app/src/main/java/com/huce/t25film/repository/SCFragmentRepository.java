@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.huce.t25film.api.FilmService;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.model.Film;
-import com.huce.t25film.resources.FilmResource;
 
 import java.util.List;
 
@@ -40,6 +39,7 @@ public class SCFragmentRepository {
 
     // fetch api va xu ly
     public MutableLiveData<List<Film>> getAllFilms(OnFilmListCallback onFilmListCallback){
+
         Call<List<Film>> _filmsCall = filmService.getListFilmsSC();
 
         // call async api

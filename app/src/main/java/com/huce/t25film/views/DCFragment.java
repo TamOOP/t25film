@@ -26,6 +26,7 @@ import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.model.SilderItems;
 import com.huce.t25film.R;
 import com.huce.t25film.viewmodels.DCFragmentViewModel;
+import com.huce.t25film.viewmodels.SCSFragmentViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class DCFragment extends Fragment {
     private ProgressBar loading;
     private ViewPager2 viewPager2;
     private Handler slideHander = new Handler();
-    private com.huce.t25film.viewmodels.DCFragmentViewModel DCFragmentViewModel;
+    private DCFragmentViewModel DCFragmentViewModel;
 
 
     @Override
@@ -95,43 +96,6 @@ public class DCFragment extends Fragment {
         return view;
     }
     private void sendRequest(){
-        // Khởi tạo Retrofit Client
-        Retrofit retrofit = RetrofitBuilder.buildRetrofit();
-        FilmService filmService = retrofit.create(FilmService.class);
-
-        // Gọi API
-        Call<List<Film>> call = filmService.getListFilmsDC();
-        call.enqueue(new Callback<List<Film>>() {
-
-            @Override
-            public void onResponse(Call<List<Film>> call, retrofit2.Response<List<Film>> response) {
-                if (response.isSuccessful()) {
-                    // Ẩn loading khi nhận được dữ liệu
-                    loading.setVisibility(View.GONE);
-
-                    // Lấy đối tượng ListFilm từ response.body()
-                    List<Film> items = response.body();
-
-
-                    // Tạo Adapter và thiết lập RecyclerView
-                    adapterMovies = new FilmListAdapter(items);
-                    recyclerViewMovies.setAdapter(adapterMovies);
-                } else {
-
-                    // Xử lý khi phản hồi không thành công
-                    //int statusCode = response.code();
-                    //String errorBody = response.errorBody().string();
-                    Log.e("Error", "Status Code: ");
-                    // ...
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Film>> call, Throwable t) {
-
-            }
-
-        });
         DCFragmentViewModel = new DCFragmentViewModel();
 
         // Quan sát LiveData để cập nhật UI khi có dữ liệu mới
@@ -141,6 +105,9 @@ public class DCFragment extends Fragment {
                 // Cập nhật dữ liệu trong Adapter và thông báo thay đổi
                 adapterMovies=new FilmListAdapter(filmList);
                 adapterMovies.notifyDataSetChanged();
+
+                loading.setVisibility(View.GONE);
+                recyclerViewMovies.setAdapter(adapterMovies);
             }
         });
     }

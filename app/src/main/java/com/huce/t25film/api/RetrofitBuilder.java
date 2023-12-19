@@ -14,9 +14,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBuilder {
+    private static Retrofit retrofit = null;
     private static final String BASE_URL = "https://t25film.000webhostapp.com/api/";
-    private static final String BASE_URL1 = "https://moviesapi.ir/api/v1/";
-
     private static final long CACHE_SIZE = 10 * 1024 * 1024; //10mb cache
     private static final int READ_TIMEOUT = 5000;
     private static final int WRITE_TIMEOUT = 5000;
@@ -74,17 +73,5 @@ public class RetrofitBuilder {
                     .build();
 
         return sRetrofit;
-    }
-
-    public static Retrofit buildRetrofit1() {
-        Retrofit  sRetrofit1 = new Retrofit.Builder()
-                .baseUrl(BASE_URL1)
-                //Add OkHttpClient
-//                    .client(initClient(context))
-//                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        return sRetrofit1;
     }
 }

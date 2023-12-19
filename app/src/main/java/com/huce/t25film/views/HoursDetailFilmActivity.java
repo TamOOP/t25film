@@ -1,5 +1,12 @@
 package com.huce.t25film.views;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +30,8 @@ import com.huce.t25film.model.Show;
 import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.resources.ShowDateResource;
 import com.huce.t25film.resources.ShowDateResourceSort;
+import com.huce.t25film.viewmodels.DetailFilmViewModel;
+import com.huce.t25film.viewmodels.HoursDetailFilmViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,8 +44,6 @@ import retrofit2.Retrofit;
 
 public class HoursDetailFilmActivity extends AppCompatActivity {
 
-    private RequestQueue mRequestQueue;
-    private StringRequest mStringRequest;
     private RecyclerView.Adapter adapterHours;
     private RecyclerView recyclerViewHours;
     private ProgressBar progressBar;
@@ -44,6 +51,7 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
     private int id;
     private ImageView imgDetail,backImg;
     private NestedScrollView scrollView;
+    HoursDetailFilmViewModel hoursDetailFilmViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,56 +86,19 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
     }
     //gọi yêu cầu lên API
     private void sendRequest() {
-//        mRequestQueue = Volley.newRequestQueue(this);
-//        progressBar.setVisibility(View.VISIBLE);
-//        scrollView.setVisibility(View.GONE);
-//
-//        mStringRequest = new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies/" + idFilm, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                Gson gson = new Gson();
-//                progressBar.setVisibility(View.GONE);
-//                scrollView.setVisibility(View.VISIBLE);
-//
-//                FilmItem item = gson.fromJson(response,FilmItem.class);
-//
-//                //adapterHours = new ActorListAdapter(item.getGenres());
-//                //recyclerViewHours.setAdapter(adapterHours);
-//
-//                //item coi như là FilmItem gọi ra
-//                Glide.with(HoursDetailFilmActivity.this)
-//                        .load(item.getPoster())
-//                        .into(imgDetail);
-//
-//                titleTxt.setText(item.getTitle());
-//                movieTimeTxt.setText(item.getRuntime());
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                progressBar.setVisibility(View.GONE);
-//            }
-//        });
-//        mRequestQueue.add(mStringRequest);
-        Retrofit retrofit = RetrofitBuilder.buildRetrofit();
-        FilmService filmService = retrofit.create(FilmService.class);
 
+        hoursDetailFilmViewModel = new HoursDetailFilmViewModel(id);
 
-        // Gọi API
-        Call<FilmResource> call = filmService.getFilmsId(id);
-        call.enqueue(new Callback<FilmResource>() {
-
+        // Quan sát LiveData để cập nhật UI khi có dữ liệu mới
+        hoursDetailFilmViewModel.getFilmLiveData().observe(this, new Observer<FilmResource>() {
             @Override
-            public void onResponse(Call<FilmResource> call, retrofit2.Response<FilmResource> response) {
-                if (response.isSuccessful()) {
-                    // Ẩn loading khi nhận được dữ liệu
+            public void onChanged(FilmResource showResource) {
+                // Cập nhật dữ liệu trong Adapter và thông báo thay đổi
+                // Ẩn loading khi nhận được dữ liệu
                     progressBar.setVisibility(View.GONE);
                     scrollView.setVisibility(View.VISIBLE);
 
-
-                    // Lấy đối tượng ListFilm từ response.body()
-                    FilmResource item = response.body();
-                    List<ShowDateResource> showtimeDateItems = convertToShowtimeDateItems(item.getFilm().getShows());
+                    List<ShowDateResource> showtimeDateItems = convertToShowtimeDateItems(showResource.getFilm().getShows());
 
                     List<ShowDateResource> sortedShowtimeDateItems = ShowDateResourceSort.sortShowtimeDateItems(showtimeDateItems);
                     adapterHours = new DateListAdapter(sortedShowtimeDateItems);
@@ -135,61 +106,16 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
                     recyclerViewHours.setAdapter(adapterHours);
                     //item coi như là FilmItem gọi ra
                     Glide.with(HoursDetailFilmActivity.this)
-                            .load(item.getFilm().getImage())
+                            .load(showResource.getFilm().getImage())
                             .into(imgDetail);
 
-                    titleTxt.setText(item.getFilm().getName());
-                    movieTimeTxt.setText(item.getFilm().getRuntime()+" phút");
-
-                } else {
-
-                    // Xử lý khi phản hồi không thành công
-                    //int statusCode = response.code();
-                    //String errorBody = response.errorBody().string();
-                    Log.e("Error", "Status Code: ");
-                    progressBar.setVisibility(View.GONE);
-                    // ...
-                }
+                    titleTxt.setText(showResource.getFilm().getName());
+                    movieTimeTxt.setText(showResource.getFilm().getRuntime()+" phút");
             }
-
-            @Override
-            public void onFailure(Call<FilmResource> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
-            }
-
         });
     }
 
-//    private List<ShowDateResource> convertToUniqueDateItems(List<Show> showtimes) {
-//        Set<String> uniqueDates = new HashSet<>();
-//        List<ShowDateResource> dateItems = new ArrayList<>();
-//
-//        for (Show showtime : showtimes) {
-//            String date = showtime.getDate();
-//
-//            // Kiểm tra xem ngày đã được thêm vào danh sách chưa
-//            if (!uniqueDates.contains(date)) {
-//                uniqueDates.add(date);
-//                List<Show> showtimesForDate = getShowtimesForDate(showtimes, date);
-//                dateItems.add(new ShowDateResource(date, showtimesForDate));
-//            }
-//        }
-//
-//        return dateItems;
-//    }
-//
-//    // Hàm lấy danh sách Showtime cho một ngày cụ thể
-//    private List<Show> getShowtimesForDate(List<Show> showtimes, String date) {
-//        List<Show> showtimesForDate = new ArrayList<>();
-//
-//        for (Show showtime : showtimes) {
-//            if (date.equals(showtime.getDate())) {
-//                showtimesForDate.add(showtime);
-//            }
-//        }
-//
-//        return showtimesForDate;
-//    }
+
 
 
     private void initView() {

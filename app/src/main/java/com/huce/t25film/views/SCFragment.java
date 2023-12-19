@@ -2,12 +2,16 @@ package com.huce.t25film.views;
 
 import static androidx.databinding.DataBindingUtil.setContentView;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -45,6 +49,8 @@ public class SCFragment extends Fragment {
     private ViewPager2 viewPager2;
     private Handler slideHander = new Handler();
     private SCFragmentViewModel SCFragmentViewModel;
+
+    private FilmListAdapter filmAdapter;
 
 
     @Override
@@ -91,83 +97,10 @@ public class SCFragment extends Fragment {
             }
         });
 
-
         sendRequest();
-
-
         return view;
     }
     private void sendRequest(){
-        //sendRequest
-//        mRequestQueue= Volley.newRequestQueue(requireContext());
-//        loading.setVisibility(View.VISIBLE);
-//        try {
-//            mStringRequest = new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies?page=1", new com.android.volley.Response.Listener<String>() {
-//                @Override
-//                public void onResponse(String response) {
-//                    Gson gson = new Gson();
-//                    loading.setVisibility(View.GONE);
-//                    ListFilm items = gson.fromJson(response, ListFilm.class);
-//                    adapterMovies = new FilmListAdapter(items);
-//                    recyclerViewMovies.setAdapter(adapterMovies);
-//                }
-//            }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    // Xử lý khi có lỗi
-//                    loading.setVisibility(View.GONE);
-//                    Log.i("T25", "onErrorRessponse:" + error.toString());
-//                }
-//            });
-//
-//
-//            mRequestQueue.add(mStringRequest);
-//        }
-//        catch (Exception e){
-//            System.out.println("Exception: "+e.toString());
-//        }
-//        finally {
-//            System.out.println("Finally block executed");
-//        }
-
-
-        // Khởi tạo Retrofit Client
-        Retrofit retrofit = RetrofitBuilder.buildRetrofit();
-        FilmService filmService = retrofit.create(FilmService.class);
-
-        // Gọi API
-        Call<List<Film>> call = filmService.getListFilmsSC();
-        call.enqueue(new Callback<List<Film>>() {
-
-            @Override
-            public void onResponse(Call<List<Film>> call, retrofit2.Response<List<Film>> response) {
-                if (response.isSuccessful()) {
-                    // Ẩn loading khi nhận được dữ liệu
-                    loading.setVisibility(View.GONE);
-
-                    // Lấy đối tượng ListFilm từ response.body()
-                    List<Film> items = response.body();
-
-
-                    // Tạo Adapter và thiết lập RecyclerView
-                    adapterMovies = new FilmListAdapter(items);
-                    recyclerViewMovies.setAdapter(adapterMovies);
-                } else {
-
-                    // Xử lý khi phản hồi không thành công
-                    //int statusCode = response.code();
-                    //String errorBody = response.errorBody().string();
-                    Log.e("Error", "Status Code: ");
-                    // ...
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Film>> call, Throwable t) {
-
-            }
-
-        });
         SCFragmentViewModel = new SCFragmentViewModel();
 
         // Quan sát LiveData để cập nhật UI khi có dữ liệu mới
@@ -177,9 +110,13 @@ public class SCFragment extends Fragment {
                 // Cập nhật dữ liệu trong Adapter và thông báo thay đổi
                 adapterMovies=new FilmListAdapter(filmList);
                 adapterMovies.notifyDataSetChanged();
+
+                loading.setVisibility(View.GONE);
+                recyclerViewMovies.setAdapter(adapterMovies);
             }
         });
     }
+
     private Runnable sliderRunnable = new Runnable() {
         @Override
         public void run() {

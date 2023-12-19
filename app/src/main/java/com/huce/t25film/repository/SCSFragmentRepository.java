@@ -39,7 +39,8 @@ public class SCSFragmentRepository {
     }
 
     // fetch api va xu ly
-    public MutableLiveData<List<Film>> getAllFilms(OnFilmListCallback onFilmListCallback){
+    public MutableLiveData<List<Film>> getAllFilms(SCSFragmentRepository.OnFilmListCallback onFilmListCallback){
+
         Call<List<Film>> _filmsCall = filmService.getListFilmsSCS();
 
         // call async api
