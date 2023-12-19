@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.databinding.ActivityLogin1Binding;
 import com.huce.t25film.viewmodels.LoginViewModel;
 
@@ -49,10 +50,11 @@ public class Login1Activity extends AppCompatActivity {
         loginViewModel.getIsLogin().observe(this, isLogin -> {
             if(isLogin){
                 // chuyen view
-                Intent homeIntent = new Intent(Login1Activity.this, HomeActivity.class);
+                Intent homeIntent = new Intent(Login1Activity.this, BookingActivity.class);
                 // send uid
                 homeIntent.putExtra("uid", loginViewModel.getUser().getId());
                 startActivity(homeIntent);
+                SharedReferenceData.getInstance().setInt(this,"uid",1);
                 //destroy activity
                 finish();
             }

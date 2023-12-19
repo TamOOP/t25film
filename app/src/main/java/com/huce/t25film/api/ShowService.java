@@ -1,16 +1,12 @@
 package com.huce.t25film.api;
 
-import com.huce.t25film.model.Film;
 import com.huce.t25film.model.Show;
-import com.huce.t25film.model.Show__1;
-import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.resources.ShowResource;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ShowService {

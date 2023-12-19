@@ -3,7 +3,6 @@ package com.huce.t25film.resources;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.huce.t25film.model.Film__1;
 import com.huce.t25film.model.Promotion__1;
 
 public class PromotionResource {

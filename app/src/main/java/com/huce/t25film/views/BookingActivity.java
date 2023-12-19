@@ -1,6 +1,8 @@
 package com.huce.t25film.views;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.huce.t25film.Adapters.SeatAdapter;
 import com.huce.t25film.R;
+import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.databinding.ActivityBookingBinding;
 import com.huce.t25film.model.Seat;
 import com.huce.t25film.viewmodels.BookingViewModel;
@@ -32,24 +35,34 @@ public class BookingActivity extends AppCompatActivity{
 
         setContentView(binding.getRoot());
 
-//        cinemaId = this.getIntent().getIntExtra("cinemaId", 0);
-//        showId = this.getIntent().getIntExtra("showId", 0);
-//        binding.movieName.setText(getIntent().getStringExtra("name"));
-//        binding.runTime.setText(getIntent().getStringExtra("runtime"));
-//        binding.showTime.setText(getIntent().getStringExtra("day_of_week")+" "
-//                +getIntent().getStringExtra("date")+" "
-//                +getIntent().getStringExtra("time"));
+        cinemaId = this.getIntent().getIntExtra("cinemaId", 0);
+        showId = this.getIntent().getIntExtra("showId", 0);
+        binding.movieName.setText(getIntent().getStringExtra("name"));
+        binding.runTime.setText(getIntent().getStringExtra("runtime"));
+        binding.showTime.setText(getIntent().getStringExtra("day_of_week")+" "
+                +getIntent().getStringExtra("date")+" "
+                +getIntent().getStringExtra("time"));
         cinemaId = 2;
         showId = 3;
+        if(cinemaId == 0 && showId == 0) finish();
 
         BookingViewModel bookingViewModel = new BookingViewModel();
         binding.navBar.setVisibility(View.GONE);
 
+        int uid = SharedReferenceData.getInstance().getInt(this,"uid");
+        Log.e("uid",uid+"");
 
         binding.btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        binding.btnBackSeats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
@@ -77,5 +90,15 @@ public class BookingActivity extends AppCompatActivity{
                 binding.txtTotalData.setText(String.format("%,d", bookingViewModel.getTotalPrice()));
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // kiem tra dang nhap
+        if(SharedReferenceData.getInstance().getInt(this,"uid") == 0){
+            Intent login = new Intent(this, Login1Activity.class);
+            startActivity(login);
+        }
     }
 }

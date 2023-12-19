@@ -3,7 +3,7 @@ package com.huce.t25film.resources;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.huce.t25film.model.Film__1;
+import com.huce.t25film.model.Film;
 
 public class FilmResource {
 
@@ -12,7 +12,17 @@ public class FilmResource {
     private String status;
     @SerializedName("film")
     @Expose
-    private Film__1 film;
+    private Film film;
+    @SerializedName("message")
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public String getStatus() {
         return status;
@@ -22,11 +32,11 @@ public class FilmResource {
         this.status = status;
     }
 
-    public Film__1 getFilm() {
+    public Film getFilm() {
         return film;
     }
 
-    public void setFilm(Film__1 film) {
+    public void setFilm(Film film) {
         this.film = film;
     }
 
