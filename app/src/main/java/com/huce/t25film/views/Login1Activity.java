@@ -51,7 +51,7 @@ public class Login1Activity extends AppCompatActivity {
                 // chuyen view
                 Intent homeIntent = new Intent(Login1Activity.this, HomeActivity.class);
                 // send uid
-//                homeIntent.putExtra("uid", loginViewModel.getUser().getId());
+                homeIntent.putExtra("uid", loginViewModel.getUser().getId());
                 startActivity(homeIntent);
                 //destroy activity
                 finish();
