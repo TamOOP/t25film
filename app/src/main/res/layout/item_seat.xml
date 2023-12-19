@@ -1,5 +1,5 @@
 <!-- res/layout/item_seat.xml -->
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -10,14 +10,26 @@
         android:id="@+id/seatStatusImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/seat" />
+        android:src="@drawable/ic_seat_normal"
+        android:scaleType="centerCrop"/>
 
+<!--    <TextView-->
+<!--        android:id="@+id/seatNumberTextView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:text="A1"-->
+<!--        android:textSize="12sp"-->
+<!--        android:layout_marginTop="4dp"/>-->
     <TextView
         android:id="@+id/seatNumberTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
         android:text="A1"
-        android:textSize="12sp"
-        android:layout_marginTop="4dp"/>
-</LinearLayout>
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+</RelativeLayout >

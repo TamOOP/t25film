@@ -4,22 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.huce.t25film.R;
 import com.huce.t25film.databinding.ActivityLogin1Binding;
 import com.huce.t25film.viewmodels.LoginViewModel;
 
 public class Login1Activity extends AppCompatActivity {
-    private Button btnRegister,btnLogin;
-    private EditText emailEdit,passEdit;
     private ActivityLogin1Binding binding;
-
+    private LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +24,16 @@ public class Login1Activity extends AppCompatActivity {
         // hien thi view
         binding = ActivityLogin1Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//        initView();
 
-        LoginViewModel loginViewModel = new LoginViewModel();
-        // xac dinh viewmodel cho view
-        binding.setViewModel(loginViewModel);
-
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = binding.txtEmail.getText().toString();
+                String pass = binding.txtPassword.getText().toString();
+                loginViewModel.onLoginClicked(email, pass);
+            }
+        });
         // quan sat du lieu api gui ve
         loginViewModel.getAllUsers().observe(this, users
                 -> loginViewModel.checkLoginInfo(users));
@@ -41,14 +42,17 @@ public class Login1Activity extends AppCompatActivity {
         loginViewModel.getMessage().observe(this, message
                 -> Toast.makeText(Login1Activity.this, message, Toast.LENGTH_SHORT).show());
 
+        loginViewModel.getLoad().observe(this, load
+                -> binding.progressBar.setVisibility(load));
+
         //quan sat livedata isLogin
         loginViewModel.getIsLogin().observe(this, isLogin -> {
             if(isLogin){
                 // chuyen view
-                Intent loginIntent = new Intent(Login1Activity.this, HomeActivity.class);
+                Intent homeIntent = new Intent(Login1Activity.this, BookingActivity.class);
                 // send uid
-                loginIntent.putExtra("uid", loginViewModel.getUser().getId());
-                startActivity(loginIntent);
+//                homeIntent.putExtra("uid", loginViewModel.getUser().getId());
+                startActivity(homeIntent);
                 //destroy activity
                 finish();
             }

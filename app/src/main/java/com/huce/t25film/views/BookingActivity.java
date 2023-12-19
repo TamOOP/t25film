@@ -1,183 +1,81 @@
 package com.huce.t25film.views;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.huce.t25film.Adapters.SeatAdapter;
-import com.huce.t25film.model.FilmItem;
-import com.huce.t25film.model.Seat;
 import com.huce.t25film.R;
+import com.huce.t25film.databinding.ActivityBookingBinding;
+import com.huce.t25film.model.Seat;
+import com.huce.t25film.viewmodels.BookingViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookingActivity extends AppCompatActivity implements SeatAdapter.OnSeatClickListener {
-    private RequestQueue mRequestQueue;
-    private StringRequest mStringRequest;
+public class BookingActivity extends AppCompatActivity{
+    private int cinemaId, showId;
+    private ActivityBookingBinding binding;
     private RecyclerView recyclerViewSeats;
-    private ProgressBar progressBar;
-    private TextView titleTxt,movieTimeTxt,txtSeat;
-    private int idFilm;
-    private ImageView imgDetail,backImg;
-    private NestedScrollView scrollView;
 
-    private List<Seat> seatList;
+    private List<Seat> seats = new ArrayList<>();
     private SeatAdapter seatAdapter;
-    private List<Integer> selectedSeatPositions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_booking);
+        binding = ActivityBookingBinding.inflate(getLayoutInflater());
 
-        //idFilm=getIntent().getIntExtra("id",0);
-        initView();
-        sendRequest();
+        setContentView(binding.getRoot());
 
+//        cinemaId = this.getIntent().getIntExtra("cinemaId", 0);
+//        showId = this.getIntent().getIntExtra("showId", 0);
+//        binding.movieName.setText(getIntent().getStringExtra("name"));
+//        binding.runTime.setText(getIntent().getStringExtra("runtime"));
+//        binding.showTime.setText(getIntent().getStringExtra("day_of_week")+" "
+//                +getIntent().getStringExtra("date")+" "
+//                +getIntent().getStringExtra("time"));
+        cinemaId = 2;
+        showId = 3;
 
-        // Nhận thông tin về phim từ Intent
-//        Intent intent = getIntent();
-//        //if (intent.hasExtra("movie")) {
-//            showtimeTextView.setText("Showtime: 2:00 PM");
-//
-//            // Tạo danh sách ghế ngồi
-//            seatList = generateSeatList();
-//            seatAdapter = new SeatAdapter(seatList, this);
-//            recyclerViewSeats.setLayoutManager(new GridLayoutManager(this, 5));
-//            recyclerViewSeats.setAdapter(seatAdapter);
-//            Toast.makeText(BookingActivity.this, "" + recyclerViewSeats, Toast.LENGTH_SHORT).show();
-//
-//            // Xử lý sự kiện khi người dùng xác nhận đặt vé
-//            btnConfirmBooking.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    // Xử lý logic đặt vé
-//                    // TODO: Implement booking logic
-//                    Toast.makeText(BookingActivity.this, "Booking confirmed!", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        //}
-    }
-
-    private void sendRequest() {
-        mRequestQueue = Volley.newRequestQueue(this);
-        progressBar.setVisibility(View.VISIBLE);
-        scrollView.setVisibility(View.GONE);
-
-        mStringRequest = new StringRequest(Request.Method.GET, "https://moviesapi.ir/api/v1/movies/" + 1, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Gson gson = new Gson();
-                progressBar.setVisibility(View.GONE);
-                scrollView.setVisibility(View.VISIBLE);
-
-                FilmItem item = gson.fromJson(response,FilmItem.class);
+        BookingViewModel bookingViewModel = new BookingViewModel();
+        binding.navBar.setVisibility(View.GONE);
 
 
-
-                //item coi như là FilmItem gọi ra
-                Glide.with(BookingActivity.this)
-                        .load(item.getPoster())
-                        .into(imgDetail);
-
-                titleTxt.setText(item.getTitle());
-                movieTimeTxt.setText(item.getRuntime());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
-        mRequestQueue.add(mStringRequest);
-    }
-
-    private void initView() {
-        titleTxt=findViewById(R.id.movieNameDetailsTxt);
-        progressBar=findViewById(R.id.progressBarSeats);
-        scrollView=findViewById(R.id.scrollViewDetails);
-        imgDetail=findViewById(R.id.imgFilmDetails);
-        movieTimeTxt=findViewById(R.id.movieTimeDetails);
-        backImg=findViewById(R.id.btnBackSeats);
-        recyclerViewSeats=findViewById(R.id.recyclerviewViewSeats);
-        txtSeat=findViewById(R.id.txtSeat);
-        //recyclerViewSeats.setLayoutManager(new GridLayoutManager(this, 5));
-        //recyclerViewSeats.setAdapter(seatAdapter);
-        //seatList = generateSeatList();
-        seatAdapter = new SeatAdapter(seatList, this);
-        recyclerViewSeats.setLayoutManager(new GridLayoutManager(this, 10));
-        recyclerViewSeats.setAdapter(seatAdapter);
-
-
-        backImg.setOnClickListener(new View.OnClickListener() {
+        binding.btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+
             }
         });
-    }
 
-    @Override
-    public void onSeatClick(Seat seat) {
-//        // Xử lý sự kiện khi người dùng chọn một ghế ngồi
-//        // TODO: Implement seat selection logic
-//        if (seat.isBooked()){
-//            Toast.makeText(this, "Seat đã được chọn: ", Toast.LENGTH_SHORT).show();
-//        }else{
-//            seat.setSelected(!seat.isSelected());
-//            seatAdapter.notifyDataSetChanged();
-//            if (seat.isSelected()){
-//                //Toast.makeText(this, "Seat selected: " + seat.getSeatNumber(), Toast.LENGTH_SHORT).show();
-//                txtSeat.setText(seat.getSeatNumber());
-//            } else if (!seat.isSelected()) {
-//                //Toast.makeText(this, "Seat bi huy: " + seat.getSeatNumber(), Toast.LENGTH_SHORT).show();
-//                txtSeat.setText("Trống");
-//            }
-//        }
-////        if (!seat.isBooked()) {
-//////            int seatPosition = getAdapterPosition();
-//////            // Nếu ghế đã được chọn thì bỏ chọn, ngược lại chọn ghế đó
-//////            if (selectedSeatPositions.contains(seatPosition)) {
-//////                selectedSeatPositions.remove(Integer.valueOf(seatPosition));
-//////            } else {
-//////                selectedSeatPositions.add(seatPosition);
-//////                seat.setSelected(true);
-//////            }
-////
-////            // Cập nhật trạng thái cho Adapter
-////            seatAdapter.setSelectedSeatPositions(selectedSeatPositions);
-////
-////            // Hiển thị thông báo khi một ghế được chọn hoặc bỏ chọn
-////            String message = seat.isSelected() ? "Seat " + seat.getSeatNumber() + " selected" :
-////                    "Seat " + seat.getSeatNumber() + " deselected";
-////            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
-//
-//    private List<Seat> generateSeatList() {
-//        // Logic để tạo danh sách ghế ngồi
-//        List<Seat> seatList = new ArrayList<>();
-//        for (int i = 1; i <= 50; i++) {
-//            seatList.add(new Seat("A" + i, i % 5 == 0)); // Mỗi ghế thứ 5 được đặt chỗ
-//        }
-//        return seatList;
-//    }
+        bookingViewModel.getCinemaInfo(cinemaId, showId).observe(this, cinemaResource->{
+            if(cinemaResource.getStatus().equals("success")){
+                binding.progressBarBooking.setVisibility(View.GONE);
+                seats.addAll(cinemaResource.getCinema().getSeats());
+                seatAdapter = new SeatAdapter(this, this.seats, bookingViewModel);
+                recyclerViewSeats = findViewById(R.id.recyclerviewViewSeats);
+                recyclerViewSeats.setLayoutManager(new GridLayoutManager(this, cinemaResource.getCinema().getSeatPerRow()));
+                recyclerViewSeats.setAdapter(seatAdapter);
+
+            }
+            else{
+                Toast.makeText(this, "Không tìm thấy xuất chiếu hoặc phòng chiếu", Toast.LENGTH_SHORT);
+            }
+        });
+
+        bookingViewModel.getSeatSelected().observe(this, seatSelected->{
+            if(bookingViewModel.getTotalPrice() == 0){
+                binding.navBar.setVisibility(View.GONE);
+            }else{
+                binding.navBar.setVisibility(View.VISIBLE);
+                binding.txtSeatData.setText(bookingViewModel.getSeatNameSelected());
+                binding.txtTotalData.setText(String.format("%,d", bookingViewModel.getTotalPrice()));
+            }
+        });
     }
 }

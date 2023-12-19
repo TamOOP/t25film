@@ -4,6 +4,8 @@ package com.huce.t25film.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Cinema {
 
     @SerializedName("id")
@@ -18,9 +20,25 @@ public class Cinema {
     @SerializedName("seat_per_row")
     @Expose
     private Integer seatPerRow;
-    @SerializedName("deleted")
-    @Expose
-    private Integer deleted;
+
+    @SerializedName("seats")
+    private List<Seat> seats;
+
+    public Cinema(Integer id, String name, Integer amountOfSeat, Integer seatPerRow, List<Seat> seats) {
+        this.id = id;
+        this.name = name;
+        this.amountOfSeat = amountOfSeat;
+        this.seatPerRow = seatPerRow;
+        this.seats = seats;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
+    }
 
     public Integer getId() {
         return id;
@@ -52,13 +70,6 @@ public class Cinema {
 
     public void setSeatPerRow(Integer seatPerRow) {
         this.seatPerRow = seatPerRow;
-    }
-    public Integer getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
     }
 
 }

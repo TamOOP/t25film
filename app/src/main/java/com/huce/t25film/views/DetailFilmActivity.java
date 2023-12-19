@@ -1,8 +1,5 @@
 package com.huce.t25film.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,11 +9,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+
 import com.bumptech.glide.Glide;
+import com.huce.t25film.R;
 import com.huce.t25film.api.FilmService;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.resources.FilmResource;
-import com.huce.t25film.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -157,7 +157,7 @@ public class DetailFilmActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progressBarDetail);
         scrollView=findViewById(R.id.scrollViewDetails);
         imgDetail=findViewById(R.id.imgFilmDetails);
-        movieTimeTxt=findViewById(R.id.movieTimeDetails);
+        movieTimeTxt=findViewById(R.id.showTime);
         movieSummaryInfo=findViewById(R.id.movieSummery);
         movieActorsInfo=findViewById(R.id.movieActorInfo);
         backImg=findViewById(R.id.btnBack);

@@ -1,12 +1,5 @@
 package com.huce.t25film.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,20 +7,18 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.volley.Request;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-import com.huce.t25film.Adapters.ActorListAdapter;
 import com.huce.t25film.Adapters.DateListAdapter;
+import com.huce.t25film.R;
 import com.huce.t25film.api.FilmService;
 import com.huce.t25film.api.RetrofitBuilder;
-import com.huce.t25film.model.FilmItem;
-import com.huce.t25film.R;
 import com.huce.t25film.model.Show;
 import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.resources.ShowDateResource;
@@ -35,10 +26,8 @@ import com.huce.t25film.resources.ShowDateResourceSort;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -208,7 +197,7 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progressBarDetail);
         scrollView=findViewById(R.id.scrollViewDetails);
         imgDetail=findViewById(R.id.imgFilmDetails);
-        movieTimeTxt=findViewById(R.id.movieTimeDetails);
+        movieTimeTxt=findViewById(R.id.showTime);
         backImg=findViewById(R.id.btnBack);
         recyclerViewHours=findViewById(R.id.recyclerviewHour);
         //recyclerViewHours.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));

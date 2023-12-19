@@ -56,6 +56,7 @@ public class LoginRepository {
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
                 Log.e("error", t.getMessage());
+                getAllUsers();
             }
         });
 

@@ -1,24 +1,22 @@
 package com.huce.t25film.viewmodels;
 
 import android.util.Patterns;
+import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-import com.huce.t25film.BR;
 import com.huce.t25film.model.User;
 import com.huce.t25film.repository.LoginRepository;
 
 import java.util.List;
 
-public class LoginViewModel extends BaseObservable {
+public class LoginViewModel extends ViewModel {
     private User user = new User();
-    private int load = 8;
+    private MutableLiveData<Integer> load;
     private MutableLiveData<String> message;
-    private MutableLiveData<Boolean> isLogin = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isLogin;
 
     public LoginViewModel() {}
 
@@ -30,47 +28,25 @@ public class LoginViewModel extends BaseObservable {
         this.user = user;
     }
 
-    public MutableLiveData<Boolean> getIsLogin(){
+    public LiveData<Boolean> getIsLogin(){
+        if(isLogin == null){
+            isLogin = new MutableLiveData<>(Boolean.FALSE);
+        }
         return isLogin;
     }
 
-    public MutableLiveData<String> getMessage(){
+    public LiveData<String> getMessage(){
         if(message == null){
             message = new MutableLiveData<>();
         }
         return message;
     }
 
-    @Bindable
-    public int getLoad() {
+    public LiveData<Integer> getLoad(){
+        if(load == null){
+            load = new MutableLiveData<>(View.GONE);
+        }
         return load;
-    }
-
-    public void setLoad(int load) {
-        this.load = load;
-        notifyPropertyChanged(BR.load);
-    }
-
-    @Bindable
-    @NonNull
-    public String getUserEmail() {
-        return user.getEmail();
-    }
-
-    public void setUserEmail(@NonNull String email) {
-        user.setEmail(email);
-        notifyPropertyChanged(BR.userEmail);
-    }
-
-    @Bindable
-    @NonNull
-    public String getUserPassword() {
-        return user.getPassword();
-    }
-
-    public void setUserPassword(@NonNull String password) {
-        user.setPassword(password);
-        notifyPropertyChanged(BR.userPassword);
     }
 
     public LiveData<List<User>> getAllUsers(){
@@ -83,25 +59,26 @@ public class LoginViewModel extends BaseObservable {
         for(User user: users){
             if(user.getEmail().equals(this.user.getEmail()) &&
                     user.getPassword().equals(this.user.getPassword())){
-                setUser(user);
+                this.user = user;
                 isLogin.setValue(Boolean.TRUE);
-                setLoad(8);
+                load.setValue(View.GONE);
                 return;
             }
         }
         message.setValue("Tài khoản hoặc mật khẩu không đúng");
         // hide progress bar
-        setLoad(8);
     }
 
-    public void onLoginClicked(){
-        if(user.getEmail() == null || user.getPassword() == null)
-            message.setValue("Hãy nhập đủ thông tin");
-        else if(!isEmailValid(user.getEmail()))
+    public void onLoginClicked(String email, String password){
+        if(email == null || password == null)
+            message.setValue("Hãy nhập đủ tài khoản và mật khẩu");
+        else if(!isEmailValid(email))
             message.setValue("Email không đúng định dạng");
         else{
+            user.setPassword(password);
+            user.setEmail(email);
             // hien thi progress bar
-            setLoad(0);
+            load.setValue(View.VISIBLE);
             getAllUsers();
         }
     }
