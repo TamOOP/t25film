@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
@@ -23,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.huce.t25film.Adapters.CalendarFilmListAdapter;
 import com.huce.t25film.Adapters.FilmListAdapter;
 import com.huce.t25film.Adapters.KMListAdapter;
 import com.huce.t25film.Adapters.PromotionListAdapter;
@@ -35,6 +37,9 @@ import com.huce.t25film.model.ListFilm;
 import com.huce.t25film.model.Promotion;
 import com.huce.t25film.model.SilderItems;
 import com.huce.t25film.R;
+import com.huce.t25film.resources.ShowResource;
+import com.huce.t25film.viewmodels.CalendarFilm3FragmentViewModel;
+import com.huce.t25film.viewmodels.KmFragmentViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +52,8 @@ public class KmFragment extends Fragment {
     private RecyclerView.Adapter adapterKM;
     private RecyclerView recyclerViewKM;
     private ProgressBar loading;
+    private KmFragmentViewModel KmFragmentViewModel;
+
 
 
     @Override
@@ -60,49 +67,25 @@ public class KmFragment extends Fragment {
         recyclerViewKM.setLayoutManager(new GridLayoutManager(requireContext(),2));
         loading=view.findViewById(R.id.progressBarKM);
 
-
         sendRequest();
 
 
         return view;
     }
     private void sendRequest(){
-        // Khởi tạo Retrofit Client
-        Retrofit retrofit = RetrofitBuilder.buildRetrofit();
-        PromotionService promotionService = retrofit.create(PromotionService.class);
+        KmFragmentViewModel = new KmFragmentViewModel();
 
-        // Gọi API
-        Call<List<Promotion>> call = promotionService.getListPromotions();
-        call.enqueue(new Callback<List<Promotion>>() {
-
+        // Quan sát LiveData để cập nhật UI khi có dữ liệu mới
+        KmFragmentViewModel.getKmLiveData().observe(getViewLifecycleOwner(), new Observer<List<Promotion>>() {
             @Override
-            public void onResponse(Call<List<Promotion>> call, retrofit2.Response<List<Promotion>> response) {
-                if (response.isSuccessful()) {
-                    // Ẩn loading khi nhận được dữ liệu
-                    loading.setVisibility(View.GONE);
+            public void onChanged(List<Promotion> kmResource) {
+                // Cập nhật dữ liệu trong Adapter và thông báo thay đổi
+                adapterKM=new PromotionListAdapter(kmResource);
+                adapterKM.notifyDataSetChanged();
 
-                    // Lấy đối tượng ListFilm từ response.body()
-                    List<Promotion> items = response.body();
-
-
-                    // Tạo Adapter và thiết lập RecyclerView
-                    adapterKM = new PromotionListAdapter(items);
-                    recyclerViewKM.setAdapter(adapterKM);
-                } else {
-
-                    // Xử lý khi phản hồi không thành công
-                    //int statusCode = response.code();
-                    //String errorBody = response.errorBody().string();
-                    Log.e("Error", "Status Code: ");
-                    // ...
-                }
+                loading.setVisibility(View.GONE);
+                recyclerViewKM.setAdapter(adapterKM);
             }
-
-            @Override
-            public void onFailure(Call<List<Promotion>> call, Throwable t) {
-
-            }
-
         });
     }
 

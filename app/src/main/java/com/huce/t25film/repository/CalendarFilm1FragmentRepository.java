@@ -38,32 +38,4 @@ public class CalendarFilm1FragmentRepository {
         }
         showService = retrofit.create(ShowService.class);
     }
-
-    // fetch api va xu ly
-    public MutableLiveData<ShowResource> getShow(String findbyDate,OnShowCallback onShowtCallback){
-        Call<ShowResource> _showCall = showService.getShowsId(findbyDate);
-
-        // call async api
-        _showCall.enqueue(new Callback<ShowResource>() {
-            @Override
-            public void onResponse(Call<ShowResource> call, Response<ShowResource> response) {
-                // parse json sang POJO object
-                ShowResource ShowResource = response.body();
-
-                // thay doi du lieu cua live data
-                showLiveData.setValue(ShowResource);
-            }
-
-            @Override
-            public void onFailure(Call<ShowResource> call, Throwable t) {
-                Log.e("error", t.getMessage());
-            }
-        });
-
-        return showLiveData;
-    }
-    public interface OnShowCallback {
-        void onSuccess(ShowResource ShowResource);
-        void onError(String errorMessage);
-    }
 }

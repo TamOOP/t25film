@@ -37,6 +37,7 @@ public class HomeActivity extends AppCompatActivity{
 //            }
 //        });
 
+
         viewPager = findViewById(R.id.view_pager);
         bottomNavigation = findViewById(R.id.bottom_navigation);
 

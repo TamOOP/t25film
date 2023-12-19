@@ -20,6 +20,7 @@ import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.R;
 import com.huce.t25film.views.DetailFilmActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilmListAdapter extends RecyclerView.Adapter<FilmListAdapter.ViewHolder> {

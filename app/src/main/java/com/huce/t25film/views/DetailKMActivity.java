@@ -2,6 +2,7 @@ package com.huce.t25film.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
+import androidx.lifecycle.Observer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.model.Promotion;
 import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.resources.PromotionResource;
+import com.huce.t25film.viewmodels.DetailFilmViewModel;
+import com.huce.t25film.viewmodels.DetailKmViewModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +33,7 @@ public class DetailKMActivity extends AppCompatActivity {
     private int id;
     private ImageView imgDetail,backImg;
     private NestedScrollView scrollView;
+    DetailKmViewModel DetailKmViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,55 +45,30 @@ public class DetailKMActivity extends AppCompatActivity {
     }
 
     private void sendRequest() {
-        //mRequestQueue = Volley.newRequestQueue(this);
         progressBar.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.GONE);
-        // Khởi tạo Retrofit Client
-        Retrofit retrofit = RetrofitBuilder.buildRetrofit();
-        PromotionService filmService = retrofit.create(PromotionService.class);
 
-        // Gọi API
-        Call<PromotionResource> call = filmService.getPromotionsId(id);
-        call.enqueue(new Callback<PromotionResource>() {
+        DetailKmViewModel = new DetailKmViewModel(id);
 
+        // Quan sát LiveData để cập nhật UI khi có dữ liệu mới
+        DetailKmViewModel.getKmLiveData().observe(this, new Observer<PromotionResource>() {
             @Override
-            public void onResponse(Call<PromotionResource> call, retrofit2.Response<PromotionResource> response) {
-                if (response.isSuccessful()) {
-                    // Ẩn loading khi nhận được dữ liệu
-                    progressBar.setVisibility(View.GONE);
-                    scrollView.setVisibility(View.VISIBLE);
-
-
-                    // Lấy đối tượng ListFilm từ response.body()
-                    PromotionResource item = response.body();
-
-                    //item coi như là FilmItem gọi ra
-                    Glide.with(DetailKMActivity.this)
-                            .load(item.getPromotion().getImage())
-                            .into(imgDetail);
-
-                    titleTxt.setText(item.getPromotion().getTitle());
-                    contentTxt.setText(item.getPromotion().getDescription());
-                    codeTxt.setText("Mã code:"+item.getPromotion().getCode());
-                    DateStartTxt.setText("Ngày bắt đầu: "+item.getPromotion().getStartDate());
-                    DateEndTxt.setText("Ngày kết thúc: "+item.getPromotion().getEndDate());
-
-                } else {
-
-                    // Xử lý khi phản hồi không thành công
-                    //int statusCode = response.code();
-                    //String errorBody = response.errorBody().string();
-                    Log.e("Error", "Status Code: ");
-                    progressBar.setVisibility(View.GONE);
-                    // ...
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PromotionResource> call, Throwable t) {
+            public void onChanged(PromotionResource kmResource) {
+                // Cập nhật dữ liệu trong Adapter và thông báo thay đổi
                 progressBar.setVisibility(View.GONE);
-            }
+                scrollView.setVisibility(View.VISIBLE);
 
+                //item coi như là FilmItem gọi ra
+                Glide.with(DetailKMActivity.this)
+                        .load(kmResource.getPromotion().getImage())
+                        .into(imgDetail);
+
+                titleTxt.setText(kmResource.getPromotion().getTitle());
+                contentTxt.setText(kmResource.getPromotion().getDescription());
+                codeTxt.setText("Mã code:"+kmResource.getPromotion().getCode());
+                DateStartTxt.setText("Ngày bắt đầu: "+kmResource.getPromotion().getStartDate());
+                DateEndTxt.setText("Ngày kết thúc: "+kmResource.getPromotion().getEndDate());
+            }
         });
     }
 
