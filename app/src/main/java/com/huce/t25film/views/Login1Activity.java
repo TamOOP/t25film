@@ -49,7 +49,7 @@ public class Login1Activity extends AppCompatActivity {
         loginViewModel.getIsLogin().observe(this, isLogin -> {
             if(isLogin){
                 // chuyen view
-                Intent homeIntent = new Intent(Login1Activity.this, BookingActivity.class);
+                Intent homeIntent = new Intent(Login1Activity.this, HomeActivity.class);
                 // send uid
 //                homeIntent.putExtra("uid", loginViewModel.getUser().getId());
                 startActivity(homeIntent);
