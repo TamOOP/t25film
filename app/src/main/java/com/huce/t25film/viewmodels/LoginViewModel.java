@@ -1,5 +1,6 @@
 package com.huce.t25film.viewmodels;
 
+import android.content.Context;
 import android.util.Patterns;
 import android.view.View;
 
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.huce.t25film.model.User;
 import com.huce.t25film.repository.LoginRepository;
+import com.huce.t25film.repository.NetWorkConnection;
 
 import java.util.List;
 
@@ -17,7 +19,6 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<Integer> load;
     private MutableLiveData<String> message;
     private MutableLiveData<Boolean> isLogin;
-
     public LoginViewModel() {}
 
     public User getUser() {
@@ -49,7 +50,12 @@ public class LoginViewModel extends ViewModel {
         return load;
     }
 
-    public LiveData<List<User>> getAllUsers(){
+    public LiveData<List<User>> getAllUsers(Context context){
+        if(!NetWorkConnection.isNetworkAvailable(context)) {
+            message.setValue("Không có kết nối mạng, vui lòng thử lại");
+            load.setValue(View.GONE);
+            return new MutableLiveData<>();
+        }
         return LoginRepository.getInstance().getAllUsers();
     }
 
@@ -69,7 +75,7 @@ public class LoginViewModel extends ViewModel {
         // hide progress bar
     }
 
-    public void onLoginClicked(String email, String password){
+    public void onLoginClicked(Context context, String email, String password){
         if(email == null || password == null)
             message.setValue("Hãy nhập đủ tài khoản và mật khẩu");
         else if(!isEmailValid(email))
@@ -79,7 +85,7 @@ public class LoginViewModel extends ViewModel {
             user.setEmail(email);
             // hien thi progress bar
             load.setValue(View.VISIBLE);
-            getAllUsers();
+            getAllUsers(context);
         }
     }
 

@@ -23,7 +23,7 @@ public class DetailFilmActivity extends AppCompatActivity {
     private int id;
     private ImageView imgDetail,backImg;
     private NestedScrollView scrollView;
-    private Button btnHour;
+    private Button btnHour,btnBook;
     private DetailFilmViewModel DetailFilmViewModel;
 
 
@@ -50,6 +50,7 @@ public class DetailFilmActivity extends AppCompatActivity {
                 // Cập nhật dữ liệu trong Adapter và thông báo thay đổi
                     progressBar.setVisibility(View.GONE);
                     scrollView.setVisibility(View.VISIBLE);
+                    btnBook.setVisibility(View.VISIBLE);
 
 
                     //item coi như là FilmItem gọi ra
@@ -81,8 +82,10 @@ public class DetailFilmActivity extends AppCompatActivity {
         movieTimeTxt=findViewById(R.id.showTime);
         movieSummaryInfo=findViewById(R.id.movieSummery);
         movieActorsInfo=findViewById(R.id.movieActorInfo);
+        btnBook=findViewById(R.id.button2);
         backImg=findViewById(R.id.btnBack);
         btnHour=findViewById(R.id.button2);
+        btnBook.setVisibility(View.GONE);
         backImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

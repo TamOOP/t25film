@@ -37,6 +37,7 @@ public class BookingRepository {
     }
 
     public MutableLiveData<CinemaResource> getCinema(@NonNull int showId) {
+
         Call<CinemaResource> cinemaCall = cinemaService.getCinema(showId);
         cinemaCall.enqueue(new Callback<CinemaResource>() {
             @Override

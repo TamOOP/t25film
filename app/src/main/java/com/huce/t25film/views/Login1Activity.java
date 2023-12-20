@@ -32,11 +32,11 @@ public class Login1Activity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = binding.txtEmail.getText().toString();
                 String pass = binding.txtPassword.getText().toString();
-                loginViewModel.onLoginClicked(email, pass);
+                loginViewModel.onLoginClicked(Login1Activity.this, email, pass);
             }
         });
         // quan sat du lieu api gui ve
-        loginViewModel.getAllUsers().observe(this, users
+        loginViewModel.getAllUsers(this).observe(this, users
                 -> loginViewModel.checkLoginInfo(users));
 
         // quan sat livedata message
