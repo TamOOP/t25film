@@ -48,7 +48,7 @@ public class RegisterViewModel extends ViewModel {
         }
 
         if (!isValidPassword(registrationModel.getPassword())) {
-            validationError.setValue("Password không hợp lệ . Password - Ít nhất 8 ký tự  - Chứa ít nhất một chữ cái - Chứa ít nhất một chữ số");
+            validationError.setValue("Password-Ít nhất 8 ký tự-Chứa ít nhất một chữ cái-Chứa ít nhất một chữ số");
             return;
         }
         if (!isValidName(registrationModel.getName())) {
@@ -57,7 +57,7 @@ public class RegisterViewModel extends ViewModel {
         }
 
         if (!isValidPhoneNumber(registrationModel.getPhone())) {
-            validationError.setValue("Số điện thoại không hợp lệ. Số điện thoại - Chứa đúng 11 chữ số - Không chứa ký tự đặc biệt hoặc chữ cái");
+            validationError.setValue("SĐT-Chứa đúng 11 chữ số-Không chứa ký tự đặc biệt hoặc chữ cái");
             return;
         }
 

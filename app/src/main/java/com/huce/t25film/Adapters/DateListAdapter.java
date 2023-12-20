@@ -7,40 +7,39 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.huce.t25film.R;
-import com.huce.t25film.model.Show;
 import com.huce.t25film.resources.ShowDateResource;
 
 import java.util.List;
 
 public class DateListAdapter extends RecyclerView.Adapter<DateListAdapter.ViewHolder> {
-    List<ShowDateResource> items;
+    List<ShowDateResource> showByDates;
     Context context;
     @NonNull
     @Override
     public DateListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context=parent.getContext();
         View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_date,parent,false);
         return new DateListAdapter.ViewHolder(inflate);
     }
 
-    public DateListAdapter(List<ShowDateResource> items) {
-        this.items = items;
+    public DateListAdapter(Context context, List<ShowDateResource> showByDates) {
+        this.showByDates = showByDates;
+        this.context = context;
     }
 
     @Override
     public void onBindViewHolder(@NonNull DateListAdapter.ViewHolder holder, int position) {
-        holder.date.setText("Ngày "+items.get(position).getDate());
+        ShowDateResource showByDate = showByDates.get(position);
+        holder.date.setText("Ngày "+showByDate.getDate());
         //GridLayoutManager layoutManager = new GridLayoutManager(holder.itemView.getContext(), GridLayoutManager.HORIZONTAL, false);
         //holder.recyclerViewTime.setLayoutManager(new GridLayoutManager(holder.itemView.getContext(),1));
         //holder.recyclerViewTime.setLayoutManager(layoutManager);
 
         holder.recyclerViewTime.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL,false));
-        holder.adapterTime = new ActorListAdapter(items.get(position).getShows());
+        holder.adapterTime = new ActorListAdapter(context, showByDate.getShows());
 
         if (holder.adapterTime != null) {
             holder.recyclerViewTime.setAdapter(holder.adapterTime);
@@ -52,7 +51,7 @@ public class DateListAdapter extends RecyclerView.Adapter<DateListAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return showByDates.size();
     }
     public class ViewHolder extends  RecyclerView.ViewHolder{
         TextView date;

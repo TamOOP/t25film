@@ -1,5 +1,6 @@
 package com.huce.t25film.views;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,9 +22,17 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.huce.t25film.R;
+import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.ViewFilmPagerAdapter;
+import com.huce.t25film.api.RetrofitBuilder;
+import com.huce.t25film.api.UserService;
 import com.huce.t25film.model.UserDataHolder;
+import com.huce.t25film.resources.UserResource;
 import com.huce.t25film.viewmodels.HomeViewModel;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
 
 
 public class HomeFragment extends Fragment{
@@ -32,6 +41,9 @@ public class HomeFragment extends Fragment{
     private BottomNavigationView bottomNavigation;
     private DrawerLayout drawerLayout;
     private HomeViewModel viewModel;
+    private int uid;
+    TextView txtname;
+
 
 
 
@@ -57,6 +69,9 @@ public class HomeFragment extends Fragment{
 
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        uid = SharedReferenceData.getInstance().getInt(getActivity(),"uid");
+
+        txtname=view.findViewById(R.id.txtNameUserHome);
 
         viewPager = view.findViewById(R.id.viewpagerhome);
         bottomNavigation = view.findViewById(R.id.top_nav);
@@ -92,6 +107,7 @@ public class HomeFragment extends Fragment{
             }
 
         });
+        sendRequest();
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,6 +156,35 @@ public class HomeFragment extends Fragment{
 
         return view;
     }
+
+    private void sendRequest() {
+        Retrofit retrofit = RetrofitBuilder.buildRetrofit();
+        UserService userService = retrofit.create(UserService.class);
+
+        // Gọi API
+        Call<UserResource> call = userService.getUser(uid);
+        call.enqueue(new Callback<UserResource>() {
+
+            @Override
+            public void onResponse(Call<UserResource> call, retrofit2.Response<UserResource> response) {
+                if (response.isSuccessful()) {
+
+                    UserResource item = response.body();
+
+                    txtname.setText(item.getUser().getName());
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResource> call, Throwable t) {
+            }
+
+        });
+    }
+
     private void toggleDrawer() {
         if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
             drawerLayout.closeDrawer(GravityCompat.END);

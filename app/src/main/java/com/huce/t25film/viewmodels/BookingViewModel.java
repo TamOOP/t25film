@@ -17,8 +17,8 @@ import java.util.Map;
 public class BookingViewModel extends ViewModel {
     private LiveData<CinemaResource> cinemaResource = new MutableLiveData<>();
     private MutableLiveData<Map<String, Seat>> seatSelectStatus = new MutableLiveData<>();
-    public LiveData<CinemaResource> getCinemaInfo(@NonNull int cinemaId, @NonNull int showId){
-        cinemaResource = BookingRepository.getInstance().getCinema(cinemaId, showId);
+    public LiveData<CinemaResource> getCinemaInfo(@NonNull int showId){
+        cinemaResource = BookingRepository.getInstance().getCinema(showId);
         return cinemaResource;
     }
 

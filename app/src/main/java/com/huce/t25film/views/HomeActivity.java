@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.huce.t25film.R;
+import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.ViewPagerAdapter;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.api.UserService;
@@ -25,7 +26,7 @@ public class HomeActivity extends AppCompatActivity{
     private ViewPager2 viewPager;
     private BottomNavigationView bottomNavigation;
     private int uid;
-    UserDataHolder userDataHolder = UserDataHolder.getInstance();
+    //UserDataHolder userDataHolder = UserDataHolder.getInstance();
 
 
     @Override
@@ -33,8 +34,8 @@ public class HomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        uid = getIntent().getExtras().getInt("uid");
-        sendRequest();
+        //uid = getIntent().getExtras().getInt("uid");
+        //sendRequest();
 ////        uid = 11;
 //        HomeViewModel viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 //
@@ -106,37 +107,7 @@ public class HomeActivity extends AppCompatActivity{
         });
     }
 
-    private void sendRequest() {
-        Retrofit retrofit = RetrofitBuilder.buildRetrofit();
-        UserService userService = retrofit.create(UserService.class);
 
-        // Gọi API
-        Call<UserResource> call = userService.getUser(uid);
-        call.enqueue(new Callback<UserResource>() {
-
-            @Override
-            public void onResponse(Call<UserResource> call, retrofit2.Response<UserResource> response) {
-                if (response.isSuccessful()) {
-
-                    UserResource item = response.body();
-
-                    userDataHolder.setId(item.getUser().getId());
-                    userDataHolder.setName(item.getUser().getName());
-                    userDataHolder.setEmail(item.getUser().getEmail());
-                    userDataHolder.setPhone(item.getUser().getPhone());
-                    userDataHolder.setPassword(item.getUser().getPassword());
-
-                } else {
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserResource> call, Throwable t) {
-            }
-
-        });
-    }
 
 //        private ViewPager2 viewPager;
 //        private BottomNavigationView bottomNavigation;

@@ -25,18 +25,21 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="28dp"
             android:layout_toEndOf="@+id/btnMember"
-            android:text="Chào"
+            android:text="Xin Chào"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/txtNameUserHome"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
             android:layout_marginTop="28dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
             android:layout_toEndOf="@+id/textView2"
-            android:text="@string/txtnameMember"
+            android:text=""
             android:textColor="@color/main"
             android:textSize="15sp" />
 

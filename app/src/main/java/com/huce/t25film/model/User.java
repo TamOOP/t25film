@@ -14,6 +14,17 @@ public class User {
     @SerializedName("password")
     private String password;
 
+    public String getConfirmpassword() {
+        return Confirmpassword;
+    }
+
+    public void setConfirmpassword(String confirmpassword) {
+        Confirmpassword = confirmpassword;
+    }
+
+    @SerializedName("Confirmpassword")
+    private String Confirmpassword;
+
     public User (){}
     public User(int id, String email, String name, String phone, String password) {
         this.id = id;

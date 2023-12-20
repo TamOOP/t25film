@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.api.UserService;
+import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.databinding.ActivityLogin1Binding;
 import com.huce.t25film.model.UserDataHolder;
 import com.huce.t25film.resources.UserResource;
@@ -70,6 +72,7 @@ public class Login1Activity extends AppCompatActivity {
                 // send uid
                 homeIntent.putExtra("uid", loginViewModel.getUser().getId());
                 startActivity(homeIntent);
+                SharedReferenceData.getInstance().setInt(this,"uid",1);
                 //destroy activity
                 finish();
             }

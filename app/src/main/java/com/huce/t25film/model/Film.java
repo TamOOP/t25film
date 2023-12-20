@@ -6,8 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Film {
-
+public class Film{
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -87,7 +86,6 @@ public class Film {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
-
     public String getEndDate() {
         return endDate;
     }

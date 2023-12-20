@@ -18,13 +18,4 @@ public interface PromotionService {
     // get user theo id
     @GET("promotions/{id}")
     Call<PromotionResource> getPromotionsId(@Path("id") int id);
-
-//    @GET("films/find/showing")
-//    Call<List<Film>> getListFilmsDC();
-//
-//    @GET("films/find/upComing")
-//    Call<List<Film>> getListFilmsSC();
-//
-//    @GET("films/find/earlyShow")
-//    Call<List<Film>> getListFilmsSCS();
 }

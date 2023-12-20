@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".views.LSGDActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.DetailKMActivity"
             android:exported="false" />
         <activity
@@ -24,7 +27,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.HoursDetailFilmActivity"
+            android:name=".views.BookingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -52,15 +55,15 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.BookingActivity"
+            android:name=".views.HoursDetailFilmActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".views.Login1Activity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.T25Film"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.T25Film">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
