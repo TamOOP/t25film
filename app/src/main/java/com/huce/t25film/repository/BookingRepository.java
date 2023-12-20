@@ -36,8 +36,8 @@ public class BookingRepository {
         cinemaService = retrofit.create(CinemaService.class);
     }
 
-    public MutableLiveData<CinemaResource> getCinema(@NonNull int cinemaId, @NonNull int showId) {
-        Call<CinemaResource> cinemaCall = cinemaService.getCinema(cinemaId, showId);
+    public MutableLiveData<CinemaResource> getCinema(@NonNull int showId) {
+        Call<CinemaResource> cinemaCall = cinemaService.getCinema(showId);
         cinemaCall.enqueue(new Callback<CinemaResource>() {
             @Override
             public void onResponse(Call<CinemaResource> call, Response<CinemaResource> response) {
@@ -48,7 +48,7 @@ public class BookingRepository {
             @Override
             public void onFailure(Call<CinemaResource> call, Throwable t) {
                 Log.e("error", t.getMessage());
-                getCinema(cinemaId, showId);
+                getCinema(showId);
             }
         });
         return cinema;

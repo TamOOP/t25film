@@ -14,6 +14,10 @@ public class ShowDateResource {
     @Expose
     private String time;
 
+    @SerializedName("shows")
+    @Expose
+    private List<Show> shows;
+
     public String getTime() {
         return time;
     }
@@ -29,10 +33,6 @@ public class ShowDateResource {
     public void setShows(List<Show> shows) {
         this.shows = shows;
     }
-
-    @SerializedName("shows")
-    @Expose
-    private List<Show> shows;
 
     public void setDate(String date) {
         this.date = date;

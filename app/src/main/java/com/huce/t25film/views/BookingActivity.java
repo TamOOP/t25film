@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingActivity extends AppCompatActivity{
-    private int cinemaId, showId;
+    private int showId;
     private ActivityBookingBinding binding;
     private RecyclerView recyclerViewSeats;
 
@@ -35,16 +35,14 @@ public class BookingActivity extends AppCompatActivity{
 
         setContentView(binding.getRoot());
 
-        cinemaId = this.getIntent().getIntExtra("cinemaId", 0);
         showId = this.getIntent().getIntExtra("showId", 0);
         binding.movieName.setText(getIntent().getStringExtra("name"));
         binding.runTime.setText(getIntent().getStringExtra("runtime"));
         binding.showTime.setText(getIntent().getStringExtra("day_of_week")+" "
                 +getIntent().getStringExtra("date")+" "
                 +getIntent().getStringExtra("time"));
-        cinemaId = 2;
         showId = 3;
-        if(cinemaId == 0 && showId == 0) finish();
+        if( showId == 0) finish();
 
         BookingViewModel bookingViewModel = new BookingViewModel();
         binding.navBar.setVisibility(View.GONE);
@@ -66,7 +64,7 @@ public class BookingActivity extends AppCompatActivity{
             }
         });
 
-        bookingViewModel.getCinemaInfo(cinemaId, showId).observe(this, cinemaResource->{
+        bookingViewModel.getCinemaInfo(showId).observe(this, cinemaResource->{
             if(cinemaResource.getStatus().equals("success")){
                 binding.progressBarBooking.setVisibility(View.GONE);
                 seats.addAll(cinemaResource.getCinema().getSeats());

@@ -65,7 +65,7 @@ public class DetailFilmActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             Intent intent = new Intent(DetailFilmActivity.this, HoursDetailFilmActivity.class);
-                            intent.putExtra("showId",showResource.getFilm().getId());
+                            intent.putExtra("filmId",showResource.getFilm().getId());
                             startActivity(intent);
                         }
                     });

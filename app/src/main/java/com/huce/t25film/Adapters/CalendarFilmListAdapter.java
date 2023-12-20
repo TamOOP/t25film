@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.huce.t25film.model.ListFilm;
 import com.huce.t25film.R;
 import com.huce.t25film.resources.ShowResource;
 import com.huce.t25film.views.DetailFilmActivity;
@@ -30,7 +29,8 @@ public class CalendarFilmListAdapter extends RecyclerView.Adapter<CalendarFilmLi
 //    private RequestQueue mRequestQueue;
 //    private StringRequest mStringRequest;
 
-    public CalendarFilmListAdapter(ShowResource items) {
+    public CalendarFilmListAdapter(Context context, ShowResource items) {
+        this.context = context;
         this.items = items;
     }
 
@@ -66,7 +66,7 @@ public class CalendarFilmListAdapter extends RecyclerView.Adapter<CalendarFilmLi
 //            holder.recyclerViewMoviesHours.setAdapter(holder.adapterMoviesHours);
 //        }
         holder.recyclerViewMoviesHours.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL,false));
-        holder.adapterMoviesHours = new ActorListAdapter(items.getFilms().get(position).getShows());
+        holder.adapterMoviesHours = new ActorListAdapter(context, items.getFilms().get(position).getShows());
 
         if (holder.adapterMoviesHours != null) {
             holder.recyclerViewMoviesHours.setAdapter(holder.adapterMoviesHours);
