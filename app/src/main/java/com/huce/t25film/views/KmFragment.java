@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -37,6 +38,7 @@ import com.huce.t25film.model.ListFilm;
 import com.huce.t25film.model.Promotion;
 import com.huce.t25film.model.SilderItems;
 import com.huce.t25film.R;
+import com.huce.t25film.model.UserDataHolder;
 import com.huce.t25film.resources.ShowResource;
 import com.huce.t25film.viewmodels.CalendarFilm3FragmentViewModel;
 import com.huce.t25film.viewmodels.KmFragmentViewModel;
@@ -56,11 +58,12 @@ public class KmFragment extends Fragment {
 
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_km, container, false);
-
 
 
         recyclerViewKM=view.findViewById(R.id.recyclerviewKM);

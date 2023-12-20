@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.huce.t25film.R;
 import com.huce.t25film.ViewFilmPagerAdapter;
+import com.huce.t25film.model.UserDataHolder;
 import com.huce.t25film.viewmodels.HomeViewModel;
 
 
@@ -28,7 +30,6 @@ public class HomeFragment extends Fragment{
 
     private ViewPager2 viewPager;
     private BottomNavigationView bottomNavigation;
-
     private DrawerLayout drawerLayout;
     private HomeViewModel viewModel;
 

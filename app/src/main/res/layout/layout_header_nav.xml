@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nguyễn Thế Anh"
+        android:text="Xin chào quý khách"
         android:textSize="16sp"
         android:layout_marginTop="8dp"
         android:textColor="@color/white"
@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="anhnt@gmail.com"
+        android:text="Rất vui vì đã dùng ứng dụng chúng tôi"
         android:textSize="14sp"
         android:textColor="@color/white"
         />
