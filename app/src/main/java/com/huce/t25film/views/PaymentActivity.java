@@ -20,6 +20,7 @@ public class PaymentActivity extends AppCompatActivity {
     private int showId, cost;
     private int[] seatIds;
     private String seatNames;
+    private int discountPrice = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,14 +40,16 @@ public class PaymentActivity extends AppCompatActivity {
 
         binding.checkDiscount.setOnClickListener(view -> {
             String code = binding.txtCode.getText().toString();
+            if(code.isEmpty()) {
+                Toast.makeText(this, "Bạn chưa nhập mã", Toast.LENGTH_SHORT).show();
+            }
             viewModel.getPromotion(code).observe(this, promotion ->{
                 if (promotion == null) return;
                 int discount = viewModel.getDiscountPrice(code);
-                Log.e("discount", ""+discount);
                 if (discount == 0) return;
-                binding.discount.setText(String.format("%,d", discount * cost / 100) + "đ");
-                cost = cost - discount * cost / 100;
-                binding.totalPayment.setText(String.format("%,d", cost) + "đ");
+                discountPrice = discount * cost / 100;
+                binding.discount.setText(String.format("%,d", discountPrice) + "đ");
+                binding.totalPayment.setText(String.format("%,d", cost - discountPrice) + "đ");
             });
         });
         StringBuilder stringSeatIds = new StringBuilder();
@@ -63,16 +66,20 @@ public class PaymentActivity extends AppCompatActivity {
             Log.e("showId", showId+"");
             Log.e("cost", cost+"");
             viewModel.createTicket(SharedReferenceData.getInstance().getInt(this,"uid"),
-                    stringSeatIds.toString(), showId, cost).observe(this, ticketResource -> {
+                    stringSeatIds.toString(), showId, cost - discountPrice).observe(this, ticketResource -> {
 
                         if (ticketResource == null) return;
                         if (ticketResource.getStatus().equals("success")){
                             Toast.makeText(this,"Thanh toán thành công", Toast.LENGTH_SHORT).show();
                             Intent home = new Intent(this, HomeActivity.class);
+                            finish();
+                            viewModel.clearData();
                             startActivity(home);
                         }else{
                             Toast.makeText(this,"Có lỗi xảy ra", Toast.LENGTH_SHORT).show();
                             Intent home = new Intent(this, HomeActivity.class);
+                            finish();
+                            viewModel.clearData();
                             startActivity(home);
                         }
             });
@@ -87,6 +94,7 @@ public class PaymentActivity extends AppCompatActivity {
             Intent login = new Intent(this, Login1Activity.class);
             startActivity(login);
         }
+
     }
 
     @Override
@@ -94,6 +102,7 @@ public class PaymentActivity extends AppCompatActivity {
         super.onDestroy();
         binding = null;
         viewModel.clearSeatHold(seatIds, showId);
+        viewModel.clearData();
     }
 
     public void initView(){

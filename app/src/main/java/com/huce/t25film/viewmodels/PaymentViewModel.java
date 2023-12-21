@@ -1,5 +1,6 @@
 package com.huce.t25film.viewmodels;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.LiveData;
@@ -46,17 +47,12 @@ public class PaymentViewModel extends ViewModel {
     public void clearSeatHold(int[] seatIds, int showId){
         if (seatIds == null || showId == 0) return;
         for (int id: seatIds){
+            Log.e("seatId",id+"");
             SeatRepository.getInstance().updateSeat(id, 0, showId);
         }
     }
 
     public int getDiscountPrice(String code){
-        if (code.isEmpty()){
-            message.setValue("Bạn chưa nhập mã");
-            return 0;
-        }
-        load.setValue(View.VISIBLE);
-
         if (promotion.getValue() == null) {
             load.setValue(View.GONE);
             return 0;
@@ -79,5 +75,10 @@ public class PaymentViewModel extends ViewModel {
         ticket = TicketRepository.getInstance().createTicket(ticketPost);
         load.setValue(View.VISIBLE);
         return ticket;
+    }
+    public void clearData(){
+        ticket = new MutableLiveData<>(null);
+        if (promotion == null) return;
+        promotion.setValue(null);
     }
 }

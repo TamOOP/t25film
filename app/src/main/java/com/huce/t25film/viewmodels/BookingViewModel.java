@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -40,8 +39,12 @@ public class BookingViewModel extends ViewModel {
         return load;
     }
 
-    public LiveData<CinemaResource> getCinemaInfo(Context context, @NonNull int showId){
+    public LiveData<CinemaResource> getCinemaInfo(Context context, int showId){
         Log.e("call","called");
+        if (cinemaResource == null){
+            cinemaResource = new MutableLiveData<>();
+        }
+        cinemaResource.setValue(null);
         load.setValue(View.VISIBLE);
         if(!NetWorkConnection.isNetworkAvailable(context)) {
             message.setValue("Không có kết nối mạng, vui lòng thử lại");
@@ -51,7 +54,6 @@ public class BookingViewModel extends ViewModel {
         cinemaResource = BookingRepository.getInstance().getCinema(showId);
         return cinemaResource;
     }
-
 
     public LiveData<Map<String, Seat>> getSeatSelected(){
         return seatSelectStatus;
