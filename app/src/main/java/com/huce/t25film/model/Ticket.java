@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Ticket {
 
+    @SerializedName("id")
+    private int id;
     @SerializedName("user")
     @Expose
     private User user;
@@ -19,6 +21,14 @@ public class Ticket {
     @Expose
     private String cost;
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;

@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,10 +66,18 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
                         finish();
                         return;
                     }
-                    binding.movieNameDetailsTxt.setText(filmResource.getFilm().getName());
-                    binding.showTime.setText(filmResource.getFilm().getRuntime()+" phút");
+                    List<ShowDateResource> showtimeDateItems = convertToShowtimeDateItems(filmResource.getFilm().getShows());
+                    List<ShowDateResource> sortedShowtimeDateItems = ShowDateResourceSort.sortShowtimeDateItems(showtimeDateItems);
+
+                    this.showByDates.clear();
+                    this.showByDates.addAll(sortedShowtimeDateItems);
+                    adapterHours.notifyDataSetChanged();
+
+                    binding.movieNameDetailsTxt.setText(film.getName());
+                    binding.showTime.setText(film.getRuntime()+" phút");
+                    Glide.with(this).load(film.getImage()).into(binding.imgFilmDetails);
                 }else{
-                    Toast.makeText(this,filmResource.getMessage(), Toast.LENGTH_SHORT);
+                    Toast.makeText(this,filmResource.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {

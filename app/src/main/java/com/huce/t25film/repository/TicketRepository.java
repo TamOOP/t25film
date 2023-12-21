@@ -5,15 +5,10 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.huce.t25film.api.PromotionService;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.api.TicketService;
-import com.huce.t25film.model.Promotion;
-import com.huce.t25film.model.Ticket;
 import com.huce.t25film.model.TicketPost;
 import com.huce.t25film.resources.TicketResource;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,7 +16,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class TicketRepository {
-    private MutableLiveData<List<Ticket>> ticketLiveData = new MutableLiveData<>();
     private MutableLiveData<TicketResource> ticketResource;
     private static TicketRepository instance;
     private Retrofit retrofit;
@@ -42,6 +36,9 @@ public class TicketRepository {
         ticketService = retrofit.create(TicketService.class);
     }
     public MutableLiveData<TicketResource> createTicket(TicketPost ticketPost){
+        if (ticketResource == null){
+            ticketResource = new MutableLiveData<>();
+        }
         Call<TicketResource> call = ticketService.createTicket(ticketPost);
         call.enqueue(new Callback<TicketResource>() {
             @Override
@@ -49,7 +46,7 @@ public class TicketRepository {
                 if (response.isSuccessful()){
                     ticketResource.setValue(response.body());
                 }else {
-                    Log.e("error seat repository", response.code()+"");
+                    Log.e("error ticket repository", response.code()+"");
                 }
             }
 

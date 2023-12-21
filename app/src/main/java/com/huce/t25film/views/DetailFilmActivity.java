@@ -19,14 +19,6 @@ import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.viewmodels.DetailFilmViewModel;
 
-<<<<<<< HEAD
-=======
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
->>>>>>> origin/ChangePassword
 public class DetailFilmActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView titleTxt,movieTimeTxt,movieSummaryInfo,movieActorsInfo;

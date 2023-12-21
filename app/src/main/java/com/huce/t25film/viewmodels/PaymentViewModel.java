@@ -72,6 +72,9 @@ public class PaymentViewModel extends ViewModel {
     }
 
     public LiveData<TicketResource> createTicket(int idtk, String idghe, int idshow, int cost){
+        if (ticket == null){
+            ticket = new MutableLiveData<>();
+        }
         TicketPost ticketPost = new TicketPost(idtk, idghe, idshow, cost);
         ticket = TicketRepository.getInstance().createTicket(ticketPost);
         load.setValue(View.VISIBLE);
