@@ -49,7 +49,7 @@ public class BookingActivity extends AppCompatActivity{
         binding.btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+//                Intent payment = new Intent(this, )
             }
         });
 
@@ -88,7 +88,7 @@ public class BookingActivity extends AppCompatActivity{
                         +show.getTime());
             }
             else{
-                Toast.makeText(this, "Không tìm thấy xuất chiếu hoặc phòng chiếu", Toast.LENGTH_SHORT);
+                Toast.makeText(this, "Không tìm thấy xuất chiếu hoặc phòng chiếu", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -73,7 +73,7 @@ public class BookingViewModel extends ViewModel {
             if(!seat.getIsChoosed()) continue;
             nameList.add(seat.getName());
         }
-        return String.join(", ", nameList);
+        return String.join(",", nameList);
     }
 
     public int getTotalPrice(){
