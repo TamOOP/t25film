@@ -24,8 +24,9 @@
                 android:id="@+id/imgFilmDetails"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:scaleType="centerCrop"
                 android:background="@drawable/bg_homefilm"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -78,7 +79,7 @@
                 android:text="TextView"
                 android:textColor="@color/black"
                 android:layout_marginTop="8dp"
-                android:textSize="20sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout"
@@ -89,12 +90,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
                 android:padding="8dp"
                 android:text="TextView"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
@@ -105,10 +106,8 @@
                 android:text="TextView"
                 android:textColor="#FA0404"
                 android:textSize="32sp"
-                android:lines="2"
-                android:maxLines="2"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.433"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgFilmDetails" />
 
@@ -117,11 +116,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="TextView"
-                android:textSize="16sp"
+                android:layout_marginTop="36dp"
                 android:padding="8dp"
-                android:layout_marginTop="16dp"
+                android:text="TextView"
                 android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtNameUserTicket" />
 
@@ -130,11 +129,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="TextView"
-                android:textSize="16sp"
+                android:layout_marginTop="36dp"
                 android:padding="8dp"
-                android:layout_marginTop="16dp"
+                android:text="TextView"
                 android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtDateTicket" />
 
@@ -143,24 +142,52 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="TextView"
-                android:textSize="16sp"
+                android:layout_marginTop="36dp"
                 android:padding="8dp"
-                android:layout_marginTop="16dp"
+                android:text="TextView"
                 android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtTimeTicket" />
+
             <TextView
                 android:id="@+id/txtCinemaTicket"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="TextView"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtNameUserTicket" />
+
+            <TextView
+                android:id="@+id/txtVuilong"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:text="Vui lòng đưa mã số này đến quâ vé T25Film để nhận vé của bạn"
+                android:layout_marginTop="8dp"
+                android:textSize="15sp"
+                android:lines="2"
+                android:maxLines="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtCodeTicket" />
+
+            <TextView
+                android:id="@+id/txtLuuy"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:text="Lưu ý: T25Film không chấp nhận hoàn tiền hoặc đổi vé đã thanh toán thành công trên ứng dụng"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:lines="2"
+                android:maxLines="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtVuilong" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,10 +23,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.huce.t25film.Adapters.FilmListAdapter;
 import com.huce.t25film.Adapters.FilmListSCAdapter;
 import com.huce.t25film.Adapters.SliderAdapters;
+import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.api.FilmService;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.model.Film;
@@ -98,7 +100,11 @@ public class SCFragment extends Fragment {
             }
         });
 
-        sendRequest();
+        if (NetworkUtils.isNetworkAvailable(requireContext())) {
+            sendRequest();
+        } else {
+            Toast.makeText(requireContext(), "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
     private void sendRequest(){

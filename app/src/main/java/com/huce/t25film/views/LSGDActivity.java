@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.huce.t25film.Adapters.PromotionListAdapter;
 import com.huce.t25film.Adapters.TicketListAdapter;
 import com.huce.t25film.R;
 import com.huce.t25film.SharedReferenceData;
+import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.model.Promotion;
 import com.huce.t25film.model.Ticket;
 import com.huce.t25film.viewmodels.KmFragmentViewModel;
@@ -54,7 +56,11 @@ public class LSGDActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
-        sendRequest();
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            sendRequest();
+        } else {
+            Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void sendRequest() {

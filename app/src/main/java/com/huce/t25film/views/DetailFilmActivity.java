@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
@@ -14,6 +15,7 @@ import androidx.lifecycle.Observer;
 
 import com.bumptech.glide.Glide;
 import com.huce.t25film.R;
+import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.viewmodels.DetailFilmViewModel;
 
@@ -36,10 +38,14 @@ public class DetailFilmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_film);
+        initView();
 
         id=getIntent().getIntExtra("id",0);
-        initView();
-        sendRequest();
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            sendRequest();
+        } else {
+            Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
     }
 
     //gọi yêu cầu lên API

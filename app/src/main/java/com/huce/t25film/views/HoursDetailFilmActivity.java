@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.huce.t25film.Adapters.DateListAdapter;
 import com.huce.t25film.SharedReferenceData;
+import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.databinding.ActivityHoursDetailFilmBinding;
 import com.huce.t25film.model.Show;
 import com.huce.t25film.resources.ShowDateResource;
@@ -38,28 +39,33 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityHoursDetailFilmBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        initView();
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            initView();
 
-        int filmId = getIntent().getIntExtra("filmId",0);
-        filmId = 2;
+            int filmId = getIntent().getIntExtra("filmId",0);
+            filmId = 2;
 
-        viewModel = new ViewModelProvider(this).get(HoursDetailFilmViewModel.class);
-        viewModel.getFilmResource(filmId).observe(this, filmResource -> {
-            if (filmResource == null) return;
-            if (filmResource.getStatus().equals("success")){
-                List<ShowDateResource> showtimeDateItems = convertToShowtimeDateItems(filmResource.getFilm().getShows());
-                List<ShowDateResource> sortedShowtimeDateItems = ShowDateResourceSort.sortShowtimeDateItems(showtimeDateItems);
+            viewModel = new ViewModelProvider(this).get(HoursDetailFilmViewModel.class);
+            viewModel.getFilmResource(filmId).observe(this, filmResource -> {
+                if (filmResource == null) return;
+                if (filmResource.getStatus().equals("success")){
+                    List<ShowDateResource> showtimeDateItems = convertToShowtimeDateItems(filmResource.getFilm().getShows());
+                    List<ShowDateResource> sortedShowtimeDateItems = ShowDateResourceSort.sortShowtimeDateItems(showtimeDateItems);
 
-                this.showByDates.clear();
-                this.showByDates.addAll(sortedShowtimeDateItems);
-                adapterHours.notifyDataSetChanged();
+                    this.showByDates.clear();
+                    this.showByDates.addAll(sortedShowtimeDateItems);
+                    adapterHours.notifyDataSetChanged();
 
-                binding.movieNameDetailsTxt.setText(filmResource.getFilm().getName());
-                binding.showTime.setText(filmResource.getFilm().getRuntime()+" phút");
-            }else{
-                Toast.makeText(this,filmResource.getMessage(), Toast.LENGTH_SHORT);
-            }
-        });
+                    binding.movieNameDetailsTxt.setText(filmResource.getFilm().getName());
+                    binding.showTime.setText(filmResource.getFilm().getRuntime()+" phút");
+                }else{
+                    Toast.makeText(this,filmResource.getMessage(), Toast.LENGTH_SHORT);
+                }
+            });
+        } else {
+            Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
+
 
 
     }

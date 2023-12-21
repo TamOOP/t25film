@@ -11,10 +11,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.huce.t25film.R;
 import com.huce.t25film.SharedReferenceData;
+import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.api.FilmService;
 import com.huce.t25film.api.PromotionService;
 import com.huce.t25film.api.RetrofitBuilder;
@@ -43,8 +45,15 @@ public class DetailKMActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_kmactivity);
 
         id=getIntent().getIntExtra("id",0);
+//        initView();
+//        sendRequest();
         initView();
-        sendRequest();
+
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            sendRequest();
+        } else {
+            Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void sendRequest() {
