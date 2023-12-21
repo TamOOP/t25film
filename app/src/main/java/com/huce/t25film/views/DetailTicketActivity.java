@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.huce.t25film.R;
 import com.huce.t25film.SharedReferenceData;
+import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.resources.PromotionResource;
 import com.huce.t25film.resources.TicketResource;
 import com.huce.t25film.viewmodels.DetailKmViewModel;
@@ -32,8 +34,15 @@ public class DetailTicketActivity extends AppCompatActivity {
 
         uid = SharedReferenceData.getInstance().getInt(this,"uid");
         id=getIntent().getIntExtra("id",0);
+//        initView();
+//        sendRequest();
         initView();
-        sendRequest();
+
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            sendRequest();
+        } else {
+            Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void sendRequest() {

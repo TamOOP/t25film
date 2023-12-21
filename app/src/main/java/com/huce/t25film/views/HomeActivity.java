@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.huce.t25film.R;
 import com.huce.t25film.SharedReferenceData;
+import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.ViewPagerAdapter;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.api.UserService;
@@ -52,45 +53,45 @@ public class HomeActivity extends AppCompatActivity{
         viewPager = findViewById(R.id.view_pager);
         bottomNavigation = findViewById(R.id.bottom_navigation);
 
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            // Khởi tạo và thiết lập adapter cho ViewPager2
+            ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle());
+            viewPager.setAdapter(adapter);
 
-        // Khởi tạo và thiết lập adapter cho ViewPager2
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle());
-        viewPager.setAdapter(adapter);
-
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                switch (position){
-                    case 0:
-                        bottomNavigation.getMenu().findItem(R.id.menu_home).setChecked(true);
-                        break;
-                    case 1:
-                        bottomNavigation.getMenu().findItem(R.id.menu_film).setChecked(true);
-                        break;
-                    case 2:
-                        bottomNavigation.getMenu().findItem(R.id.menu_km).setChecked(true);
-                        break;
+            viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    super.onPageSelected(position);
+                    switch (position){
+                        case 0:
+                            bottomNavigation.getMenu().findItem(R.id.menu_home).setChecked(true);
+                            break;
+                        case 1:
+                            bottomNavigation.getMenu().findItem(R.id.menu_film).setChecked(true);
+                            break;
+                        case 2:
+                            bottomNavigation.getMenu().findItem(R.id.menu_km).setChecked(true);
+                            break;
+                    }
                 }
-            }
-        });
-        // Xử lý sự kiện click trên BottomNavigationView
-        bottomNavigation.setOnNavigationItemSelectedListener(item -> {
-            if(item.getItemId()==R.id.menu_home){
-                viewPager.setCurrentItem(0, true);
-                return true;
-            }
-            else if(item.getItemId()==R.id.menu_film){
-                viewPager.setCurrentItem(1, true);
-                return true;
-            }
-            else if(item.getItemId()==R.id.menu_km){
-                viewPager.setCurrentItem(2, true);
-                return true;
-            }
-            else {
-                return false;
-            }
+            });
+            // Xử lý sự kiện click trên BottomNavigationView
+            bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+                if(item.getItemId()==R.id.menu_home){
+                    viewPager.setCurrentItem(0, true);
+                    return true;
+                }
+                else if(item.getItemId()==R.id.menu_film){
+                    viewPager.setCurrentItem(1, true);
+                    return true;
+                }
+                else if(item.getItemId()==R.id.menu_km){
+                    viewPager.setCurrentItem(2, true);
+                    return true;
+                }
+                else {
+                    return false;
+                }
 //            switch (item.getItemId()) {
 //                case R.id.menu_home:
 //                    viewPager.setCurrentItem(0, true);
@@ -104,7 +105,12 @@ public class HomeActivity extends AppCompatActivity{
 //                default:
 //                    return false;
 //            }
-        });
+            });
+        } else {
+            Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.huce.t25film.R;
 import com.huce.t25film.SharedReferenceData;
+import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.api.UserService;
 import com.huce.t25film.model.User;
@@ -43,9 +44,13 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         uid = SharedReferenceData.getInstance().getInt(this,"uid");
-
-        fetchuser(uid);
         initView();
+
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            fetchuser(uid);
+        } else {
+            Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

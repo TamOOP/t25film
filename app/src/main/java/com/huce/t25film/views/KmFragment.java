@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.huce.t25film.Adapters.PromotionListAdapter;
 import com.huce.t25film.Adapters.TicketListAdapter;
 import com.huce.t25film.SharedReferenceData;
+import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.model.Promotion;
 import com.huce.t25film.R;
 import com.huce.t25film.model.Ticket;
@@ -41,7 +43,11 @@ public class KmFragment extends Fragment {
         recyclerViewKM.setLayoutManager(new GridLayoutManager(requireContext(),2));
         loading=view.findViewById(R.id.progressBarKM);
 
-        sendRequest();
+        if (NetworkUtils.isNetworkAvailable(requireContext())) {
+            sendRequest();
+        } else {
+            Toast.makeText(requireContext(), "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
 
 
         return view;

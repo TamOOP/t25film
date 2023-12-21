@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.huce.t25film.R;
 import com.huce.t25film.SharedReferenceData;
+import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.api.UserService;
 import com.huce.t25film.model.User;
@@ -37,7 +38,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         uid = SharedReferenceData.getInstance().getInt(this,"uid");
 
-        initView();
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            initView();
+        } else {
+            Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
 
 
     }

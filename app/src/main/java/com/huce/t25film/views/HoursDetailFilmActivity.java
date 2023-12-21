@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.huce.t25film.Adapters.DateListAdapter;
 import com.huce.t25film.SharedReferenceData;
+import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.databinding.ActivityHoursDetailFilmBinding;
 import com.huce.t25film.model.Film;
 import com.huce.t25film.model.Show;
@@ -45,34 +46,37 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
         getIntent().putExtra("title","Xuất chiếu phim");
         binding = ActivityHoursDetailFilmBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        initView();
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            initView();
+            filmId = getIntent().getIntExtra("filmId",0);
 
-        filmId = getIntent().getIntExtra("filmId",0);
+            viewModel = new ViewModelProvider(this).get(HoursDetailFilmViewModel.class);
+            viewModel.getLoad().observe(this, load->
+                    binding.progressBarDetail.setVisibility(load));
+            viewModel.getMessage().observe(this, message ->
+                    Toast.makeText(this,message,Toast.LENGTH_SHORT).show());
 
-        viewModel = new ViewModelProvider(this).get(HoursDetailFilmViewModel.class);
-        viewModel.getLoad().observe(this, load->
-                binding.progressBarDetail.setVisibility(load));
-        viewModel.getMessage().observe(this, message ->
-                Toast.makeText(this,message,Toast.LENGTH_SHORT).show());
-
-        viewModel.getFilmResource(this, filmId).observe(this, filmResource -> {
-            if (filmResource == null) return;
-            binding.progressBarDetail.setVisibility(View.GONE);
-            binding.showTime.setVisibility(View.VISIBLE);
-            binding.txtManhinh.setVisibility(View.VISIBLE);
-            this.film = filmResource.getFilm();
-            if (filmResource.getStatus().equals("success")){
-                if(filmResource.getFilm().getShows() == null){
-                    Toast.makeText(this,"Các ngày gần nhất không có xuất chiếu", Toast.LENGTH_SHORT).show();
-                    finish();
-                    return;
+            viewModel.getFilmResource(this, filmId).observe(this, filmResource -> {
+                if (filmResource == null) return;
+                binding.progressBarDetail.setVisibility(View.GONE);
+                binding.showTime.setVisibility(View.VISIBLE);
+                binding.txtManhinh.setVisibility(View.VISIBLE);
+                this.film = filmResource.getFilm();
+                if (filmResource.getStatus().equals("success")){
+                    if(filmResource.getFilm().getShows() == null){
+                        Toast.makeText(this,"Các ngày gần nhất không có xuất chiếu", Toast.LENGTH_SHORT).show();
+                        finish();
+                        return;
+                    }
+                    binding.movieNameDetailsTxt.setText(filmResource.getFilm().getName());
+                    binding.showTime.setText(filmResource.getFilm().getRuntime()+" phút");
+                }else{
+                    Toast.makeText(this,filmResource.getMessage(), Toast.LENGTH_SHORT);
                 }
-                binding.movieNameDetailsTxt.setText(filmResource.getFilm().getName());
-                binding.showTime.setText(filmResource.getFilm().getRuntime()+" phút");
-            }else{
-                Toast.makeText(this,filmResource.getMessage(), Toast.LENGTH_SHORT);
-            }
-        });
+            });
+        } else {
+            Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
