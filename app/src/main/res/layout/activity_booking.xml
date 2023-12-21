@@ -16,39 +16,19 @@
         app:layout_constraintBottom_toBottomOf="@+id/scrollViewDetails"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/scrollViewDetails"
-        app:layout_constraintTop_toTopOf="@+id/backBar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/backBar"
+    <fragment
+        android:id="@+id/navigationBarFragment"
+        android:name="com.huce.t25film.views.NavBarFragment"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:background="@drawable/navbar"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/btnBackSeats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:padding="8dp"
-            android:src="@drawable/ic_back_button" />
-
-        <TextView
-            android:id="@+id/movieNameDetailsTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="end"
-            android:text="Đặt vé theo phim"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_navbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/MovieInfo"
@@ -57,15 +37,15 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backBar">
+        app:layout_constraintTop_toBottomOf="@+id/navigationBarFragment">
 
         <TextView
             android:id="@+id/movieName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

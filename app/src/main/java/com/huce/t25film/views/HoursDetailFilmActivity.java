@@ -40,6 +40,7 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getIntent().putExtra("title","Xuất chiếu phim");
         binding = ActivityHoursDetailFilmBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initView();
@@ -133,12 +134,6 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
         binding.recyclerviewHour.setAdapter(adapterHours);
         binding.showTime.setVisibility(View.GONE);
         binding.txtManhinh.setVisibility(View.GONE);
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
 

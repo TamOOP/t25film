@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Image View -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_seat_choosing"
+        android:scaleType="centerCrop"
+        android:contentDescription="Image" />
+
+        <!-- View to overlay and hide part of the image -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black"
+        android:contentDescription="Overlay" />
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

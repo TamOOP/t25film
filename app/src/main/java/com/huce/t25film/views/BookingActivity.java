@@ -34,11 +34,11 @@ public class BookingActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         Log.e("state","create");
         super.onCreate(savedInstanceState);
+        getIntent().putExtra("title","Đặt vé theo phim");
         binding = ActivityBookingBinding.inflate(getLayoutInflater());
-        this.setContentView(binding.getRoot());
+        setContentView(binding.getRoot());
 
         showId = this.getIntent().getIntExtra("showId", 0);
-
         if( showId == 0) finish();
 
         bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
@@ -50,13 +50,6 @@ public class BookingActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 //                Intent payment = new Intent(this, )
-            }
-        });
-
-        binding.btnBackSeats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
             }
         });
 
