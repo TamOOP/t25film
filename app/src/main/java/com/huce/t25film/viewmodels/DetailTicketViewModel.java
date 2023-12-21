@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.huce.t25film.api.PromotionService;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.api.TicketService;
-import com.huce.t25film.repository.DetailKmRepository;
 import com.huce.t25film.repository.DetailTicketRepository;
-import com.huce.t25film.repository.TicketRepository;
-import com.huce.t25film.resources.PromotionResource;
 import com.huce.t25film.resources.TicketResource;
 
 import retrofit2.Call;
@@ -64,7 +61,8 @@ public class DetailTicketViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<TicketResource> call, Throwable t) {
-
+                Log.e("Error", t.getMessage());
+                fetchkms(id, uid);
             }
 
         });

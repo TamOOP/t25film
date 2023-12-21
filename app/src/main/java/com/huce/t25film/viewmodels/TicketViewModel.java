@@ -7,15 +7,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.huce.t25film.Adapters.PromotionListAdapter;
 import com.huce.t25film.Adapters.TicketListAdapter;
-import com.huce.t25film.SharedReferenceData;
-import com.huce.t25film.api.PromotionService;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.api.TicketService;
-import com.huce.t25film.model.Promotion;
 import com.huce.t25film.model.Ticket;
-import com.huce.t25film.repository.KmFragmentRepository;
 import com.huce.t25film.repository.TicketRepository;
 
 import java.util.List;
@@ -69,7 +64,8 @@ public class TicketViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<Ticket>> call, Throwable t) {
-
+                Log.e("Error", t.getMessage());
+                fetchticket(uid);
             }
 
         });

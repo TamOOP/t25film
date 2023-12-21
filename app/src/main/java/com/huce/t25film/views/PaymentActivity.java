@@ -14,13 +14,12 @@ import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.databinding.ActivityPaymentBinding;
 import com.huce.t25film.viewmodels.PaymentViewModel;
 
-import java.util.Arrays;
-
 public class PaymentActivity extends AppCompatActivity {
     private ActivityPaymentBinding binding;
     private PaymentViewModel viewModel;
     private int showId, cost;
     private int[] seatIds;
+    private String seatNames;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,11 +49,22 @@ public class PaymentActivity extends AppCompatActivity {
                 binding.totalPayment.setText(String.format("%,d", cost) + "đ");
             });
         });
+        StringBuilder stringSeatIds = new StringBuilder();
+        for (int i = 0; i < seatIds.length; i++) {
+            stringSeatIds.append(seatIds[i]);
+            if (i < seatIds.length - 1) {
+                stringSeatIds.append(",");
+            }
+        }
 
         binding.btnPayment.setOnClickListener(view -> {
+            Log.e("seatId", stringSeatIds.toString());
+            Log.e("uid",SharedReferenceData.getInstance().getInt(this,"uid")+"");
+            Log.e("showId", showId+"");
+            Log.e("cost", cost+"");
             viewModel.createTicket(SharedReferenceData.getInstance().getInt(this,"uid"),
-                    Arrays.toString(seatIds),
-                    showId, cost).observe(this, ticketResource -> {
+                    stringSeatIds.toString(), showId, cost).observe(this, ticketResource -> {
+
                         if (ticketResource == null) return;
                         if (ticketResource.getStatus().equals("success")){
                             Toast.makeText(this,"Thanh toán thành công", Toast.LENGTH_SHORT).show();
@@ -91,13 +101,14 @@ public class PaymentActivity extends AppCompatActivity {
 
         cost =  data.getInt("cost");
         seatIds = data.getIntArray("seatIds");
+        seatNames = data.getString("seats");
         showId = data.getInt("showId");
         binding.movieName.setText(data.getString("name"));
         binding.runTime.setText(data.getString("runtime")+" phút");
         binding.cinemaName.setText(data.getString("cinemaName"));
         binding.date.setText(data.getString("date"));
         binding.time.setText(data.getString("time"));
-        binding.seat.setText(data.getString("seats"));
+        binding.seat.setText(seatNames);
         binding.totalPayment.setText(String.format("%,d",cost) + "đ");
         binding.totalPrice.setText(String.format("%,d", cost) + "đ");
         binding.discount.setText("0đ");

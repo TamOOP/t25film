@@ -5,18 +5,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.huce.t25film.R;
-import com.huce.t25film.model.Promotion;
 import com.huce.t25film.model.Ticket;
-import com.huce.t25film.views.DetailKMActivity;
 import com.huce.t25film.views.DetailTicketActivity;
 
 import java.util.List;
@@ -41,9 +36,9 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull TicketListAdapter.ViewHolder holder, int position) {
         //gọi API cho titleText với items.getData
-        holder.nameTxtLSGD.setText(items.get(position).getShow().getCinema().getName());
+        holder.nameTxtLSGD.setText("Phòng chiếu: " + items.get(position).getShow().getCinema().getName());
         holder.dateTxtLSGD.setText("Ngày: "+items.get(position).getShow().getDate());
-        holder.timeTxtLSGD.setText("Giờ đặt: "+items.get(position).getShow().getTime());
+        holder.timeTxtLSGD.setText("Giờ chiếu: "+items.get(position).getShow().getTime());
         holder.seatTxtLSGD.setText("Ghế: "+items.get(position).getSeat());
         holder.priceTxtLSGD.setText("Giá: "+items.get(position).getCost()+" VNĐ");
 
