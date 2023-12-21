@@ -1,27 +1,23 @@
 package com.huce.t25film.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.huce.t25film.Adapters.PromotionListAdapter;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.huce.t25film.Adapters.TicketListAdapter;
 import com.huce.t25film.R;
 import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.Utils.NetworkUtils;
-import com.huce.t25film.model.Promotion;
 import com.huce.t25film.model.Ticket;
-import com.huce.t25film.viewmodels.KmFragmentViewModel;
 import com.huce.t25film.viewmodels.TicketViewModel;
 
 import java.util.List;
@@ -60,6 +56,18 @@ public class LSGDActivity extends AppCompatActivity {
             sendRequest();
         } else {
             Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("state","start");
+        // kiem tra dang nhap
+        if(SharedReferenceData.getInstance().getInt(this,"uid") == 0){
+            Intent login = new Intent(this, Login1Activity.class);
+            startActivity(login);
+            finish();
         }
     }
 

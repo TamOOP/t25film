@@ -1,6 +1,5 @@
 package com.huce.t25film.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.huce.t25film.Adapters.DateListAdapter;
-import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.databinding.ActivityHoursDetailFilmBinding;
 import com.huce.t25film.model.Film;
@@ -88,12 +86,6 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // kiem tra dang nhap
-        Log.e("state","start");
-        if(SharedReferenceData.getInstance().getInt(this,"uid") == 0){
-            Intent login = new Intent(this, Login1Activity.class);
-            startActivity(login);
-        }
     }
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {

@@ -125,6 +125,7 @@ public class BookingActivity extends AppCompatActivity{
         if(SharedReferenceData.getInstance().getInt(this,"uid") == 0){
             Intent login = new Intent(this, Login1Activity.class);
             startActivity(login);
+            finish();
         }
     }
     @Override

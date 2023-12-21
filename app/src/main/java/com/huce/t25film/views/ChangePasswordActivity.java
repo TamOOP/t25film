@@ -1,10 +1,5 @@
 package com.huce.t25film.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,19 +7,16 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.huce.t25film.R;
 import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.Utils.NetworkUtils;
-import com.huce.t25film.api.RetrofitBuilder;
-import com.huce.t25film.api.UserService;
 import com.huce.t25film.model.User;
-import com.huce.t25film.resources.UserResource;
-import com.huce.t25film.viewmodels.AccountViewModel;
 import com.huce.t25film.viewmodels.ChangePasswordViewModel;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
 
 public class ChangePasswordActivity extends AppCompatActivity {
     ChangePasswordViewModel changePasswordViewModel;
@@ -45,6 +37,17 @@ public class ChangePasswordActivity extends AppCompatActivity {
         }
 
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("state","start");
+        // kiem tra dang nhap
+        if(SharedReferenceData.getInstance().getInt(this,"uid") == 0){
+            Intent login = new Intent(this, Login1Activity.class);
+            startActivity(login);
+            finish();
+        }
     }
 
 

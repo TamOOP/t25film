@@ -1,9 +1,5 @@
 package com.huce.t25film.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
-import androidx.lifecycle.Observer;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,24 +9,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+import androidx.lifecycle.Observer;
+
 import com.bumptech.glide.Glide;
 import com.huce.t25film.R;
 import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.Utils.NetworkUtils;
-import com.huce.t25film.api.FilmService;
-import com.huce.t25film.api.PromotionService;
-import com.huce.t25film.api.RetrofitBuilder;
-import com.huce.t25film.model.Promotion;
-import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.resources.PromotionResource;
-import com.huce.t25film.resources.TicketResource;
-import com.huce.t25film.viewmodels.DetailFilmViewModel;
 import com.huce.t25film.viewmodels.DetailKmViewModel;
-import com.huce.t25film.viewmodels.DetailTicketViewModel;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
 
 public class DetailKMActivity extends AppCompatActivity {
     private ProgressBar progressBar;
@@ -53,6 +41,18 @@ public class DetailKMActivity extends AppCompatActivity {
             sendRequest();
         } else {
             Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("state","start");
+        // kiem tra dang nhap
+        if(SharedReferenceData.getInstance().getInt(this,"uid") == 0){
+            Intent login = new Intent(this, Login1Activity.class);
+            startActivity(login);
+            finish();
         }
     }
 

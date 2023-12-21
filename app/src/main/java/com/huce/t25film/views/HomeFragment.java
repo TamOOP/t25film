@@ -1,6 +1,5 @@
 package com.huce.t25film.views;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +25,6 @@ import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.ViewFilmPagerAdapter;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.api.UserService;
-import com.huce.t25film.model.UserDataHolder;
 import com.huce.t25film.resources.UserResource;
 import com.huce.t25film.viewmodels.HomeViewModel;
 
@@ -97,6 +95,7 @@ public class HomeFragment extends Fragment{
                         startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
                     }
                     else if(item.getItemId()==R.id.nav_dangxuat){
+                        SharedReferenceData.getInstance().setInt(getActivity(), "uid", 0);
                         startActivity(new Intent(getActivity(), Login1Activity.class));
                     }
 
@@ -162,6 +161,7 @@ public class HomeFragment extends Fragment{
         UserService userService = retrofit.create(UserService.class);
 
         // Gọi API
+        if (uid == 0) return;
         Call<UserResource> call = userService.getUser(uid);
         call.enqueue(new Callback<UserResource>() {
 

@@ -1,10 +1,5 @@
 package com.huce.t25film.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,19 +7,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.huce.t25film.R;
 import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.api.UserService;
 import com.huce.t25film.model.User;
-import com.huce.t25film.model.UserDataHolder;
-import com.huce.t25film.resources.PromotionResource;
 import com.huce.t25film.resources.UserResource;
 import com.huce.t25film.viewmodels.AccountViewModel;
-import com.huce.t25film.viewmodels.DetailKmViewModel;
-import com.huce.t25film.viewmodels.RegisterViewModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,7 +49,19 @@ public class AccountActivity extends AppCompatActivity {
 
     }
 
-//    private void sendRequest() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e("state","start");
+        // kiem tra dang nhap
+        if(SharedReferenceData.getInstance().getInt(this,"uid") == 0){
+            Intent login = new Intent(this, Login1Activity.class);
+            startActivity(login);
+            finish();
+        }
+    }
+
+    //    private void sendRequest() {
 //
 //
 //        accountViewModel = new AccountViewModel(uid);
@@ -116,6 +123,7 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
     private void fetchuser(int id) {
+        if (id == 0) return;
         Retrofit retrofit = RetrofitBuilder.buildRetrofit();
         UserService userService = retrofit.create(UserService.class);
         // Gọi API
