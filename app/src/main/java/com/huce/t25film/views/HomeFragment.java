@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment{
                         startActivity(new Intent(getActivity(), AccountActivity.class));
                     }
                     else if(item.getItemId()==R.id.nav_lsgd){
-                        startActivity(new Intent(getActivity(), HistoryActivity.class));
+                        startActivity(new Intent(getActivity(), LSGDActivity.class));
                     }
                     else if(item.getItemId()==R.id.nav_tdmk){
                         startActivity(new Intent(getActivity(), ChangePasswordActivity.class));

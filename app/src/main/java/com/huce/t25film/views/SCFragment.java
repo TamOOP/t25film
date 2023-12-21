@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.huce.t25film.Adapters.FilmListAdapter;
+import com.huce.t25film.Adapters.FilmListSCAdapter;
 import com.huce.t25film.Adapters.SliderAdapters;
 import com.huce.t25film.api.FilmService;
 import com.huce.t25film.api.RetrofitBuilder;
@@ -108,7 +109,7 @@ public class SCFragment extends Fragment {
             @Override
             public void onChanged(List<Film> filmList) {
                 // Cập nhật dữ liệu trong Adapter và thông báo thay đổi
-                adapterMovies=new FilmListAdapter(filmList);
+                adapterMovies=new FilmListSCAdapter(filmList);
                 adapterMovies.notifyDataSetChanged();
 
                 loading.setVisibility(View.GONE);

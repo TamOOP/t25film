@@ -17,12 +17,7 @@ import com.huce.t25film.R;
 import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.viewmodels.DetailFilmViewModel;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
-public class DetailFilmActivity extends AppCompatActivity {
+public class DetailFilmSCActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView titleTxt,movieTimeTxt,movieSummaryInfo,movieActorsInfo;
     private int id;
@@ -58,7 +53,7 @@ public class DetailFilmActivity extends AppCompatActivity {
 
 
                     //item coi như là FilmItem gọi ra
-                    Glide.with(DetailFilmActivity.this)
+                    Glide.with(DetailFilmSCActivity.this)
                             .load(showResource.getFilm().getImage())
                             .into(imgDetail);
 
@@ -67,10 +62,11 @@ public class DetailFilmActivity extends AppCompatActivity {
                     movieSummaryInfo.setText(showResource.getFilm().getDescription());
                     movieActorsInfo.setText(showResource.getFilm().getActor());
 
+                    btnHour.setVisibility(View.GONE);
                     btnHour.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(DetailFilmActivity.this, HoursDetailFilmActivity.class);
+                            Intent intent = new Intent(DetailFilmSCActivity.this, HoursDetailFilmActivity.class);
                             intent.putExtra("filmId",showResource.getFilm().getId());
                             startActivity(intent);
                         }
