@@ -7,13 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.huce.t25film.api.FilmService;
 import com.huce.t25film.api.PromotionService;
 import com.huce.t25film.api.RetrofitBuilder;
-import com.huce.t25film.api.ShowService;
-import com.huce.t25film.repository.DetailFilmRepository;
 import com.huce.t25film.repository.DetailKmRepository;
-import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.resources.PromotionResource;
 
 import retrofit2.Call;
@@ -64,7 +60,8 @@ public class DetailKmViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<PromotionResource> call, Throwable t) {
-
+                Log.e("Error", t.getMessage());
+                fetchkms(id);
             }
 
         });

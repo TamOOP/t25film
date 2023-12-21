@@ -1,5 +1,6 @@
 package com.huce.t25film.api;
 
+import com.huce.t25film.model.SeatStatus;
 import com.huce.t25film.resources.SeatResource;
 
 import retrofit2.Call;
@@ -13,5 +14,5 @@ public interface SeatService {
     Call<SeatResource> getSeat(@Path("seatId") int seatId);
 
     @POST("seat/{seatId}")
-    Call<SeatResource> updateSeat(@Path("seatId") int seatId, @Body boolean isSelected, @Body int showId);
+    Call<SeatResource> updateSeat(@Path("seatId") int seatId, @Body SeatStatus status);
 }

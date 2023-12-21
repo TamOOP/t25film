@@ -1,6 +1,7 @@
 package com.huce.t25film.viewmodels;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.huce.t25film.model.Seat;
 import com.huce.t25film.repository.BookingRepository;
 import com.huce.t25film.repository.NetWorkConnection;
+import com.huce.t25film.repository.SeatRepository;
 import com.huce.t25film.resources.CinemaResource;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BookingViewModel extends ViewModel {
-    private MutableLiveData<CinemaResource> cinemaResource = new MutableLiveData<>();
+    private MutableLiveData<CinemaResource> cinemaResource;
     private MutableLiveData<Map<String, Seat>> seatSelectStatus = new MutableLiveData<>();
 
     private MutableLiveData<Integer> load;
@@ -39,6 +41,7 @@ public class BookingViewModel extends ViewModel {
     }
 
     public LiveData<CinemaResource> getCinemaInfo(Context context, @NonNull int showId){
+        Log.e("call","called");
         load.setValue(View.VISIBLE);
         if(!NetWorkConnection.isNetworkAvailable(context)) {
             message.setValue("Không có kết nối mạng, vui lòng thử lại");
@@ -76,6 +79,15 @@ public class BookingViewModel extends ViewModel {
         return String.join(",", nameList);
     }
 
+    public int[] getSeatIdSelected(){
+        List<Integer> idList = new ArrayList<>();
+        for (Seat seat:  cinemaResource.getValue().getCinema().getSeats()){
+            if(!seat.getIsChoosed()) continue;
+            idList.add(seat.getId());
+        }
+        return idList.stream().mapToInt(Integer::intValue).toArray();
+    }
+
     public int getTotalPrice(){
         int total = 0;
         for (Seat seat:  cinemaResource.getValue().getCinema().getSeats()){
@@ -83,6 +95,44 @@ public class BookingViewModel extends ViewModel {
             total += 50000;
         }
         return total;
+    }
+
+    public boolean checkSeatForPayment(){
+        load.setValue(View.VISIBLE);
+        Map<String, Seat> seatMap = seatSelectStatus.getValue();
+        if (seatMap == null){
+            message.setValue("Bạn chưa chọn ghế");
+            return false;
+        }
+        boolean book = Boolean.FALSE;
+        for (String key:seatMap.keySet()){
+            if(!seatMap.get(key).getIsChoosed()) continue;
+            book = Boolean.TRUE;
+            break;
+        }
+        if (!book){
+            message.setValue("Bạn chưa chọn ghế");
+            return false;
+        }
+
+        for (Seat seat: cinemaResource.getValue().getCinema().getSeats()){
+            if (seatMap.get(seat.getName()) == null) continue;
+            if (seatMap.get(seat.getName()).getIsSelected() == 1 && seatMap.get(seat.getName()).getIsChoosed()){
+                message.setValue("Ghế " + seat.getName() + " đang chờ thanh toán");
+                return false;
+            }
+        }
+        return true;
+    }
+    public void holdSeatForPayment(int showId){
+        load.setValue(View.GONE);
+        Map<String, Seat> seatMap = seatSelectStatus.getValue();
+        for (String key:seatMap.keySet()){
+            if(!seatMap.get(key).getIsChoosed()) continue;
+            SeatRepository.getInstance()
+                    .updateSeat(seatMap.get(key).getId(),
+                                1, showId);
+        }
     }
 
     public void clearData(){

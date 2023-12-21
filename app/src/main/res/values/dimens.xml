@@ -7,5 +7,6 @@
     <dimen name="w_hLogoFace">40dp</dimen>
     <dimen name="w_dat_ve">250dp</dimen>
     <dimen name="txt_size_dat_ve">20sp</dimen>
-
+    <dimen name="grid_width_column_1">115dp</dimen>
+    <dimen name="common_text">16sp</dimen>
 </resources>

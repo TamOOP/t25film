@@ -78,7 +78,8 @@ public class CalendarFilm3FragmentViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ShowResource> call, Throwable t) {
-
+                Log.e("Error", t.getMessage());
+                fetchshows(context);
             }
 
         });

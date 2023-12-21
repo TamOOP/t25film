@@ -1,9 +1,7 @@
 package com.huce.t25film.viewmodels;
 
-import android.app.Application;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -118,7 +116,8 @@ public class SCFragmentViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<Film>> call, Throwable t) {
-
+                Log.e("Error", t.getMessage());
+                fetchFilms();
             }
 
         });

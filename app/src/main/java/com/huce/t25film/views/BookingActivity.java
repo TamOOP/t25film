@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingActivity extends AppCompatActivity{
-    private int showId;
+    private Show show;
+    private Film film;
     private ActivityBookingBinding binding;
 
     private List<Seat> seats = new ArrayList<>();
@@ -38,7 +39,7 @@ public class BookingActivity extends AppCompatActivity{
         binding = ActivityBookingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        showId = this.getIntent().getIntExtra("showId", 0);
+        int showId = this.getIntent().getIntExtra("showId", 0);
         if( showId == 0) finish();
 
         bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
@@ -46,12 +47,6 @@ public class BookingActivity extends AppCompatActivity{
 
         int uid = SharedReferenceData.getInstance().getInt(this,"uid");
 
-        binding.btnContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent payment = new Intent(this, )
-            }
-        });
 
         seatAdapter = new SeatAdapter(this, this.seats, bookingViewModel);
         binding.recyclerviewViewSeats.setAdapter(seatAdapter);
@@ -61,6 +56,31 @@ public class BookingActivity extends AppCompatActivity{
 
         bookingViewModel.getMessage().observe(this, message ->
                 Toast.makeText(this,message,Toast.LENGTH_SHORT).show());
+
+        binding.btnContinue.setOnClickListener(view -> {
+            Intent payment = new Intent(this, PaymentActivity.class);
+            payment.putExtra("showId", show.getId());
+            payment.putExtra("name", film.getName());
+            payment.putExtra("runtime", film.getRuntime());
+            payment.putExtra("cinemaName", show.getCinema().getName());
+            payment.putExtra("date",show.getDate());
+            payment.putExtra("time", show.getTime());
+            payment.putExtra("seats", bookingViewModel.getSeatNameSelected());
+            payment.putExtra("seatIds", bookingViewModel.getSeatIdSelected());
+            payment.putExtra("cost", bookingViewModel.getTotalPrice());
+            if (!bookingViewModel.checkSeatForPayment()) return;
+            bookingViewModel.holdSeatForPayment(showId);
+            startActivity(payment);
+
+//            bookingViewModel.getCinemaInfo(this, showId).observe(this, cinemaResource -> {
+//                if (cinemaResource == null) return;
+//                Log.e("size", cinemaResource.getCinema().getSeats().size()+"");
+//                if (!bookingViewModel.checkSeatForPayment()) return;
+//                Log.e("call", "activity called");
+//                bookingViewModel.holdSeatForPayment(showId);
+//                startActivity(payment);
+//            });
+        });
 
         bookingViewModel.getCinemaInfo(this, showId).observe(this, cinemaResource->{
             if(cinemaResource == null) return;
@@ -72,8 +92,8 @@ public class BookingActivity extends AppCompatActivity{
                 binding.recyclerviewViewSeats.setLayoutManager(new GridLayoutManager(this, cinemaResource.getCinema().getSeatPerRow()));
                 seatAdapter.notifyDataSetChanged();
 
-                Film film = cinemaResource.getFilm();
-                Show show = cinemaResource.getShow();
+                film = cinemaResource.getFilm();
+                show = cinemaResource.getShow();
                 binding.movieName.setText(film.getName());
                 binding.runTime.setText(film.getRuntime() + " phút");
                 binding.showTime.setText(show.getDayOfWeek()+" "

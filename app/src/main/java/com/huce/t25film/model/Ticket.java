@@ -19,6 +19,7 @@ public class Ticket {
     @Expose
     private String cost;
 
+
     public User getUser() {
         return user;
     }
@@ -50,5 +51,6 @@ public class Ticket {
     public void setCost(String cost) {
         this.cost = cost;
     }
+
 
 }

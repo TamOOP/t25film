@@ -2,7 +2,6 @@ package com.huce.t25film.viewmodels;
 
 import android.util.Log;
 
-import androidx.databinding.BaseObservable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,8 +11,6 @@ import com.huce.t25film.Adapters.FilmListAdapter;
 import com.huce.t25film.api.FilmService;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.model.Film;
-import com.huce.t25film.repository.SCSFragmentRepository;
-import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.repository.DCFragmentRepository;
 
 import java.util.List;
@@ -68,7 +65,8 @@ public class DCFragmentViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<Film>> call, Throwable t) {
-
+                Log.e("Error", t.getMessage());
+                fetchFilms();
             }
 
         });

@@ -10,18 +10,30 @@ public class PromotionResource {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("promotion")
+    @Expose
+    private Promotion__1 promotion;
+    @SerializedName("message")
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public Promotion__1 getPromotion() {
         return promotion;
     }
 
+
     public void setPromotion(Promotion__1 promotion) {
         this.promotion = promotion;
     }
 
-    @SerializedName("promotion")
-    @Expose
-    private Promotion__1 promotion;
+
 
     public String getStatus() {
         return status;

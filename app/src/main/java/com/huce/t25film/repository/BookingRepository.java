@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.huce.t25film.api.CinemaService;
 import com.huce.t25film.api.RetrofitBuilder;
+import com.huce.t25film.api.SeatService;
 import com.huce.t25film.resources.CinemaResource;
 
 import retrofit2.Call;
@@ -15,10 +16,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class BookingRepository {
-    private MutableLiveData<CinemaResource> cinema = new MutableLiveData<>();
+    private MutableLiveData<CinemaResource> cinema;
     private static BookingRepository instance;
     private Retrofit retrofit;
     private CinemaService cinemaService;
+    private SeatService seatService;
 
     // instance
     public static synchronized BookingRepository getInstance(){
@@ -34,9 +36,13 @@ public class BookingRepository {
             retrofit = RetrofitBuilder.buildRetrofit();
         }
         cinemaService = retrofit.create(CinemaService.class);
+        seatService = retrofit.create(SeatService.class);
     }
 
     public MutableLiveData<CinemaResource> getCinema(@NonNull int showId) {
+        if (cinema == null){
+            cinema = new MutableLiveData<>();
+        }
 
         Call<CinemaResource> cinemaCall = cinemaService.getCinema(showId);
         cinemaCall.enqueue(new Callback<CinemaResource>() {

@@ -7,22 +7,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.huce.t25film.Adapters.CalendarFilmListAdapter;
 import com.huce.t25film.Adapters.PromotionListAdapter;
-import com.huce.t25film.api.FilmService;
 import com.huce.t25film.api.PromotionService;
 import com.huce.t25film.api.RetrofitBuilder;
-import com.huce.t25film.api.ShowService;
 import com.huce.t25film.model.Promotion;
-import com.huce.t25film.repository.CalendarFilm1FragmentRepository;
 import com.huce.t25film.repository.KmFragmentRepository;
-import com.huce.t25film.resources.ShowResource;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,7 +63,8 @@ public class KmFragmentViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<Promotion>> call, Throwable t) {
-
+                Log.e("Error", t.getMessage());
+                fetchpromotion();
             }
 
         });
