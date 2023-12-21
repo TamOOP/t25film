@@ -72,7 +72,7 @@ public class Login1Activity extends AppCompatActivity {
                 // send uid
                 homeIntent.putExtra("uid", loginViewModel.getUser().getId());
                 startActivity(homeIntent);
-                SharedReferenceData.getInstance().setInt(this,"uid",1);
+                SharedReferenceData.getInstance().setInt(this,"uid",loginViewModel.getUser().getId());
                 //destroy activity
                 finish();
             }
