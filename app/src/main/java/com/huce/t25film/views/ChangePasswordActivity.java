@@ -27,7 +27,7 @@ import retrofit2.Retrofit;
 
 public class ChangePasswordActivity extends AppCompatActivity {
     ChangePasswordViewModel changePasswordViewModel;
-    TextView txtPassNew,txtConfirmPassNew;
+    TextView txtPassNew,txtConfirmPassNew,txtPasswordOld;
     private int uid;
     ConstraintLayout constraintLayoutChangePassword,constraintLayoutBackPass;
     @Override
@@ -48,6 +48,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         constraintLayoutBackPass=findViewById(R.id.constraintLayoutBackPass);
         txtPassNew=findViewById(R.id.txtNewPassword);
         txtConfirmPassNew=findViewById(R.id.txtReNewPassword);
+        txtPasswordOld=findViewById(R.id.txtPasswordOld);
 
 
         changePasswordViewModel = new ViewModelProvider(this).get(ChangePasswordViewModel.class);
@@ -64,6 +65,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Lấy dữ liệu từ EditText và tạo RegistrationModel
                 User registrationModel = new User();
+                registrationModel.setPasswordOld(txtPasswordOld.getText().toString());
                 registrationModel.setPassword(txtPassNew.getText().toString());
                 registrationModel.setConfirmpassword(txtConfirmPassNew.getText().toString());
 

@@ -13,6 +13,7 @@ import com.huce.t25film.model.User;
 import com.huce.t25film.repository.AccountRepository;
 import com.huce.t25film.resources.UserResource;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
@@ -27,6 +28,8 @@ public class AccountViewModel extends ViewModel {
     private AccountRepository userRepository; // Tùy chọn: nơi bạn thực hiện gọi API
 
     private UserService userService;
+    private int isExistPhone=1;
+
 
 
     public AccountViewModel() {
@@ -87,6 +90,11 @@ public class AccountViewModel extends ViewModel {
             return;
         }
 
+        checkUserInfo(registrationModel);
+        if (isExistPhone==1){
+            validationError.setValue("Số điện thoại đã bị trùng");
+            return;
+        }
         if (!isValidPhoneNumber(registrationModel.getPhone())) {
             validationError.setValue("SĐT-Chứa đúng 11 chữ số-Không chứa ký tự đặc biệt hoặc chữ cái");
             return;
@@ -131,5 +139,40 @@ public class AccountViewModel extends ViewModel {
 
         // Kiểm tra số điện thoại có khớp với biểu thức chính quy không
         return pattern.matcher(phone).matches();
+    }
+    public void checkUserInfo(User registrationModel){
+        Retrofit retrofit = RetrofitBuilder.buildRetrofit();
+        UserService userService = retrofit.create(UserService.class);
+        // Gọi API
+        Call<List<User>> call = userService.getUsers();
+        call.enqueue(new Callback<List<User>>() {
+
+            @Override
+            public void onResponse(Call<List<User>> call, retrofit2.Response<List<User>> response) {
+                if (response.isSuccessful()) {
+
+                    // Lấy đối tượng ListFilm từ response.body()
+                    List<User> items = response.body();
+                    for(User user: items){
+                        if (user.getPhone().equals(registrationModel.getPhone())){
+                            isExistPhone=1;
+                        }else{
+                            isExistPhone=0;
+                        }
+                    }
+
+
+                } else {
+
+                    Log.e("Error", "Status Code: ");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+
+            }
+
+        });
     }
 }

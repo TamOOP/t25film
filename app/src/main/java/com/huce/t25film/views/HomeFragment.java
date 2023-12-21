@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment{
 
                 // Đóng DrawerLayout sau khi chọn mục
                 DrawerLayout drawer = getActivity().findViewById(R.id.drawerLayout);
-                drawer.closeDrawer(GravityCompat.START);
+                drawer.closeDrawer(GravityCompat.END);
                 return true;
             }
 

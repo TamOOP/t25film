@@ -19,11 +19,23 @@ public class User {
     }
 
     public void setConfirmpassword(String confirmpassword) {
-        Confirmpassword = confirmpassword;
+        this.Confirmpassword = confirmpassword;
     }
 
     @SerializedName("Confirmpassword")
     private String Confirmpassword;
+
+
+    @SerializedName("PasswordOld")
+    private String PasswordOld;
+    public String getPasswordOld() {
+        return PasswordOld;
+    }
+
+    public void setPasswordOld(String PasswordOld) {
+        this.PasswordOld = PasswordOld;
+    }
+
 
     public User (){}
     public User(int id, String email, String name, String phone, String password) {

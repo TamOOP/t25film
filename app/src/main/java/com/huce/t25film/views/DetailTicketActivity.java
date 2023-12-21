@@ -56,8 +56,8 @@ public class DetailTicketActivity extends AppCompatActivity {
                 txtDateTicket.setText("Ngày: "+ticketResource.getTicket().getShow().getDate() + ", "+ticketResource.getTicket().getShow().getDayOfWeek());
                 txtTimeTicket.setText("Giờ: "+ticketResource.getTicket().getShow().getTime());
                 txtSeatTicket.setText("Ghế: "+ticketResource.getTicket().getSeat());
-                txtCinemaTicket.setText("Phòng: "+ticketResource.getTicket().getShow().getCinema().getId());
-                txtCodeTicket.setText("Mã code: "+ticketResource.getTicket().getShow().getId());
+                txtCinemaTicket.setText("Phòng: "+ticketResource.getTicket().getShow().getCinema().getIdphong());
+                txtCodeTicket.setText("Mã vé phim: "+ticketResource.getTicket().getShow().getId());
             }
         });
     }

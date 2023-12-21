@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Cinema {
 
-    @SerializedName("id")
+    @SerializedName("idphong")
     @Expose
-    private Integer id;
+    private Integer idphong;
     @SerializedName("name")
     @Expose
     private String name;
@@ -24,8 +24,8 @@ public class Cinema {
     @SerializedName("seats")
     private List<Seat> seats;
 
-    public Cinema(Integer id, String name, Integer amountOfSeat, Integer seatPerRow, List<Seat> seats) {
-        this.id = id;
+    public Cinema(Integer idphong, String name, Integer amountOfSeat, Integer seatPerRow, List<Seat> seats) {
+        this.idphong = idphong;
         this.name = name;
         this.amountOfSeat = amountOfSeat;
         this.seatPerRow = seatPerRow;
@@ -40,12 +40,12 @@ public class Cinema {
         this.seats = seats;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdphong() {
+        return idphong;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdphong(Integer idphong) {
+        this.idphong = idphong;
     }
 
     public String getName() {

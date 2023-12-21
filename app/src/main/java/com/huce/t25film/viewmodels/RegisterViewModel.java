@@ -68,7 +68,7 @@ public class RegisterViewModel extends ViewModel {
             return;
         }
 
-        checkLoginInfo(registrationModel);
+        checkUserInfo(registrationModel);
         if (isExistPhone==1){
             validationError.setValue("Số điện thoại đã bị trùng");
             return;
@@ -154,7 +154,7 @@ public class RegisterViewModel extends ViewModel {
         return pattern.matcher(phone).matches();
     }
 
-    public void checkLoginInfo(User registrationModel){
+    public void checkUserInfo(User registrationModel){
         Retrofit retrofit = RetrofitBuilder.buildRetrofit();
         UserService userService = retrofit.create(UserService.class);
         // Gọi API

@@ -13,6 +13,7 @@ import com.huce.t25film.model.User;
 import com.huce.t25film.repository.AccountRepository;
 import com.huce.t25film.resources.UserResource;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
@@ -27,6 +28,8 @@ public class ChangePasswordViewModel extends ViewModel {
     private AccountRepository userRepository; // Tùy chọn: nơi bạn thực hiện gọi API
 
     private UserService userService;
+    private int isExistPassword=0;
+
 
 
     public ChangePasswordViewModel() {
@@ -78,7 +81,9 @@ public class ChangePasswordViewModel extends ViewModel {
     }
 
     public void ChangeUser(Integer id,User registrationModel) {
-        if (TextUtils.isEmpty(registrationModel.getPassword())) {
+        if (TextUtils.isEmpty(registrationModel.getPasswordOld())
+                || TextUtils.isEmpty(registrationModel.getPassword())
+                || TextUtils.isEmpty(registrationModel.getConfirmpassword())) {
             validationError.setValue("Vui lòng nhập đầy đủ thông tin.");
             return;
         }
@@ -88,6 +93,11 @@ public class ChangePasswordViewModel extends ViewModel {
         }
         if (!isValidConfirmPassword(registrationModel.getPassword(), registrationModel.getConfirmpassword())) {
             validationError.setValue("Nhập lại password không khớp");
+            return;
+        }
+        checkUserInfo(registrationModel);
+        if (isExistPassword==0){
+            validationError.setValue("Password nhập không đúng");
             return;
         }
 
@@ -126,5 +136,41 @@ public class ChangePasswordViewModel extends ViewModel {
     private boolean isValidConfirmPassword(String password, String confirmPassword) {
         // Thực hiện kiểm tra password và nhập lại password có khớp nhau không
         return password.equals(confirmPassword);
+    }
+
+    public void checkUserInfo(User registrationModel){
+        Retrofit retrofit = RetrofitBuilder.buildRetrofit();
+        UserService userService = retrofit.create(UserService.class);
+        // Gọi API
+        Call<List<User>> call = userService.getUsers();
+        call.enqueue(new Callback<List<User>>() {
+
+            @Override
+            public void onResponse(Call<List<User>> call, retrofit2.Response<List<User>> response) {
+                if (response.isSuccessful()) {
+
+                    // Lấy đối tượng ListFilm từ response.body()
+                    List<User> items = response.body();
+                    for(User user: items){
+                        if (user.getPassword().equals(registrationModel.getPasswordOld())){
+                            isExistPassword=1;
+                        }else{
+                            isExistPassword=0;
+                        }
+                    }
+
+
+                } else {
+
+                    Log.e("Error", "Status Code: ");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+
+            }
+
+        });
     }
 }
