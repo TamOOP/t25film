@@ -9,14 +9,24 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.huce.t25film.R;
+import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.ViewPagerAdapter;
+import com.huce.t25film.api.RetrofitBuilder;
+import com.huce.t25film.api.UserService;
+import com.huce.t25film.model.UserDataHolder;
+import com.huce.t25film.resources.UserResource;
 import com.huce.t25film.viewmodels.HomeViewModel;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
 
 public class HomeActivity extends AppCompatActivity{
 
     private ViewPager2 viewPager;
     private BottomNavigationView bottomNavigation;
     private int uid;
+    //UserDataHolder userDataHolder = UserDataHolder.getInstance();
 
 
     @Override
@@ -24,7 +34,8 @@ public class HomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        uid = getIntent().getExtras().getInt("uid");
+        //uid = getIntent().getExtras().getInt("uid");
+        //sendRequest();
 ////        uid = 11;
 //        HomeViewModel viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 //
@@ -95,6 +106,8 @@ public class HomeActivity extends AppCompatActivity{
 //            }
         });
     }
+
+
 
 //        private ViewPager2 viewPager;
 //        private BottomNavigationView bottomNavigation;

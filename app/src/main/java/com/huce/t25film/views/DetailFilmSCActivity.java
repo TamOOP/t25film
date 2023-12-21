@@ -17,21 +17,13 @@ import com.huce.t25film.R;
 import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.viewmodels.DetailFilmViewModel;
 
-<<<<<<< HEAD
-=======
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
->>>>>>> origin/ChangePassword
-public class DetailFilmActivity extends AppCompatActivity {
+public class DetailFilmSCActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView titleTxt,movieTimeTxt,movieSummaryInfo,movieActorsInfo;
     private int id;
     private ImageView imgDetail,backImg;
     private NestedScrollView scrollView;
-    private Button btnHour,btnBook;
+    private Button btnHour;
     private DetailFilmViewModel DetailFilmViewModel;
 
 
@@ -58,11 +50,10 @@ public class DetailFilmActivity extends AppCompatActivity {
                 // Cập nhật dữ liệu trong Adapter và thông báo thay đổi
                     progressBar.setVisibility(View.GONE);
                     scrollView.setVisibility(View.VISIBLE);
-                    btnBook.setVisibility(View.VISIBLE);
 
 
                     //item coi như là FilmItem gọi ra
-                    Glide.with(DetailFilmActivity.this)
+                    Glide.with(DetailFilmSCActivity.this)
                             .load(showResource.getFilm().getImage())
                             .into(imgDetail);
 
@@ -71,10 +62,11 @@ public class DetailFilmActivity extends AppCompatActivity {
                     movieSummaryInfo.setText(showResource.getFilm().getDescription());
                     movieActorsInfo.setText(showResource.getFilm().getActor());
 
+                    btnHour.setVisibility(View.GONE);
                     btnHour.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(DetailFilmActivity.this, HoursDetailFilmActivity.class);
+                            Intent intent = new Intent(DetailFilmSCActivity.this, HoursDetailFilmActivity.class);
                             intent.putExtra("filmId",showResource.getFilm().getId());
                             startActivity(intent);
                         }
@@ -91,10 +83,8 @@ public class DetailFilmActivity extends AppCompatActivity {
         movieTimeTxt=findViewById(R.id.showTime);
         movieSummaryInfo=findViewById(R.id.movieSummery);
         movieActorsInfo=findViewById(R.id.movieActorInfo);
-        btnBook=findViewById(R.id.button2);
         backImg=findViewById(R.id.btnBack);
         btnHour=findViewById(R.id.button2);
-        btnBook.setVisibility(View.GONE);
         backImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

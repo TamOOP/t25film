@@ -2,7 +2,6 @@ package com.huce.t25film.viewmodels;
 
 import android.content.Context;
 import android.view.View;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

@@ -72,6 +72,7 @@ public class LoginViewModel extends ViewModel {
             }
         }
         message.setValue("Tài khoản hoặc mật khẩu không đúng");
+        load.setValue(View.GONE);
         // hide progress bar
     }
 

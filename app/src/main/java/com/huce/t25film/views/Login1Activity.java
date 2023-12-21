@@ -5,19 +5,33 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+<<<<<<< HEAD
+=======
+
+import com.huce.t25film.api.RetrofitBuilder;
+import com.huce.t25film.api.UserService;
+>>>>>>> origin/ChangePassword
 import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.databinding.ActivityLogin1Binding;
+import com.huce.t25film.model.UserDataHolder;
+import com.huce.t25film.resources.UserResource;
 import com.huce.t25film.viewmodels.LoginViewModel;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
 
 public class Login1Activity extends AppCompatActivity {
     private ActivityLogin1Binding binding;
     private LoginViewModel loginViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +47,13 @@ public class Login1Activity extends AppCompatActivity {
                 String email = binding.txtEmail.getText().toString();
                 String pass = binding.txtPassword.getText().toString();
                 loginViewModel.onLoginClicked(Login1Activity.this, email, pass);
+            }
+        });
+        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login1Activity.this, Register1Activity.class);
+                startActivity(intent);
             }
         });
         // quan sat du lieu api gui ve
@@ -54,13 +75,17 @@ public class Login1Activity extends AppCompatActivity {
                 // send uid
                 homeIntent.putExtra("uid", loginViewModel.getUser().getId());
                 startActivity(homeIntent);
+<<<<<<< HEAD
                 SharedReferenceData.getInstance().setInt(this,"uid",1);
+=======
+                SharedReferenceData.getInstance().setInt(this,"uid",loginViewModel.getUser().getId());
+>>>>>>> origin/ChangePassword
                 //destroy activity
                 finish();
             }
         });
-
     }
+
 
     @Override
     // for draw visual element, running animation

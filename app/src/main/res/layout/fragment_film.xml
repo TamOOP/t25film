@@ -17,7 +17,7 @@
 
 
         <TextView
-            android:id="@+id/txtLichChieu"
+            android:id="@+id/txtNameUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:layout_below="@+id/txtLichChieu"
+            android:layout_below="@+id/txtNameUser"
             app:itemIconTint="@drawable/color_navigation"
             app:itemTextColor="@drawable/color_navigation"
             app:menu="@menu/menu_calendar"

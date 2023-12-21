@@ -12,6 +12,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.huce.t25film.Adapters.SeatAdapter;
+<<<<<<< HEAD
+=======
+import com.huce.t25film.R;
+>>>>>>> origin/ChangePassword
 import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.databinding.ActivityBookingBinding;
 import com.huce.t25film.model.Film;
@@ -23,8 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingActivity extends AppCompatActivity{
+<<<<<<< HEAD
     private Show show;
     private Film film;
+=======
+    private int showId;
+>>>>>>> origin/ChangePassword
     private ActivityBookingBinding binding;
 
     private List<Seat> seats = new ArrayList<>();
@@ -39,13 +47,27 @@ public class BookingActivity extends AppCompatActivity{
         binding = ActivityBookingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+<<<<<<< HEAD
         int showId = this.getIntent().getIntExtra("showId", 0);
+=======
+        showId = this.getIntent().getIntExtra("showId", 0);
+        binding.movieName.setText(getIntent().getStringExtra("name"));
+        binding.runTime.setText(getIntent().getStringExtra("runtime"));
+        binding.showTime.setText(getIntent().getStringExtra("day_of_week")+" "
+                +getIntent().getStringExtra("date")+" "
+                +getIntent().getStringExtra("time"));
+        showId = 3;
+>>>>>>> origin/ChangePassword
         if( showId == 0) finish();
 
         bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
         binding.navBar.setVisibility(View.GONE);
 
         int uid = SharedReferenceData.getInstance().getInt(this,"uid");
+<<<<<<< HEAD
+=======
+        Log.e("uid",uid+"");
+>>>>>>> origin/ChangePassword
 
 
         seatAdapter = new SeatAdapter(this, this.seats, bookingViewModel);
@@ -82,8 +104,19 @@ public class BookingActivity extends AppCompatActivity{
 //            });
         });
 
+<<<<<<< HEAD
         bookingViewModel.getCinemaInfo(this, showId).observe(this, cinemaResource->{
             if(cinemaResource == null) return;
+=======
+        binding.btnBackSeats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        bookingViewModel.getCinemaInfo(showId).observe(this, cinemaResource->{
+>>>>>>> origin/ChangePassword
             if(cinemaResource.getStatus().equals("success")){
                 binding.progressBarBooking.setVisibility(View.GONE);
                 seats.clear();
@@ -170,5 +203,15 @@ public class BookingActivity extends AppCompatActivity{
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         Log.e("state","restoreInstance");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // kiem tra dang nhap
+        if(SharedReferenceData.getInstance().getInt(this,"uid") == 0){
+            Intent login = new Intent(this, Login1Activity.class);
+            startActivity(login);
+        }
     }
 }

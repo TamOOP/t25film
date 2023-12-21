@@ -14,14 +14,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.huce.t25film.R;
+import com.huce.t25film.SharedReferenceData;
 import com.huce.t25film.api.FilmService;
 import com.huce.t25film.api.PromotionService;
 import com.huce.t25film.api.RetrofitBuilder;
 import com.huce.t25film.model.Promotion;
 import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.resources.PromotionResource;
+import com.huce.t25film.resources.TicketResource;
 import com.huce.t25film.viewmodels.DetailFilmViewModel;
 import com.huce.t25film.viewmodels.DetailKmViewModel;
+import com.huce.t25film.viewmodels.DetailTicketViewModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,4 +96,5 @@ public class DetailKMActivity extends AppCompatActivity {
         });
 
     }
+
 }

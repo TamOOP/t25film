@@ -5,6 +5,8 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="txtEmail">Email</string>
+    <string name="txtNameRegis">Name</string>
+    <string name="txtPhoneRegis">Phone</string>
     <string name="txtPass">Password</string>
     <string name="txtName">Nguyễn Văn A</string>
     <string name="txtPhone">0123456789</string>
@@ -17,7 +19,7 @@
     <string name="hbtnLogin">52dp</string>
     <string name="txtLOGIN">LOGIN</string>
     <string name="txtRegister">Register</string>
-    <string name="txtnameMember">Nguyễn Thế Anh</string>
+    <string name="txtnameMember">Khách Hàng</string>
     <string name="nav_tttk">Thông tin tài khoản</string>
     <string name="nav_lsgd">Lịch sử giao dịch</string>
     <string name="nav_tdmk">Thay đổi mật khẩu</string>

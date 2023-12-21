@@ -79,7 +79,7 @@
                 android:textSize="40sp"/>
 
             <EditText
-                android:id="@+id/txtName"
+                android:id="@+id/txtNameAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginTop="20dp"
@@ -88,7 +88,7 @@
                 android:paddingLeft="20dp"
                 android:layout_marginStart="36dp"
                 android:background="@drawable/input_bg"
-                android:text="@string/txtName"
+                android:text=""
                 android:textColorHint="@color/colortxtlogin"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +97,7 @@
 
 
             <EditText
-                android:id="@+id/txtPhone"
+                android:id="@+id/txtPhoneAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginTop="20dp"
@@ -106,7 +106,7 @@
                 android:layout_marginStart="36dp"
                 android:background="@drawable/input_bg"
                 android:inputType="text"
-                android:text="@string/txtPhone"
+                android:text=""
                 android:textColorHint="@color/colortxtlogin"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"

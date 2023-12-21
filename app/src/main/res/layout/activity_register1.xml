@@ -22,22 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/txtPassword2"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:ems="14"
-        android:paddingLeft="20dp"
-        android:background="@drawable/input_bg"
-        android:hint="@string/txtRePass"
-        android:inputType="textPassword"
-        android:textColorHint="@color/colortxtlogin"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
 
     <ImageView
         android:id="@+id/logoFilm"
@@ -103,6 +88,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtbottomLogin2" />
+    <EditText
+        android:id="@+id/txtNameUser"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:ems="14"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:background="@drawable/input_bg"
+        android:hint="@string/txtNameRegis"
+        android:textColorHint="@color/colortxtlogin"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+    <EditText
+        android:id="@+id/txtPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:ems="14"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:background="@drawable/input_bg"
+        android:hint="@string/txtPhoneRegis"
+        android:textColorHint="@color/colortxtlogin"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNameUser" />
 
     <EditText
         android:id="@+id/txtPassword"
@@ -118,68 +133,20 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPhone" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnRegister"
         android:layout_width="@dimen/w_Register"
         android:layout_height="@dimen/h_Login"
-        android:layout_marginStart="40dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/btn_login"
         android:text="Register"
         android:textColor="@color/white"
         android:textSize="@dimen/txtSizeLogin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword2" />
-
-    <TextView
-        android:id="@+id/txtConnect"
-        android:layout_width="120dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="4dp"
-        android:text="or connect with"
-        android:textColor="@color/colortxtbottomlogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-    <Button
-        android:id="@+id/btn_facebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/bg_btn_facebook"
-        android:drawableStart="@drawable/logo_face"
-        android:paddingHorizontal="12dp"
-        android:text=" Sign In With Facebook"
-        android:textAllCaps="false"
-        android:textColor="@color/facebook"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-    <Button
-        android:id="@+id/btn_google"
-        android:layout_width="206dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/bg_btn_google"
-        android:drawableStart="@drawable/logo_google"
-        android:paddingHorizontal="12dp"
-        android:text=" Sign In With Google"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_facebook" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
