@@ -19,14 +19,19 @@ import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.resources.FilmResource;
 import com.huce.t25film.viewmodels.DetailFilmViewModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DetailFilmSCActivity extends AppCompatActivity {
     private ProgressBar progressBar;
-    private TextView titleTxt,movieTimeTxt,movieSummaryInfo,movieActorsInfo;
+    private TextView titleTxt,movieTimeTxt,movieSummaryInfo,movieActorsInfo, releaseDate;
     private int id;
     private ImageView imgDetail,backImg;
     private NestedScrollView scrollView;
     private Button btnHour;
     private DetailFilmViewModel DetailFilmViewModel;
+
 
 
     @Override
@@ -68,6 +73,7 @@ public class DetailFilmSCActivity extends AppCompatActivity {
                     movieTimeTxt.setText(showResource.getFilm().getRuntime()+" phút");
                     movieSummaryInfo.setText(showResource.getFilm().getDescription());
                     movieActorsInfo.setText(showResource.getFilm().getActor());
+                    releaseDate.setText(showResource.getFilm().getReleaseDate());
 
                     btnHour.setVisibility(View.GONE);
                     btnHour.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +81,16 @@ public class DetailFilmSCActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(DetailFilmSCActivity.this, HoursDetailFilmActivity.class);
                             intent.putExtra("filmId",showResource.getFilm().getId());
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            try {
+                                Date targetDate = dateFormat.parse(showResource.getFilm().getReleaseDate());
+                                Date currentDate = new Date();
+                                if (currentDate.before(targetDate)) {
+                                    intent.putExtra("earlyShow",Boolean.TRUE);
+                                }
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
                             startActivity(intent);
                         }
                     });
@@ -92,6 +108,7 @@ public class DetailFilmSCActivity extends AppCompatActivity {
         movieActorsInfo=findViewById(R.id.movieActorInfo);
         backImg=findViewById(R.id.btnBack);
         btnHour=findViewById(R.id.button2);
+        releaseDate=findViewById(R.id.releaseDate);
         backImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

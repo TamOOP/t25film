@@ -2,7 +2,6 @@ package com.huce.t25film.api;
 
 import com.huce.t25film.model.Film;
 import com.huce.t25film.resources.FilmResource;
-import com.huce.t25film.resources.FilmResource;
 
 import java.util.List;
 
@@ -17,6 +16,8 @@ public interface FilmService {
     // get user theo id
     @GET("films/{id}")
     Call<FilmResource> getFilmsId(@Path("id") int id);
+    @GET("films/find/earlyShow/{id}")
+    Call<Film> getFilmEarlyShow(@Path("id") int id);
 
     @GET("films/find/showing")
     Call<List<Film>> getListFilmsDC();

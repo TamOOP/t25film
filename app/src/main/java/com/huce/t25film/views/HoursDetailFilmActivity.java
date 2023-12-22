@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.huce.t25film.Adapters.DateListAdapter;
-import com.huce.t25film.Utils.NetworkUtils;
 import com.huce.t25film.databinding.ActivityHoursDetailFilmBinding;
 import com.huce.t25film.model.Film;
 import com.huce.t25film.model.Show;
@@ -42,16 +41,39 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
         getIntent().putExtra("title","Xuất chiếu phim");
         binding = ActivityHoursDetailFilmBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        if (NetworkUtils.isNetworkAvailable(this)) {
-            initView();
-            filmId = getIntent().getIntExtra("filmId",0);
+        initView();
 
-            viewModel = new ViewModelProvider(this).get(HoursDetailFilmViewModel.class);
-            viewModel.getLoad().observe(this, load->
-                    binding.progressBarDetail.setVisibility(load));
-            viewModel.getMessage().observe(this, message ->
-                    Toast.makeText(this,message,Toast.LENGTH_SHORT).show());
+        viewModel = new ViewModelProvider(this).get(HoursDetailFilmViewModel.class);
+        viewModel.getLoad().observe(this, load->
+                binding.progressBarDetail.setVisibility(load));
+        viewModel.getMessage().observe(this, message ->
+                Toast.makeText(this,message,Toast.LENGTH_SHORT).show());
 
+        filmId = getIntent().getIntExtra("filmId",0);
+        Log.e("status", getIntent().getBooleanExtra("earlyShow", Boolean.FALSE)+"");
+        if (getIntent().getBooleanExtra("earlyShow", Boolean.FALSE)){
+            viewModel.getFilmEarlyResource(this,filmId).observe(this, filmEarly ->{
+                if (filmEarly == null) return;
+                binding.progressBarDetail.setVisibility(View.GONE);
+                binding.showTime.setVisibility(View.VISIBLE);
+                binding.txtManhinh.setVisibility(View.VISIBLE);
+                    if(filmEarly.getShows() == null){
+                        Toast.makeText(this,"Các ngày gần nhất không có xuất chiếu", Toast.LENGTH_SHORT).show();
+                        finish();
+                        return;
+                    }
+                    List<ShowDateResource> showtimeDateItems = convertToShowtimeDateItems(filmEarly.getShows());
+                    List<ShowDateResource> sortedShowtimeDateItems = ShowDateResourceSort.sortShowtimeDateItems(showtimeDateItems);
+
+                    this.showByDates.clear();
+                    this.showByDates.addAll(sortedShowtimeDateItems);
+                    adapterHours.notifyDataSetChanged();
+
+                    binding.movieNameDetailsTxt.setText(filmEarly.getName());
+                    binding.showTime.setText(filmEarly.getRuntime()+" phút");
+                    Glide.with(this).load(filmEarly.getImage()).into(binding.imgFilmDetails);
+            });
+        }else{
             viewModel.getFilmResource(this, filmId).observe(this, filmResource -> {
                 if (filmResource == null) return;
                 binding.progressBarDetail.setVisibility(View.GONE);
@@ -78,9 +100,8 @@ public class HoursDetailFilmActivity extends AppCompatActivity {
                     Toast.makeText(this,filmResource.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-        } else {
-            Toast.makeText(this, "Không có kết nối mạng", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     @Override
